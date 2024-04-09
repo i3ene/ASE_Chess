@@ -8,14 +8,14 @@ namespace Logic.Pieces
 {
     public class Piece : ICloneable
     {
-        public readonly PieceType type;
         public readonly PieceColor color;
+        public readonly PieceType type;
         public readonly BoardPosition position;
 
-        public Piece(PieceType type, PieceColor color, BoardPosition position)
+        public Piece(PieceColor color, PieceType type, BoardPosition position)
         {
-            this.type = type;
             this.color = color;
+            this.type = type;
             this.position = position;
         }
 
