@@ -13,57 +13,57 @@ namespace Logic
 
 
         public int _x;
-        public new int x { get => getX(); set => setX(value); }
+        public new int x { get => GetX(); set => SetX(value); }
 
         public int _y;
-        public new int y { get => getY(); set => setY(value); }
+        public new int y { get => GetY(); set => SetY(value); }
 
-        public char cx { get => getCharX(); set => setCharX(value); }
+        public char cx { get => GetCharX(); set => SetCharX(value); }
 
         public BoardPosition() : base() { }
 
         public BoardPosition(int x, int y) : base(x, y) { }
 
-        public BoardPosition(char x, int y) : base(charToInt(x), y) { }
+        public BoardPosition(char x, int y) : base(CharToInt(x), y) { }
 
-        public int getX()
+        public int GetX()
         {
             return _x;
         }
 
-        public int setX(int x)
+        public int SetX(int x)
         {
             _x = x % MAX;
             return _x;
         }
 
-        public int getY()
+        public int GetY()
         {
             return _y;
         }
 
-        public int setY(int y)
+        public int SetY(int y)
         {
             _y = y % MAX;
             return _y;
         }
 
-        public char getCharX()
+        public char GetCharX()
         {
-            return intToChar(getX());
+            return IntToChar(GetX());
         }
 
-        public int setCharX(char x)
+        public int SetCharX(char x)
         {
-            return setX(charToInt(x));
+            return SetX(CharToInt(x));
         }
 
-        public string getNotation()
+        public string GetNotation()
         {
             return $"{cx}{y}";
         }
 
-        public static BoardPosition fromNotation(string notation)
+        public static BoardPosition FromNotation(string notation)
         {
             BoardPosition position = new BoardPosition();
             notation = notation.Trim();
@@ -71,7 +71,7 @@ namespace Logic
             notation = notation.ToUpper();
 
             if (!char.IsLetter(notation[0])) notation = "A" + notation[1];
-            position.x = charToInt(notation[0]);
+            position.x = CharToInt(notation[0]);
 
             if (!char.IsDigit(notation[1])) notation = notation[0] + "1";
             position.y = int.Parse(notation[1].ToString());
@@ -79,12 +79,12 @@ namespace Logic
             return position;
         }
 
-        public static char intToChar(int i)
+        public static char IntToChar(int i)
         {
             return (char)(CHAR_OFFSET + i);
         }
 
-        public static int charToInt(char c)
+        public static int CharToInt(char c)
         {
             return char.ToUpper(c) - CHAR_OFFSET;
         }
