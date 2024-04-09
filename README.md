@@ -6,8 +6,8 @@ This console application implements a client and a server with shared logic.
 
 ## Logic
 A basic chess game with two players.
-- [ ] 2D Vector for positioning (Vector2D Class as **ValueObject**)
-	- [ ] Position for Pieces (PiecePosition inherits from Vector2D as **ValueObject**)
+- [x] 2D Vector for positioning (Vector2D Class as **ValueObject**)
+	- [ ] Position for Pieces (BoardPosition inherits from Vector2D as **ValueObject**)
 - [ ] Colors (PieceColor Enum as **ValueObject**)
 - [ ] (Board) Pieces ((Board/)PieceRepository Class as **Repository** (needs an **Aggregate**?))
 	- [ ] General Piece (Abstract Piece Class uses PieceRepository)
