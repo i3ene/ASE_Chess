@@ -41,6 +41,18 @@ namespace Logic.Pieces
         }
 
         /// <summary>
+        /// Remove a <see cref="Piece"/> from the collection
+        /// </summary>
+        /// <param name="position"><see cref="BoardPosition"/> to remove from</param>
+        /// <returns><see langword="true"/> if <see cref="Piece"/> at <paramref name="position"/> was successfully removed or <see langword="false"/> if it could not be removed or did not exist</returns>
+        public bool RemovePiece(BoardPosition position)
+        {
+            Piece? piece = GetPiece(position);
+            if (piece is null) return false;
+            return pieces.Remove(piece);
+        }
+
+        /// <summary>
         /// Retrieves a piece at a specified <see cref="BoardPosition"/>
         /// </summary>
         /// <param name="position"><see cref="BoardPosition"/> to fetch from</param>

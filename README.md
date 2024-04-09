@@ -13,7 +13,7 @@ A basic chess game with two players.
 	- [x] General Piece (Piece Class uses PieceRepository)
 	- [x] Piece Information (PieceService as **Service**; for initial positioning)
 	- [x] Initial Creation of Pieces (PieceFactory Class as **Factory** uses PieceService; for initial Piece creation)
-- [ ] Board (BoardService as **Service**; has logic for moving Pieces)
+- [x] Board (BoardService as **Service**; has logic for moving Pieces)
 - [ ] Players (PlayerRepository Class as **Repository**)
 	- [ ] Player (Player Class uses PieceRepository as **Entity**)
 - [ ] Communication (CommunicationService as **Service**; this is where Client and Server extend their individual logic)

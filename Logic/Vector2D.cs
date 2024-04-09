@@ -18,6 +18,13 @@ namespace Logic
             this.y = y;
         }
 
+        public Vector2D Set(Vector2D other)
+        {
+            x = other.x;
+            y = other.y;
+            return this;
+        }
+
         public Vector2D Add(Vector2D other)
         {
             x += other.x;
