@@ -11,12 +11,8 @@ namespace Logic.Games
 {
     public interface IGameInteraction
     {
-        public event EventHandler<TurnAction> Turn;
-        public event EventHandler<MoveAction> Move;
-        public event EventHandler<SynchronisationAction> RequestSynchronisation;
-
-        public void AfterTurn(PieceColor color);
-        public void AfterMove(BoardPosition source, BoardPosition target);
-        public void OnSynchronisation(PieceColor color, Piece[] pieces);
+        public event EventHandler<GameInteractionArguments<TurnAction>>? Turn;
+        public event EventHandler<GameInteractionArguments<MoveAction>>? Move;
+        public event EventHandler<GameInteractionArguments<SynchronisationAction>>? Synchronisation;
     }
 }

@@ -20,27 +20,32 @@ namespace Logic.Games
 
             this.interaction.Turn += InteractionTurn;
             this.interaction.Move += InteractionMove;
-            this.interaction.RequestSynchronisation += InteractionRequestSynchronisation;
+            this.interaction.Synchronisation += InteractionSynchronisation;
         }
 
-        private void InteractionRequestSynchronisation(object? sender, SynchronisationAction e)
+        private void InteractionSynchronisation(object? sender, GameInteractionArguments<SynchronisationAction> e)
         {
-            interaction.OnSynchronisation(game.currentColor, game.board.GetAllPieces().ToArray());
+            game.currentColor = e.action.color;
+            game.board.RemoveAllPieces();
+            game.board.AddPieces(e.action.pieces);
+            e.handled = true;
         }
 
-        private void InteractionMove(object? sender, MoveAction e)
+        private void InteractionMove(object? sender, GameInteractionArguments<MoveAction> e)
         {
-            BoardPosition source = BoardPosition.FromNotation(e.sourcePosition);
-            BoardPosition target = BoardPosition.FromNotation(e.targetPosition);
+            if (e.actor != game.currentColor) return;
+            BoardPosition source = BoardPosition.FromNotation(e.action.sourcePosition);
+            BoardPosition target = BoardPosition.FromNotation(e.action.targetPosition);
             bool success = game.Move(source, target);
-            if (!success) return;
-            interaction.AfterMove(source, target);
+            e.handled = success;
         }
 
-        private void InteractionTurn(object? sender, TurnAction e)
+        private void InteractionTurn(object? sender, GameInteractionArguments<TurnAction> e)
         {
+            if (e.actor != game.currentColor) return;
             game.Turn();
-            interaction.AfterTurn(game.currentColor);
+            e.action.color = game.currentColor;
+            e.handled = true;
         }
 
     }

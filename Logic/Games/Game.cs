@@ -14,8 +14,7 @@ namespace Logic.Games
         public readonly PieceRepository board;
         private readonly BoardService boardService;
         public readonly PlayerRepository players;
-
-        public PieceColor currentColor { get; private set; }
+        public PieceColor currentColor;
 
         public Game()
         {
