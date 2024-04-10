@@ -25,13 +25,15 @@ A basic chess game with two players.
 		- [x] Turn (TurnAction)
 		- [x] Message (MessageAction)
 		- [x] Synchronisation (SynchronisationAction; for synchronisation of the whole game for every participant) 
-- [ ] Game (Game Class uses CommunicationService)
+- [x] Game (Game Class)
+	- [x] Interactions definition with Game (IGameInteraction Interface)
+	- [x] Interactions with Game (GameInteraction Class implements IGameInteraction)
 
 ## Server
 Uses HTTP and WebSocket functionallity.
 Provides Channels for listening to Game and/or Chat Actions.
 - [ ] Server implementation of Communication (ServerCommunicationService Class)
-	- [ ] Server Socket implementation (ServerSocket Class)
+	- [x] Server Socket implementation (ServerSocket Class)
 	- [ ] List of all Connection (SocketRepository)
 - [ ] Channels for Sockets (Abstract ChannelService Class uses ServerCommunicationService)
 	- [ ] Game Channel (GameChannel uses Game)
@@ -42,7 +44,7 @@ Provides Channels for listening to Game and/or Chat Actions.
 Implements basic Shell console functionallity.
 No Offline play, only Online. On "Host" creates a Server Instance.
 - [ ] Client implementation of Connection (ClientCommunicationService Class)
-	- [ ] Client Socket implementation (ClientSocket Class)
+	- [x] Client Socket implementation (ClientSocket Class)
 - [ ] Console input control (InteractionService)
 	- [ ] Interface Interactable for Interactions (IInteractable Interface)
 	- [ ] Interaction Event and Arguments (InteractionEvent)
