@@ -6,7 +6,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Communication
+namespace Client.Communications
 {
     public class ClientSocket<T> : Socket<T>
     {

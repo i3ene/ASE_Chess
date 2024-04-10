@@ -1,5 +1,5 @@
 ﻿using Logic.Pieces;
-using Server.Communication;
+using Server.Communications;
 using System;
 using System.Collections.Generic;
 using System.Linq;

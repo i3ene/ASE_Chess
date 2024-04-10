@@ -1,7 +1,7 @@
 ﻿using Logic;
 using Logic.Pieces;
 using Logic.Players;
-using Server.Communication;
+using Server.Communications;
 using System;
 using System.Collections.Generic;
 using System.Linq;

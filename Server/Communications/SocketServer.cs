@@ -8,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Communication
+namespace Server.Communications
 {
     public class SocketServer<T>
     {

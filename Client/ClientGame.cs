@@ -1,4 +1,4 @@
-﻿using Client.Communication;
+﻿using Client.Communications;
 using Logic;
 using Logic.Boards;
 using Logic.Communications.Actions;

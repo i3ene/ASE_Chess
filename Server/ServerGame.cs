@@ -2,7 +2,7 @@
 using Logic.Boards;
 using Logic.Communications.Actions;
 using Logic.Pieces;
-using Server.Communication;
+using Server.Communications;
 using Server.Players;
 using System;
 using System.Collections.Generic;
