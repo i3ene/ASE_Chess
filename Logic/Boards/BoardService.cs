@@ -27,8 +27,19 @@ namespace Logic.Boards
 
         public bool IsMovePossible(Piece piece, BoardPosition position)
         {
-            // TODO
-            return false;
+            Piece? targetPiece = pieceRepository.GetPiece(position);
+            if (targetPiece != null && targetPiece.color == piece.color) return false;
+            // TODO: Check if piece can move
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if a color is in check.
+        /// </summary>
+        /// <returns><see cref="PieceColor"/> of player in check or <see langword="null"/> if no check is present.</returns>
+        public PieceColor? IsCheck()
+        {
+            return null;
         }
     }
 }
