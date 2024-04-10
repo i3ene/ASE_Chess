@@ -70,6 +70,11 @@ namespace Logic.Pieces
             return pieces.Remove(piece);
         }
 
+        public void RemoveAllPieces()
+        {
+            pieces.Clear();
+        }
+
         /// <summary>
         /// Retrieves a piece at a specified <see cref="BoardPosition"/>
         /// </summary>
