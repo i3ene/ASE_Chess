@@ -17,10 +17,12 @@ A basic chess game with two players.
 - [x] Players (PlayerRepository Class as **Repository**)
 	- [x] Player (Player Class uses PieceRepository as **Entity**)
 	- [x] Initial Creation of Players (PlayerFactory as **Factory** uses PieceService; for initial Player creation)
-- [ ] Communication (CommunicationService as **Service**; this is where Client and Server extend their individual logic)
+- [x] Communication (this is where Client and Server extend their individual logic)
     - [x] Socket (Socket Class as **Entity**)
-	- [x] Actions (Abstract SocketAction Class as **Entity**)
+	- [x] Actions (Abstract Action Class as **Entity**)
+		- [ ] Action Type (ActionType as Enum)
 		- [x] Participation for joining or leaving (ParticipationAction)
+			- [x] Particion Type (ParticionType as Enum)
 		- [x] Move (MoveAction)
 		- [x] Turn (TurnAction)
 		- [x] Message (MessageAction)
@@ -32,19 +34,21 @@ A basic chess game with two players.
 ## Server
 Uses HTTP and WebSocket functionallity.
 Provides Channels for listening to Game and/or Chat Actions.
-- [ ] Server implementation of Communication (ServerCommunicationService Class)
+- [x] Server implementation of Communication
 	- [x] Server Socket implementation (ServerSocket Class)
-	- [ ] List of all Connection (SocketRepository)
-- [ ] Channels for Sockets (Abstract ChannelService Class uses ServerCommunicationService)
-	- [ ] Game Channel (GameChannel uses Game)
-	- [ ] Chat Channel (ChatChannel)
+	- [x] Server for Socket connections (SocketServer Class)
+- [x] Game Players collection (ServerPlayerRepository Class as **Repository**)
+	- [x] Game Player (ServerPlayer Class as **Entity**) 
+- [x] Game Interaction (ServerGame Class)
+- [ ] Chat Interaction
 - [ ] _Optional_ Application (ServerProgramm)
 
 ## Client
 Implements basic Shell console functionallity.
 No Offline play, only Online. On "Host" creates a Server Instance.
-- [ ] Client implementation of Connection (ClientCommunicationService Class)
+- [x] Client implementation of Communication
 	- [x] Client Socket implementation (ClientSocket Class)
+- [x] Game Interaction (ClientGame Class)
 - [ ] Console input control (InteractionService)
 	- [ ] Interface Interactable for Interactions (IInteractable Interface)
 	- [ ] Interaction Event and Arguments (InteractionEvent)

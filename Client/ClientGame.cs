@@ -10,16 +10,14 @@ using System.Text;
 
 namespace Client
 {
-    public class ClientGame
+    public class ClientGame : Game
     {
         private PieceColor? color;
         private readonly ClientSocket<Logic.Communications.Actions.Action> socket;
-        private readonly Game game;
 
-        public ClientGame(ClientSocket<Logic.Communications.Actions.Action> socket, Game game)
+        public ClientGame(ClientSocket<Logic.Communications.Actions.Action> socket) : base()
         {
             this.socket = socket;
-            this.game = game;
 
             this.socket.Connected += SocketConnected;
             this.socket.Data += SocketData;
@@ -56,34 +54,34 @@ namespace Client
 
         private void HandleTurn(TurnAction turn)
         {
-            game.Turn();
+            base.Turn();
         }
 
         private void HandleMove(MoveAction move)
         {
-            game.Move(BoardPosition.FromNotation(move.sourcePosition), BoardPosition.FromNotation(move.targetPosition));
+            base.Move(BoardPosition.FromNotation(move.sourcePosition), BoardPosition.FromNotation(move.targetPosition));
         }
 
         private void HandleSynchronisation(SynchronisationAction sync)
         {
             color = sync.role;
-            game.board.RemoveAllPieces();
-            game.board.AddPieces(sync.pieces);
-            game.currentColor = sync.turn;
+            board.RemoveAllPieces();
+            board.AddPieces(sync.pieces);
+            currentColor = sync.turn;
         }
 
         public bool IsOnTurn()
         {
-            return !(color is null || color != game.currentColor);
+            return !(color is null || color != currentColor);
         }
 
-        public void Turn()
+        public new void Turn()
         {
             if (!IsOnTurn()) return;
             socket.Send(new TurnAction());
         }
 
-        public void Move(BoardPosition source, BoardPosition target)
+        public new void Move(BoardPosition source, BoardPosition target)
         {
             if (!IsOnTurn()) return;
             socket.Send(new MoveAction(source.GetNotation(), target.GetNotation()));

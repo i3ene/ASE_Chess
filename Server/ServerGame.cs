@@ -13,18 +13,16 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public class ServerGame
+    public class ServerGame : Game
     {
         private const string sender = "game";
         private readonly SocketServer<Logic.Communications.Actions.Action> server;
-        private readonly Game game;
-        private ServerPlayerRepository players;
+        private new ServerPlayerRepository players;
 
-        public ServerGame(SocketServer<Logic.Communications.Actions.Action> server, Game game)
+        public ServerGame(SocketServer<Logic.Communications.Actions.Action> server) : base()
         {
             this.server = server;
-            this.game = game;
-            players = new ServerPlayerRepository(game);
+            players = new ServerPlayerRepository();
 
             this.server.SocketData += ServerSocketData;
         }
@@ -52,8 +50,8 @@ namespace Server
         {
             SynchronisationAction sync = new SynchronisationAction(
                 players.GetPlayer(socket)?.color,
-                game.currentColor,
-                game.board.GetAllPieces().ToArray()
+                currentColor,
+                board.GetAllPieces().ToArray()
             );
             socket.Send(sync);
         }
@@ -66,7 +64,7 @@ namespace Server
                 socket.Send(new MessageAction(sender, "Not playing"));
                 return false;
             }
-            if (player.color != game.currentColor)
+            if (player.color != currentColor)
             {
                 socket.Send(new MessageAction(sender, "Not on turn"));
                 return false;
@@ -82,7 +80,7 @@ namespace Server
         private void HandleMoveAction(ServerSocket<Logic.Communications.Actions.Action> socket, MoveAction move)
         {
             if (!IsSocketOnTurn(socket)) return;
-            bool success = game.Move(BoardPosition.FromNotation(move.sourcePosition), BoardPosition.FromNotation(move.targetPosition));
+            bool success = Move(BoardPosition.FromNotation(move.sourcePosition), BoardPosition.FromNotation(move.targetPosition));
             if (success)
             {
                 server.Broadcast(move);
@@ -96,8 +94,8 @@ namespace Server
         private void HandleTurnAction(ServerSocket<Logic.Communications.Actions.Action> socket, TurnAction turn)
         {
             if (!IsSocketOnTurn(socket)) return;
-            game.Turn();
-            server.Broadcast(new TurnAction(game.currentColor));
+            Turn();
+            server.Broadcast(new TurnAction(currentColor));
         }
 
         private void HandleParticipationAction(ServerSocket<Logic.Communications.Actions.Action> socket, ParticipationAction participation)

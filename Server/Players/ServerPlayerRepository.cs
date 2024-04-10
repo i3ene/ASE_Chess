@@ -12,12 +12,10 @@ namespace Server.Players
 {
     public class ServerPlayerRepository
     {
-        private readonly Game game;
         public List<ServerPlayer> players;
 
-        public ServerPlayerRepository(Game game)
+        public ServerPlayerRepository()
         {
-            this.game = game;
             players = new List<ServerPlayer>();
         }
 
