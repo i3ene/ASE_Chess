@@ -13,7 +13,7 @@ namespace Client.Communication
 {
     public class ClientGameInteraction : IGameInteraction
     {
-        private readonly PieceColor? color;
+        private PieceColor? color;
         private readonly ClientSocket<Logic.Communications.Actions.Action> socket;
         public event EventHandler<GameInteractionArguments<TurnAction>>? Turn;
         public event EventHandler<GameInteractionArguments<MoveAction>>? Move;
@@ -44,7 +44,9 @@ namespace Client.Communication
                     Move?.Invoke(this, new GameInteractionArguments<MoveAction>((MoveAction) data));
                     break;
                 case ActionType.Synchronisation:
-                    Synchronisation?.Invoke(this, new GameInteractionArguments<SynchronisationAction>((SynchronisationAction) data));
+                    SynchronisationAction sync = (SynchronisationAction) data;
+                    color = sync.role;
+                    Synchronisation?.Invoke(this, new GameInteractionArguments<SynchronisationAction>(sync));
                     break;
             }
         }

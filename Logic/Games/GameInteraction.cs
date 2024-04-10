@@ -25,7 +25,7 @@ namespace Logic.Games
 
         private void InteractionSynchronisation(object? sender, GameInteractionArguments<SynchronisationAction> e)
         {
-            game.currentColor = e.action.color;
+            game.currentColor = e.action.turn;
             game.board.RemoveAllPieces();
             game.board.AddPieces(e.action.pieces);
             e.handled = true;
