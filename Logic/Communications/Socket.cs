@@ -6,7 +6,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.Communication
+namespace Logic.Communications
 {
     public class Socket<T> : WebSocket, IDisposable
     {

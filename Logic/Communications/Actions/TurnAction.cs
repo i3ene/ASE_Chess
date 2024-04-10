@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.Communication.Actions
+namespace Logic.Communications.Actions
 {
     public class TurnAction : Action
     {

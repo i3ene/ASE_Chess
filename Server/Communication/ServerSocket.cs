@@ -1,4 +1,4 @@
-﻿using Logic.Communication;
+﻿using Logic.Communications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
