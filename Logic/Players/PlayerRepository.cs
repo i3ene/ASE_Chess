@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,18 @@ namespace Logic.Players
 
 
             players.Add(player);
+            return true;
+        }
+
+        public bool AddPlayers(Player[] players)
+        {
+            foreach (Player player in players)
+            {
+                Player? existing = GetPlayer(player.color);
+                if (existing != null) return false;
+            }
+
+            this.players.AddRange(players);
             return true;
         }
 

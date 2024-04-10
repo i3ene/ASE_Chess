@@ -32,6 +32,23 @@ namespace Logic.Pieces
         }
 
         /// <summary>
+        /// Add multiple pieces to the collection
+        /// </summary>
+        /// <param name="pieces"><see cref="Piece"/> elements to add</param>
+        /// <returns><see langword="true"/> if all <paramref name="pieces"/> was successfully added or <see langword="false"/> if <see cref="BoardPosition"/> of a single element of <paramref name="pieces"/> was already occupied</returns>
+        public bool AddPieces(Piece[] pieces)
+        {
+            foreach (Piece piece in pieces)
+            {
+                Piece? occupied = GetPiece(piece.position);
+                if (occupied != null) return false;
+            }
+
+            this.pieces.AddRange(pieces);
+            return true;
+        }
+
+        /// <summary>
         /// Remove a <see cref="Piece"/> from the collection
         /// </summary>
         /// <param name="piece"><see cref="Piece"/> to remove</param>
