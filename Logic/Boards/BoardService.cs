@@ -1,6 +1,7 @@
 ﻿using Logic.Pieces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +28,152 @@ namespace Logic.Boards
 
         public bool IsMovePossible(Piece piece, BoardPosition position)
         {
+            // Cannot move to current position
+            if (piece.position == position) return false;
+
+            // Check if position is already occupied by another Piece of same color
             Piece? targetPiece = pieceRepository.GetPiece(position);
             if (targetPiece != null && targetPiece.color == piece.color) return false;
-            // TODO: Check if piece can move
-            return true;
+
+            switch (piece.type)
+            {
+                case PieceType.King:
+                    return IsKingMovePossible(piece, position);
+                case PieceType.Queen:
+                    return IsQueenMovePossible(piece, position);
+                case PieceType.Bishop:
+                    return IsBishopMovePossible(piece, position);
+                case PieceType.Knight:
+                    return IsKnightMovePossible(piece, position);
+                case PieceType.Rook:
+                    return IsRookMovePossible(piece, position);
+                case PieceType.Pawn:
+                    return IsPawnMovePossible(piece, position);
+            }
+            return false;
+        }
+
+        private bool IsPawnMovePossible(Piece piece, BoardPosition position)
+        {
+            int x = position.x - piece.position.x;
+            int y = position.y - piece.position.y;
+
+            // Check which direction Pawn can move
+            int direction = (piece.color == PieceColor.White ? 1 : -1);
+            // Check if Pawn is in starting position
+            int length = (piece.color == PieceColor.White ? piece.position.y == 1 : piece.position.y == (BoardPosition.MAX - 1)) ? 2 : 1;
+            // Check if Pawn is moving forward
+            bool possible = piece.color == PieceColor.White ? y >= 0 : y <= 0;
+            possible &= Math.Abs(y) <= length;
+            possible &= x == 0;
+            possible &= !IsPathBlocked(piece, position);
+            possible &= !IsPositionOccupied(position);
+            // Check if Pawn is capturing a Piece
+            possible |= (Math.Abs(x) == 1 && y == direction && IsPieceCapturing(piece, position));
+
+            return possible;
+        }
+
+        private bool IsRookMovePossible(Piece piece, BoardPosition position)
+        {
+            int ax = Math.Abs(position.x - piece.position.x);
+            int ay = Math.Abs(position.y - piece.position.y);
+
+            bool possible = (ax == 0 || ay == 0);
+            possible &= !IsPathBlocked(piece, position);
+
+            return possible;
+        }
+
+        private bool IsKnightMovePossible(Piece piece, BoardPosition position)
+        {
+            int ax = Math.Abs(position.x - piece.position.x);
+            int ay = Math.Abs(position.y - piece.position.y);
+
+            bool possible = ((ax == 2 && ay == 1) || (ay == 2 && ax == 1));
+
+            return possible;
+        }
+
+        private bool IsBishopMovePossible(Piece piece, BoardPosition position)
+        {
+            int ax = Math.Abs(piece.position.x - position.x);
+            int ay = Math.Abs(piece.position.y - position.y);
+
+            bool possible = (ax == ay);
+            possible &= !IsPathBlocked(piece, position);
+
+            return possible;
+        }
+
+        private bool IsKingMovePossible(Piece piece, BoardPosition position)
+        {
+            int ax = Math.Abs(position.x - piece.position.x);
+            int ay = Math.Abs(position.y - piece.position.y);
+
+            bool possible = (ax <= 1 && ay <= 1);
+            possible &= !IsPathBlocked(piece, position);
+            // Check if King is getting "checked" in this position
+            possible &= !SetsCheck(piece, position);
+            return possible;
+        }
+
+        public bool IsQueenMovePossible(Piece piece, BoardPosition position)
+        {
+            int ax = Math.Abs(position.x - piece.position.x);
+            int ay = Math.Abs(position.y - piece.position.y);
+
+            bool possible = (ax == 0 || ay == 0 || ax == ay);
+            possible &= !IsPathBlocked(piece, position);
+
+            return possible;
+        }
+
+        public bool IsPositionOccupied(BoardPosition position)
+        {
+            Piece? piece = pieceRepository.GetPiece(position);
+            return piece != null;
+        }
+
+        public bool IsPieceCapturing(Piece piece, BoardPosition position)
+        {
+            Piece? capturing = pieceRepository.GetPiece(position);
+            if (capturing is null) return false;
+            return capturing.color != piece.color;
+        }
+
+        public bool IsPathBlocked(Piece piece, BoardPosition position)
+        {
+            int x = position.x - piece.position.x;
+            int y = position.y - piece.position.y;
+
+            BoardPosition step = new BoardPosition(0, 0);
+            if (x == 0)
+            {
+                step.y = y > 0 ? 1 : -1;
+            }
+            else if (y == 0)
+            {
+                step.x = x > 0 ? 1 : -1;
+            }
+            else if (Math.Abs(x) == Math.Abs(y))
+            {
+                step.x = x > 0 ? 1 : -1;
+                step.y = y > 0 ? 1 : -1;
+            }
+            int steps = Math.Max(Math.Abs(x), Math.Abs(y));
+            for (int i = 1; i < steps; i++)
+            {
+                var checkPosition = new BoardPosition(piece.position.x + (step.x * i), piece.position.y + (step.y * i));
+                if (IsPositionOccupied(checkPosition)) return true;
+            }
+            return false;
+        }
+
+        public bool SetsCheck(Piece piece, BoardPosition position)
+        {
+            // TODO
+            return false;
         }
 
         /// <summary>
@@ -39,6 +182,7 @@ namespace Logic.Boards
         /// <returns><see cref="PieceColor"/> of player in check or <see langword="null"/> if no check is present.</returns>
         public PieceColor? IsCheck()
         {
+            // TODO
             return null;
         }
     }
