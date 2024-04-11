@@ -10,7 +10,7 @@ namespace Client.Views
     public delegate void UpdateHandler();
     public interface IViewable
     {
-        public event UpdateHandler? Update;
+        public event UpdateHandler? OnUpdate;
 
         public ContentLine[] View();
     }

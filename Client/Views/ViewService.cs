@@ -14,7 +14,7 @@ namespace Client.Views
             return Task.Factory.StartNew(() =>
             {
                 bool needsUpdate = true;
-                view.Update += () => needsUpdate = true;
+                view.OnUpdate += () => needsUpdate = true;
                 while (true)
                 {
                     if (needsUpdate)

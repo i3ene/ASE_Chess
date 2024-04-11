@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class Component
+    public class Component : IViewable
     {
+        public event UpdateHandler? OnUpdate;
+
         public Component? parent;
         public readonly ComponentPosition position;
         public readonly ComponentSize size;
@@ -24,6 +26,17 @@ namespace Client.Views.Components
             size = new ComponentSize();
             border = new ComponentBorder();
             alignment = new ComponentAlignment();
+        }
+
+        public void Update()
+        {
+            OnUpdate?.Invoke();
+        }
+
+        public ContentLine[] View()
+        {
+            // TODO
+            throw new NotImplementedException();
         }
     }
 }
