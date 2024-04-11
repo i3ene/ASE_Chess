@@ -9,9 +9,14 @@ namespace Client.Utils
 {
     public static class Extensions
     {
-        public static ContentCharacter[] ToViewCharacters(this string str)
+        public static ContentCharacter[] ToContentCharacters(this string str)
         {
             return str.ToCharArray().Select(c => new ContentCharacter(c)).ToArray();
+        }
+
+        public static ContentString ToContentString(this string str)
+        {
+            return new ContentString(str.ToContentCharacters());
         }
     }
 }

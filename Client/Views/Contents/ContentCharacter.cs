@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Contents
 {
-    public class ContentCharacter
+    public class ContentCharacter : ICloneable
     {
         public char character;
         public ContentColor? foregroundColor;
@@ -45,12 +46,22 @@ namespace Client.Views.Contents
             return this;
         }
 
-        public ContentCharacter Reset()
+        public ContentCharacter Clear()
         {
             foregroundColor = null;
             backgroundColor = null;
             style = null;
             return this;
+        }
+
+        public ContentCharacter Clone()
+        {
+            return new ContentCharacter(character, foregroundColor, backgroundColor, style);
+        }
+
+        object ICloneable.Clone()
+        {
+            return Clone();
         }
     }
 }
