@@ -9,5 +9,21 @@ namespace Client.Views.Components.Styles
 {
     public class ComponentSize : Vector2D
     {
+        private new int x;
+        private new int y;
+
+        public ComponentUnit widthUnit;
+        public ComponentUnit heightUnit;
+
+        public int width { get => x; set => x = value; }
+        public int height { get => y; set => y = value; }
+
+        public ComponentSize() : this(0, 0) { }
+
+        public ComponentSize(int width, int height) : base(width, height)
+        {
+            widthUnit = ComponentUnit.Character;
+            heightUnit = ComponentUnit.Character;
+        }
     }
 }

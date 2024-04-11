@@ -35,7 +35,7 @@ namespace Client.Views.Contents
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
         }
 
         public ContentCharacter Current
