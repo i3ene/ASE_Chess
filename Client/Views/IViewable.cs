@@ -12,6 +12,6 @@ namespace Client.Views
     {
         public event UpdateHandler? OnUpdate;
 
-        public ContentLine[] View();
+        public ContentString[] View();
     }
 }

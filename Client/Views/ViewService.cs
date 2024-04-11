@@ -29,11 +29,11 @@ namespace Client.Views
 
         private void DisplayContent(IViewable view)
         {
-            ContentLine[] lines = view.View();
+            ContentString[] lines = view.View();
             Console.SetCursorPosition(0, 0);
-            foreach (ContentLine line in lines)
+            foreach (ContentString line in lines)
             {
-                ContentLine row = line.PadRight(Console.WindowWidth);
+                ContentString row = line.PadRight(Console.WindowWidth);
                 Console.WriteLine(row);
             }
         }

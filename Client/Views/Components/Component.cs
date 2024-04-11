@@ -33,7 +33,7 @@ namespace Client.Views.Components
             OnUpdate?.Invoke();
         }
 
-        public ContentLine[] View()
+        public ContentString[] View()
         {
             // TODO
             throw new NotImplementedException();

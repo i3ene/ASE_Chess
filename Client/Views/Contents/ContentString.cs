@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Contents
 {
-    public class ContentLine
+    public class ContentString
     {
         private List<ContentCharacter> characters;
 
-        public ContentLine() : this(string.Empty) { }
+        public ContentString() : this(string.Empty) { }
 
-        public ContentLine(string str)
+        public ContentString(string str)
         {
             characters = new List<ContentCharacter>();
         }
@@ -24,30 +24,30 @@ namespace Client.Views.Contents
             return characters.ToList();
         }
 
-        public ContentLine Add(string str)
+        public ContentString Add(string str)
         {
             characters.AddRange(str.ToViewCharacters());
             return this;
         }
 
-        public ContentLine Add(ContentLine line)
+        public ContentString Add(ContentString line)
         {
             characters.AddRange(line.GetCharacters());
             return this;
         }
 
-        public ContentLine Insert(int startIndex, string str)
+        public ContentString Insert(int startIndex, string str)
         {
             characters.InsertRange(startIndex, str.ToViewCharacters());
             return this;
         }
 
-        public ContentLine PadRight(int totalWidth)
+        public ContentString PadRight(int totalWidth)
         {
             return PadRight(totalWidth, ' ');
         }
 
-        public ContentLine PadRight(int totalWidth, char character)
+        public ContentString PadRight(int totalWidth, char character)
         {
             for (int i = characters.Count; i < totalWidth; i++)
             {
@@ -56,12 +56,12 @@ namespace Client.Views.Contents
             return this;
         }
 
-        public ContentLine PadLeft(int totalWidth)
+        public ContentString PadLeft(int totalWidth)
         {
             return PadLeft(totalWidth, ' ');
         }
 
-        public ContentLine PadLeft(int totalWidth, char character)
+        public ContentString PadLeft(int totalWidth, char character)
         {
             for (int i = characters.Count; i < totalWidth; i++)
             {
@@ -70,24 +70,24 @@ namespace Client.Views.Contents
             return this;
         }
 
-        public static ContentLine operator +(ContentLine lhs, ContentLine rhs)
+        public static ContentString operator +(ContentString lhs, ContentString rhs)
         {
             return lhs.Add(rhs);
         }
 
-        public ContentLine Foreground(ContentColor? foregroundColor)
+        public ContentString Foreground(ContentColor? foregroundColor)
         {
             characters.ForEach(c => c.Foreground(foregroundColor));
             return this;
         }
 
-        public ContentLine Background(ContentColor? backgroundColor)
+        public ContentString Background(ContentColor? backgroundColor)
         {
             characters.ForEach((c) => c.Background(backgroundColor));
             return this;
         }
 
-        public ContentLine Reset()
+        public ContentString Reset()
         {
             characters.ForEach(c => c.Reset());
             return this;
