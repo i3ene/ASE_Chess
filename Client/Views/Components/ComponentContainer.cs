@@ -31,5 +31,10 @@ namespace Client.Views.Components
             child.OnUpdate -= Update;
             Update();
         }
+
+        public IEnumerable<Component> GetAllChilds()
+        {
+            return childs.ToArray();
+        }
     }
 }

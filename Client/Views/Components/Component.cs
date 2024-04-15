@@ -38,5 +38,7 @@ namespace Client.Views.Components
             // TODO
             throw new NotImplementedException();
         }
+
+        
     }
 }

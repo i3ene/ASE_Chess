@@ -10,6 +10,7 @@ namespace Client.Views.Components.Styles
     {
         Fixed,
         Absolute,
-        Relative
+        Relative,
+        Auto
     }
 }
