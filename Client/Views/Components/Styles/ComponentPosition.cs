@@ -12,10 +12,12 @@ namespace Client.Views.Components.Styles
         public ComponentUnit xUnit;
         public ComponentUnit yUnit;
 
+        public ComponentPosition() : this(0, 0) { }
+
         public ComponentPosition(int x, int y) : base(x, y)
         {
-            xUnit = ComponentUnit.Character;
-            yUnit = ComponentUnit.Character;
+            xUnit = ComponentUnit.Fixed;
+            yUnit = ComponentUnit.Fixed;
         }
     }
 }

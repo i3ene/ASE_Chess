@@ -22,8 +22,8 @@ namespace Client.Views.Components.Styles
 
         public ComponentSize(int width, int height) : base(width, height)
         {
-            widthUnit = ComponentUnit.Character;
-            heightUnit = ComponentUnit.Character;
+            widthUnit = ComponentUnit.Fixed;
+            heightUnit = ComponentUnit.Fixed;
         }
     }
 }

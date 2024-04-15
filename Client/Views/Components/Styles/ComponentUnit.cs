@@ -8,7 +8,8 @@ namespace Client.Views.Components.Styles
 {
     public enum ComponentUnit
     {
-        Character,
-        Percent
+        Fixed,
+        Absolute,
+        Relative
     }
 }
