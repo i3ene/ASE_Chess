@@ -47,13 +47,13 @@ namespace Client.Views.Components
             {
                 ContentCanvas childCanvas = child.View();
                 ComponentDimension childDimension = dimensionService.CalculateDimension(child);
+                int left = dimension.position.x - childDimension.position.x;
+                int top = dimension.position.y - childDimension.position.y;
 
                 foreach ((ContentString row, int x) in childCanvas.GetRows().Select((row, index) => (row, index)))
                 {
                     foreach ((ContentCharacter column, int y) in row.GetCharacters().Select((column, index) => (column, index)))
                     {
-                        int left = dimension.position.x - childDimension.position.x;
-                        int top = dimension.position.y - childDimension.position.y;
                         canvas.SetColumn(x + left, y + top, column);
                     }
                 }
