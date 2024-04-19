@@ -22,8 +22,8 @@ namespace Client.Views.Components
             int innerWidth = CalculateOuterWidth(component);
             if (component.border.isEnabled)
             {
-                if (component.border.HasPosition(ComponentBorderPosition.Left | ComponentBorderPosition.TopLeft | ComponentBorderPosition.BottomLeft)) innerWidth -= 1;
-                if (component.border.HasPosition(ComponentBorderPosition.Right | ComponentBorderPosition.TopRight | ComponentBorderPosition.BottomRight)) innerWidth -= 1;
+                if (component.border.HasAnyLeft()) innerWidth -= 1;
+                if (component.border.HasAnyRight()) innerWidth -= 1;
             }
             innerWidth = Math.Max(0, innerWidth);
             return innerWidth;
@@ -34,8 +34,8 @@ namespace Client.Views.Components
             int innerHeight = CalculateOuterHeight(component);
             if (component.border.isEnabled)
             {
-                if (component.border.HasPosition(ComponentBorderPosition.Top | ComponentBorderPosition.TopLeft | ComponentBorderPosition.TopRight)) innerHeight -= 1;
-                if (component.border.HasPosition(ComponentBorderPosition.Bottom | ComponentBorderPosition.BottomLeft | ComponentBorderPosition.BottomRight)) innerHeight -= 1;
+                if (component.border.HasAnyTop()) innerHeight -= 1;
+                if (component.border.HasAnyBottom()) innerHeight -= 1;
             }
             innerHeight = Math.Max(0, innerHeight);
             return innerHeight;
