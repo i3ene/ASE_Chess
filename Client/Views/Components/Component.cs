@@ -19,7 +19,8 @@ namespace Client.Views.Components
         public readonly ComponentSize size;
         public readonly ComponentBorder border;
         public readonly ComponentAlignment alignment;
-        public readonly ComponentViewService viewService;
+        public readonly ComponentDimensionService dimensionService;
+        public readonly ComponentCanvasService canvasService;
 
         public Component()
         {
@@ -27,7 +28,8 @@ namespace Client.Views.Components
             size = new ComponentSize();
             border = new ComponentBorder();
             alignment = new ComponentAlignment();
-            viewService = new ComponentViewService(new ComponentService());
+            dimensionService = new ComponentDimensionService();
+            canvasService = new ComponentCanvasService(dimensionService);
         }
 
         public void Update()
@@ -35,14 +37,14 @@ namespace Client.Views.Components
             OnUpdate?.Invoke();
         }
 
-        protected abstract ContentString[] GetView();
+        public abstract ContentCanvas GetCanvas(ContentCanvas canvas);
 
-        public ContentString[] View()
+        public ContentCanvas View()
         {
-            ContentString[] view = GetView();
-            view = viewService.ConstrainView(this, view);
-            view = viewService.AddBorder(this, view);
-            return view;
+            ContentCanvas canvas = canvasService.CreateCanvas(this);
+            canvas = GetCanvas(canvas);
+            canvas = canvasService.AddBorder(this, canvas);
+            return canvas;
         }        
         
     }
