@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Client.Views
 {
-    public class RootView : ComponentContainer
+    public class ViewRoot : ComponentContainer
     {
         private readonly ViewRouter router;
         private View? view;
 
-        public RootView()
+        public ViewRoot()
         {
             router = new ViewRouter(this);
         }

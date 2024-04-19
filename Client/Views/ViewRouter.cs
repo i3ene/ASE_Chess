@@ -8,9 +8,9 @@ namespace Client.Views
 {
     public class ViewRouter
     {
-        private readonly RootView root;
+        private readonly ViewRoot root;
 
-        public ViewRouter(RootView root)
+        public ViewRouter(ViewRoot root)
         {
             this.root = root;
         }
