@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Client.Views.Components
 {
-    public class ComponentService
+    public class ComponentDimensionService
     {
         public ComponentSize CalculateInnerSize(Component component)
         {
