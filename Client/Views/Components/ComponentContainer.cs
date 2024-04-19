@@ -42,6 +42,7 @@ namespace Client.Views.Components
 
         public override ContentCanvas GetCanvas(ContentCanvas canvas)
         {
+            ComponentDimension dimension = new ComponentDimension();
             foreach (Component child in childs)
             {
                 ContentCanvas childCanvas = child.View();
@@ -51,7 +52,9 @@ namespace Client.Views.Components
                 {
                     foreach ((ContentCharacter column, int y) in row.GetCharacters().Select((column, index) => (column, index)))
                     {
-                        canvas.SetColumn(x + childDimension.position.x, y + childDimension.position.y, column);
+                        int left = dimension.position.x - childDimension.position.x;
+                        int top = dimension.position.y - childDimension.position.y;
+                        canvas.SetColumn(x + left, y + top, column);
                     }
                 }
             }
