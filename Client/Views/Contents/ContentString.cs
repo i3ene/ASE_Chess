@@ -53,6 +53,15 @@ namespace Client.Views.Contents
             return this;
         }
 
+        public ContentString Inplace(int startIndex, string str)
+        {
+            int endIndex = str.Length;
+            ContentString changed = Substring(0, startIndex);
+            changed.Add(str);
+            changed = Substring(endIndex);
+            return changed;
+        }
+
         public ContentString PadRight(int totalWidth)
         {
             return PadRight(totalWidth, ' ');
