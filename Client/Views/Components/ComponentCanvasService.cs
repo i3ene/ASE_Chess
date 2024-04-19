@@ -8,34 +8,35 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class ComponentViewService
+    public class ComponentCanvasService
     {
-        private readonly ComponentService service;
+        private readonly ComponentDimensionService dimensionService;
 
-        public ComponentViewService(ComponentService service)
+        public ComponentCanvasService(ComponentDimensionService service)
         {
-            this.service = service;
+            this.dimensionService = service;
         }
 
-        public ContentString[] ConstrainView(Component component, ContentString[] view)
+        public ContentCanvas CreateCanvas(Component component)
         {
-            List<ContentString> constrainedView = new List<ContentString>();
-            int innerWidth = service.CalculateInnerWidth(component);
-            int innerHeight = service.CalculateInnerHeight(component);
-            for (int i = 0; i < innerHeight; i++)
-            {
-                ContentString viewLine = view[i].Substring(0, innerWidth);
-                constrainedView[i] = viewLine;
-            }
-            return constrainedView.ToArray();
+            return new ContentCanvas(dimensionService.CalculateInnerHeight(component), dimensionService.CalculateInnerWidth(component));
         }
 
-        public ContentString[] AddBorder(Component component, ContentString[] view)
+        public ContentCanvas ToCanvas(ContentString[] rows)
         {
-            if (component.border.isEnabled) return view;
+            int width = rows.Select(row => row.Length).Max();
+            int height = rows.Length;
+            ContentCanvas canvas = new ContentCanvas(width, height);
+            rows.Select((row, i) => canvas.SetRow(i, row));
+            return canvas;
+        }
 
-            List<ContentString> viewWithBorder = new List<ContentString>(view);
-            int innerWidth = service.CalculateInnerWidth(component);
+        public ContentCanvas AddBorder(Component component, ContentCanvas canvas)
+        {
+            if (!component.border.isEnabled) return canvas;
+
+            List<ContentString> viewWithBorder = new List<ContentString>(canvas.GetRows());
+            int innerWidth = dimensionService.CalculateInnerWidth(component);
 
             if (component.border.HasAnyTop())
             {
@@ -80,7 +81,7 @@ namespace Client.Views.Components
                 viewWithBorder[viewWithBorder.Count - 1].Inplace(viewWithBorder[0].Length - 1, component.border.GetPosition(ComponentBorderPosition.BottomRight).ToString());
             }
 
-            return viewWithBorder.ToArray();
+            return ToCanvas(viewWithBorder.ToArray());
         }
     }
 }

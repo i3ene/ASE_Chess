@@ -29,12 +29,12 @@ namespace Client.Views
 
         private void DisplayContent(IViewable view)
         {
-            ContentString[] lines = view.View();
+            ContentCanvas canvas = view.View();
             Console.SetCursorPosition(0, 0);
-            foreach (ContentString line in lines)
+            foreach (ContentString row in canvas.GetRows())
             {
-                ContentString row = line.PadRight(Console.WindowWidth);
-                Console.WriteLine(row);
+                ContentString line = row.PadRight(Console.WindowWidth);
+                Console.WriteLine(line);
             }
         }
     }
