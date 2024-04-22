@@ -56,7 +56,7 @@ namespace Client.Views.Components
             int top = missing / 2;
             if (top < 0)
             {
-                lines = lines[Math.Abs(top)..maxHeight];
+                lines = lines[Math.Abs(top)..(maxHeight + 1)];
             }
             else
             {
@@ -97,7 +97,7 @@ namespace Client.Views.Components
                     foreach (var line in lines)
                     {
                         int left = (maxWidth - line.Length) / 2;
-                        line.PadLeft(left);
+                        line.PadLeft(maxWidth - left);
                         line.PadRight(maxWidth);
                     }
                     break;
@@ -119,11 +119,12 @@ namespace Client.Views.Components
                     lines[index].Add(word);
                     continue;
                 }
-                if (lines[index].Length + word.Length > maxWidth)
+                if ((lines[index].Length + word.Length) > maxWidth)
                 {
-                    lines.Add(new ContentString());
+                    lines.Add(word);
                     continue;
                 }
+                lines[index].Add(" ");
                 lines[index].Add(word);
             }
             return lines.ToArray();

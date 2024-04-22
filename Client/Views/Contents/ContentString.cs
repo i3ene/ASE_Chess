@@ -111,7 +111,7 @@ namespace Client.Views.Contents
             for (int i = 0; i < Length; i++)
             {
                 if (this[i].character != separator) continue;
-                list.Add(Substring(lastIndex, i));
+                list.Add(Substring(lastIndex, i - lastIndex - 1));
                 lastIndex = i + 1;
             }
             list.Add(Substring(lastIndex));
