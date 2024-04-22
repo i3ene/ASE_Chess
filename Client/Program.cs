@@ -15,11 +15,13 @@ namespace Client
 
             TextComponent text = new TextComponent();
             text.SetText("Test");
-            text.size.widthUnit = Views.Components.Styles.ComponentUnit.Auto;
-            text.size.heightUnit = Views.Components.Styles.ComponentUnit.Auto;
+            text.size.width = 15;
+            text.size.height = 5;
             text.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Round;
 
             text.position.x = 2;
+            text.position.y = 25;
+            text.position.yUnit = Views.Components.Styles.ComponentUnit.Relative;
 
             root.AddChild(text);
 

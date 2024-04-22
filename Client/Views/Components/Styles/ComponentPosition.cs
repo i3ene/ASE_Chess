@@ -16,8 +16,8 @@ namespace Client.Views.Components.Styles
 
         public ComponentPosition(int x, int y) : base(x, y)
         {
-            xUnit = ComponentUnit.Fixed;
-            yUnit = ComponentUnit.Fixed;
+            xUnit = ComponentUnit.Absolute;
+            yUnit = ComponentUnit.Absolute;
         }
     }
 }

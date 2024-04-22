@@ -151,7 +151,7 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                     if (parentXPosition is null || parentOuterWidth is null) break;
-                    xPosition = (int)(parentXPosition + (parentOuterWidth * ToPercent(component.size.x)));
+                    xPosition = (int)(parentXPosition + (parentOuterWidth * ToPercent(component.position.x)));
                     break;
                 case ComponentUnit.Auto:
                     if (parentXPosition is null || component.parent is null) break;
@@ -174,7 +174,7 @@ namespace Client.Views.Components
             int? parentYPosition = component.parent is null ? null : CalculateYPosition(component.parent);
             int? parentOuterHeight = component.parent is null ? null : CalculateOuterHeight(component.parent);
             int yPosition = 0;
-            switch (component.position.xUnit)
+            switch (component.position.yUnit)
             {
                 case ComponentUnit.Fixed:
                     yPosition = component.position.y;
@@ -185,7 +185,7 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                     if (parentYPosition is null || parentOuterHeight is null) break;
-                    yPosition = (int)(parentYPosition + (parentOuterHeight * ToPercent(component.size.y)));
+                    yPosition = (int)(parentYPosition + (parentOuterHeight * ToPercent(component.position.y)));
                     break;
                 case ComponentUnit.Auto:
                     if (parentYPosition is null || component.parent is null) break;
