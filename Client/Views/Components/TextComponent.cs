@@ -11,13 +11,10 @@ namespace Client.Views.Components
 {
     public class TextComponent : Component, IDynamicDimension
     {
-        public readonly ComponentAlignment textAlignment;
-
         private ContentString text;
 
         public TextComponent() : base()
         {
-            textAlignment = new ComponentAlignment();
             text = new ContentString();
         }
 
@@ -47,38 +44,73 @@ namespace Client.Views.Components
             return canvas;
         }
 
-        public ContentString[] VerticalAlignText(ContentString[] lines)
+        private ContentString[] VerticalAlignText(ContentString[] lines)
         {
             int maxHeight = dimensionService.CalculateInnerHeight(this);
             int maxWidth = dimensionService.CalculateInnerWidth(this);
 
             int missing = maxHeight - lines.Length;
-            int top = missing / 2;
-            if (top < 0)
+            List<ContentString> extendedLines = new List<ContentString>();
+            for (int i = 0; i < missing; i++)
             {
-                lines = lines[Math.Abs(top)..(maxHeight + 1)];
+                extendedLines.Add(new ContentString(new string(' ', maxWidth)));
             }
-            else
+
+            switch (alignment.verticalAlignment)
             {
-                List<ContentString> extendedLines = new List<ContentString>();
-                for (int i = 0; i < missing; i++)
-                {
-                    extendedLines.Add(new ContentString(new string(' ', maxWidth)));
-                }
-                foreach ((ContentString line, int index) in lines.Select((line, index) => (line, index)))
-                {
-                    extendedLines.Insert(index + top, line);
-                }
-                lines = extendedLines.ToArray();
+                case ComponentVerticalAlignment.Position:
+                case ComponentVerticalAlignment.Top:
+                    if (missing < 0)
+                    {
+                        lines = lines[..maxHeight];
+                    }
+                    else
+                    {
+                        foreach (ContentString line in lines)
+                        {
+                            extendedLines.Insert(0, line);
+                        }
+                        lines = extendedLines.ToArray();
+                    }
+                    break;
+                case ComponentVerticalAlignment.Bottom:
+                    if (missing < 0)
+                    {
+                        lines = lines[^maxHeight..];
+                    }
+                    else
+                    {
+                        foreach (ContentString line in lines)
+                        {
+                            extendedLines.Add(line);
+                        }
+                        lines = extendedLines.ToArray();
+                    }
+                    break;
+                case ComponentVerticalAlignment.Middle:
+                    int top = missing / 2;
+                    if (missing < 0)
+                    {
+                        lines = lines[Math.Abs(top)..(maxHeight + 1)];
+                    }
+                    else
+                    {
+                        foreach ((ContentString line, int index) in lines.Select((line, index) => (line, index)))
+                        {
+                            extendedLines.Insert(index + top, line);
+                        }
+                        lines = extendedLines.ToArray();
+                    }
+                    break;
             }
 
             return lines;
         }
 
-        public ContentString[] HorizontalAlignText(ContentString[] lines)
+        private ContentString[] HorizontalAlignText(ContentString[] lines)
         {
             int maxWidth = dimensionService.CalculateInnerWidth(this);
-            switch (textAlignment.horizontalAlignment)
+            switch (alignment.horizontalAlignment)
             {
                 case ComponentHorizontalAlignment.Left:
                 case ComponentHorizontalAlignment.Positon:
@@ -105,15 +137,33 @@ namespace Client.Views.Components
             return lines;
         }
 
-        public ContentString[] GetTextLines()
+        private ContentString[] GetTextLines()
         {
             int maxWidth = dimensionService.CalculateInnerWidth(this);
-            ContentString[] words = text.Split(' ');
+            ContentString[] words = text.Split(' ')
+                .Select(word => 
+                    // Split every "New Line" Character
+                    word.Split('\n')
+                    .Select(word => 
+                        // Add single "New Line" Characters in between each array element
+                        new ContentString[2] { word, new ContentString("\n") })
+                        // Flatten the array
+                        .SelectMany(word => word)
+                        // Remove last "New Line" Character
+                        .ToArray()[..^1])
+                    // Flatten the array
+                    .SelectMany(word => word)
+                .ToArray();
             List<ContentString> lines = new List<ContentString>();
             lines.Add(new ContentString());
             foreach (ContentString word in words)
             {
                 int index = lines.Count - 1;
+                if (word.Length == 1 && word[0].character == '\n')
+                {
+                    lines.Add(new ContentString());
+                    continue;
+                }
                 if (lines[index].Length == 0)
                 {
                     lines[index].Add(word);

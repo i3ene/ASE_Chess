@@ -14,7 +14,9 @@ namespace Client
             root.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Thin;
 
             TextComponent text = new TextComponent();
-            text.SetText("Test");
+            text.SetText("1Test\n2Test\n\n3Test");
+            text.alignment.horizontalAlignment = Views.Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
+            text.alignment.verticalAlignment = Views.Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
             text.size.width = 15;
             text.size.height = 5;
             text.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Round;
