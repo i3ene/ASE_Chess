@@ -64,6 +64,11 @@ namespace Client.Views.Components
                     if (component is IDynamicDimension)
                     {
                         outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
+                        if (component.border.isEnabled)
+                        {
+                            if (component.border.HasAnyLeft()) outerWidth += 1;
+                            if (component.border.HasAnyRight()) outerWidth += 1;
+                        }
                         break;
                     }
 
@@ -101,6 +106,11 @@ namespace Client.Views.Components
                     if (component is IDynamicDimension)
                     {
                         outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
+                        if (component.border.isEnabled)
+                        {
+                            if (component.border.HasAnyTop()) outerHeight += 1;
+                            if (component.border.HasAnyBottom()) outerHeight += 1;
+                        }
                         break;
                     }
 

@@ -20,7 +20,7 @@ namespace Client.Views.Contents
             canvas = new List<ContentString>(FillCanvas());
         }
 
-        private IEnumerable<ContentString> FillCanvas()
+        private ContentString[] FillCanvas()
         {
             List<ContentString> canvas = new List<ContentString>();
             ContentString line = new ContentString(new string(' ', width));
@@ -31,7 +31,7 @@ namespace Client.Views.Contents
             return canvas.ToArray();
         }
 
-        public IEnumerable<ContentString> GetRows()
+        public ContentString[] GetRows()
         {
             return canvas.ToArray();
         }

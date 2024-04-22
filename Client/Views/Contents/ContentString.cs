@@ -104,6 +104,20 @@ namespace Client.Views.Contents
             return new ContentString(substring);
         }
 
+        public ContentString[] Split(char separator)
+        {
+            List<ContentString> list = new List<ContentString>();
+            int lastIndex = 0;
+            for (int i = 0; i < Length; i++)
+            {
+                if (this[i].character != separator) continue;
+                list.Add(Substring(lastIndex, i));
+                lastIndex = i + 1;
+            }
+            list.Add(Substring(lastIndex));
+            return list.ToArray();
+        }
+
         public static ContentString operator +(ContentString lhs, ContentString rhs)
         {
             return lhs.Clone().Add(rhs.Clone());

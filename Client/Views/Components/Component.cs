@@ -43,6 +43,7 @@ namespace Client.Views.Components
         {
             ContentCanvas canvas = canvasService.CreateCanvas(this);
             canvas = GetCanvas(canvas);
+            canvas = canvasService.OverflowCanvas(this, canvas);
             canvas = canvasService.AddBorder(this, canvas);
             return canvas;
         }        

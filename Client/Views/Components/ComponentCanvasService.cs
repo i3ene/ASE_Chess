@@ -12,9 +12,9 @@ namespace Client.Views.Components
     {
         private readonly ComponentDimensionService dimensionService;
 
-        public ComponentCanvasService(ComponentDimensionService service)
+        public ComponentCanvasService(ComponentDimensionService dimensionService)
         {
-            this.dimensionService = service;
+            this.dimensionService = dimensionService;
         }
 
         public ContentCanvas CreateCanvas(Component component)
@@ -30,6 +30,16 @@ namespace Client.Views.Components
             foreach ((ContentString row, int index) in rows.Select((row, index) => (row, index)))
             {
                 canvas.SetRow(index, row);
+            }
+            return canvas;
+        }
+
+        public ContentCanvas OverflowCanvas(Component component, ContentCanvas canvas)
+        {
+            int innerWidth = dimensionService.CalculateInnerWidth(component);
+            foreach((ContentString row, int index) in canvas.GetRows().Select((row, index) => (row, index)))
+            {
+                canvas.SetRow(index, row.Substring(0, innerWidth - 1));
             }
             return canvas;
         }
