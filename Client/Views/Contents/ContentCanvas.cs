@@ -22,9 +22,12 @@ namespace Client.Views.Contents
 
         private IEnumerable<ContentString> FillCanvas()
         {
-            List<ContentString> canvas = new List<ContentString>(height);
+            List<ContentString> canvas = new List<ContentString>();
             ContentString line = new ContentString(new string(' ', width));
-            canvas.ForEach(x => x = line.Clone());
+            for (int i = 0; i < height; i++)
+            {
+                canvas.Add(line.Clone());
+            }
             return canvas.ToArray();
         }
 

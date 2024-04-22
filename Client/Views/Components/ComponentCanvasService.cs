@@ -19,7 +19,7 @@ namespace Client.Views.Components
 
         public ContentCanvas CreateCanvas(Component component)
         {
-            return new ContentCanvas(dimensionService.CalculateInnerHeight(component), dimensionService.CalculateInnerWidth(component));
+            return new ContentCanvas(dimensionService.CalculateInnerWidth(component), dimensionService.CalculateInnerHeight(component));
         }
 
         public ContentCanvas ToCanvas(ContentString[] rows)
@@ -27,7 +27,10 @@ namespace Client.Views.Components
             int width = rows.Select(row => row.Length).Max();
             int height = rows.Length;
             ContentCanvas canvas = new ContentCanvas(width, height);
-            rows.Select((row, i) => canvas.SetRow(i, row));
+            foreach ((ContentString row, int index) in rows.Select((row, index) => (row, index)))
+            {
+                canvas.SetRow(index, row);
+            }
             return canvas;
         }
 

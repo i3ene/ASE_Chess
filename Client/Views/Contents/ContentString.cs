@@ -55,11 +55,12 @@ namespace Client.Views.Contents
 
         public ContentString Inplace(int startIndex, string str)
         {
-            int endIndex = str.Length;
-            ContentString changed = Substring(0, startIndex);
+            int endIndex = startIndex + str.Length;
+            ContentString changed = Substring(0, startIndex - 1);
             changed.Add(str);
-            changed = Substring(endIndex);
-            return changed;
+            changed += Substring(endIndex);
+            characters = changed.characters;
+            return this;
         }
 
         public ContentString PadRight(int totalWidth)
@@ -129,6 +130,11 @@ namespace Client.Views.Contents
         public ContentString Clone()
         {
             return new ContentString(characters.Select(c => c.Clone()).ToArray());
+        }
+
+        public override string ToString()
+        {
+            return string.Join(null, characters.Select(c => c.ToString()));
         }
 
         object ICloneable.Clone()

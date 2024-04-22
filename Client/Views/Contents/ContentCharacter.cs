@@ -54,6 +54,11 @@ namespace Client.Views.Contents
             return this;
         }
 
+        public override string ToString()
+        {
+            return $"{character}";
+        }
+
         public ContentCharacter Clone()
         {
             return new ContentCharacter(character, foregroundColor, backgroundColor, style);
