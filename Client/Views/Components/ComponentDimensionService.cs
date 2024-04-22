@@ -61,6 +61,12 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                 case ComponentUnit.Auto:
+                    if (component is IDynamicDimension)
+                    {
+                        outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
+                        break;
+                    }
+
                     if (parentInnerWidth is null || component.parent is null) break;
                     outerWidth = (int)parentInnerWidth;
                     if (component.parent.GetType() == typeof(ComponentContainer))
@@ -92,6 +98,12 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                 case ComponentUnit.Auto:
+                    if (component is IDynamicDimension)
+                    {
+                        outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
+                        break;
+                    }
+
                     if (parentInnerHeight is null || component.parent is null) break;
                     outerHeight = (int)parentInnerHeight;
                     if (component.parent.GetType() == typeof(ComponentContainer))
