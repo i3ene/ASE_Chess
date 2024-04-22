@@ -17,13 +17,13 @@ namespace Client
             text.SetText("1Test\n2Test\n\n3Test");
             text.alignment.horizontalAlignment = Views.Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
             text.alignment.verticalAlignment = Views.Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            text.size.width = 15;
+            text.size.width = 50;
+            text.size.widthUnit = Views.Components.Styles.ComponentUnit.Relative;
             text.size.height = 5;
             text.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Round;
 
-            text.position.x = 2;
-            text.position.y = 25;
-            text.position.yUnit = Views.Components.Styles.ComponentUnit.Relative;
+            text.position.x = 25;
+            text.position.xUnit = Views.Components.Styles.ComponentUnit.Relative;
 
             root.AddChild(text);
 

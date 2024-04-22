@@ -61,7 +61,7 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                 case ComponentUnit.Auto:
-                    if (component is IDynamicDimension)
+                    if (component.size.widthUnit == ComponentUnit.Auto && component is IDynamicDimension)
                     {
                         outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
                         if (component.border.isEnabled)
@@ -103,7 +103,7 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Relative:
                 case ComponentUnit.Auto:
-                    if (component is IDynamicDimension)
+                    if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
                     {
                         outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
                         if (component.border.isEnabled)
