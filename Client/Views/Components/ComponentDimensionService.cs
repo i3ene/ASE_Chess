@@ -155,13 +155,26 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Auto:
                     if (parentXPosition is null || component.parent is null) break;
-                    xPosition = (int)parentXPosition;
-                    if (component.parent.GetType() == typeof(ComponentContainer))
+
+                    xPosition = component.position.x;
+                    if (component.parent is ComponentContainer)
                     {
+                        Component? lastChild = null;
                         foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                         {
                             if (child == component) break;
-                            xPosition += CalculateOuterWidth(child);
+                            if (child.position.xUnit != ComponentUnit.Auto) continue;
+                            lastChild = child;
+                        }
+
+                        if (lastChild != null)
+                        {
+                            xPosition += CalculateXPosition(lastChild);
+                            xPosition += CalculateOuterWidth(lastChild);
+                        }
+                        else
+                        {
+                            xPosition += (int)parentXPosition;
                         }
                     }
                     break;
@@ -189,13 +202,26 @@ namespace Client.Views.Components
                     break;
                 case ComponentUnit.Auto:
                     if (parentYPosition is null || component.parent is null) break;
-                    yPosition = (int)parentYPosition;
-                    if (component.parent.GetType() == typeof(ComponentContainer))
+
+                    yPosition = component.position.y;
+                    Component? lastChild = null;
+                    if (component.parent is ComponentContainer)
                     {
                         foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                         {
                             if (child == component) break;
-                            yPosition += CalculateOuterHeight(child);
+                            if (child.position.yUnit != ComponentUnit.Auto) continue;
+                            lastChild = child;
+                        }
+
+                        if (lastChild != null)
+                        {
+                            yPosition += CalculateYPosition(lastChild);
+                            yPosition += CalculateOuterHeight(lastChild);
+                        }
+                        else
+                        {
+                            yPosition += (int)parentYPosition;
                         }
                     }
                     break;

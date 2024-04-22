@@ -11,10 +11,13 @@ namespace Client.Views.Components
 {
     public class TextComponent : Component, IDynamicDimension
     {
+        public readonly ComponentAlignment textAlignment;
+
         private ContentString text;
 
         public TextComponent() : base()
         {
+            textAlignment = new ComponentAlignment();
             text = new ContentString();
         }
 
@@ -56,7 +59,7 @@ namespace Client.Views.Components
                 extendedLines.Add(new ContentString(new string(' ', maxWidth)));
             }
 
-            switch (alignment.verticalAlignment)
+            switch (textAlignment.verticalAlignment)
             {
                 case ComponentVerticalAlignment.Position:
                 case ComponentVerticalAlignment.Top:
@@ -110,7 +113,7 @@ namespace Client.Views.Components
         private ContentString[] HorizontalAlignText(ContentString[] lines)
         {
             int maxWidth = dimensionService.CalculateInnerWidth(this);
-            switch (alignment.horizontalAlignment)
+            switch (textAlignment.horizontalAlignment)
             {
                 case ComponentHorizontalAlignment.Left:
                 case ComponentHorizontalAlignment.Positon:
