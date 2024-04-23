@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class ComponentContainer : Component
+    public class ComponentContainer : Component, IContainer
     {
         private List<Component> childs;
 
@@ -35,7 +35,12 @@ namespace Client.Views.Components
             Update();
         }
 
-        public IEnumerable<Component> GetAllChilds()
+        object[] IContainer.GetAllChilds()
+        {
+            return GetAllChilds();
+        }
+
+        public Component[] GetAllChilds()
         {
             return childs.ToArray();
         }
