@@ -10,7 +10,7 @@ namespace Client
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
             root.size.width = 50;
-            root.size.height = 12;
+            root.size.height = 16;
             root.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Thin;
 
             TextComponent text = new TextComponent();

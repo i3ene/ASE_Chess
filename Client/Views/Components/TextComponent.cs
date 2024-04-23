@@ -116,7 +116,7 @@ namespace Client.Views.Components
             switch (textAlignment.horizontalAlignment)
             {
                 case ComponentHorizontalAlignment.Left:
-                case ComponentHorizontalAlignment.Positon:
+                case ComponentHorizontalAlignment.Position:
                     foreach (var line in lines)
                     {
                         line.PadRight(maxWidth);

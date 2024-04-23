@@ -8,7 +8,7 @@ namespace Client.Views.Components.Styles.Alignments
 {
     public enum ComponentHorizontalAlignment
     {
-        Positon,
+        Position,
         Left,
         Right,
         Center,
