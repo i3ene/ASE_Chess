@@ -172,7 +172,7 @@ namespace Client.Views.Components
                     lines[index].Add(word);
                     continue;
                 }
-                if ((lines[index].Length + word.Length) > maxWidth)
+                if ((lines[index].Length + word.Length) >= maxWidth)
                 {
                     lines.Insert(index, word);
                     continue;
@@ -185,8 +185,9 @@ namespace Client.Views.Components
 
         public int GetDynamicHeight()
         {
-            int width = dimensionService.CalculateInnerWidth(this);
-            int height = (text.Length % width) + 1;
+            int height = GetTextLines().Length;
+            if (border.HasAnyTop()) height += 1;
+            if (border.HasAnyBottom()) height += 1;
             if (parent == null)
             {
                 return height;
@@ -203,6 +204,8 @@ namespace Client.Views.Components
         public int GetDynamicWidth()
         {
             int width = text.Length;
+            if (border.HasAnyLeft()) width += 1;
+            if (border.HasAnyRight()) width += 1;
             if (parent == null)
             {
                 return width;

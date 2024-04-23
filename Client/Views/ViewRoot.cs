@@ -19,7 +19,9 @@ namespace Client.Views
 
         public void ChangeView(View view)
         {
+            if (this.view != null) RemoveChild(this.view);
             this.view = view;
+            AddChild(view);
         }
     }
 }

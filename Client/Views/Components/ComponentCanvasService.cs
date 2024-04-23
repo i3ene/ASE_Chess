@@ -24,7 +24,7 @@ namespace Client.Views.Components
 
         public ContentCanvas ToCanvas(ContentString[] rows)
         {
-            int width = rows.Select(row => row.Length).Max();
+            int width = rows.Length == 0 ? 0 : rows.Select(row => row.Length).Max();
             int height = rows.Length;
             ContentCanvas canvas = new ContentCanvas(width, height);
             foreach ((ContentString row, int index) in rows.Select((row, index) => (row, index)))
