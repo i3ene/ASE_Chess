@@ -71,7 +71,7 @@ namespace Client.Views.Components
                     {
                         foreach (ContentString line in lines)
                         {
-                            extendedLines.Insert(0, line);
+                            extendedLines.Add(line);
                         }
                         lines = extendedLines.ToArray();
                     }
@@ -158,13 +158,13 @@ namespace Client.Views.Components
                     .SelectMany(word => word)
                 .ToArray();
             List<ContentString> lines = new List<ContentString>();
-            lines.Insert(0, new ContentString());
+            lines.Add(new ContentString());
             foreach (ContentString word in words)
             {
-                int index = 0;
+                int index = lines.Count - 1;
                 if (word.Length == 1 && word[0].character == '\n')
                 {
-                    lines.Insert(index, new ContentString());
+                    lines.Add(new ContentString());
                     continue;
                 }
                 if (lines[index].Length == 0)
@@ -174,7 +174,7 @@ namespace Client.Views.Components
                 }
                 if ((lines[index].Length + word.Length) >= maxWidth)
                 {
-                    lines.Insert(index, word);
+                    lines.Add(word);
                     continue;
                 }
                 lines[index].Add(" ");

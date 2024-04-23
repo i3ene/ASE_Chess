@@ -14,12 +14,15 @@ namespace Client.Views.Components
 
         public void HandleInteraction(InteractionArgument args)
         {
+            if (args.key.Key == ConsoleKey.Enter) return;
+
             if (char.IsLetterOrDigit(args.key.KeyChar) || char.IsWhiteSpace(args.key.KeyChar))
             {
                 ContentString text = GetText();
                 text.Add(args.key.KeyChar.ToString());
                 SetText(text);
                 args.handled = true;
+                return;
             }
 
             if (args.key.Key == ConsoleKey.Backspace)
@@ -29,6 +32,7 @@ namespace Client.Views.Components
                 text = text.Substring(0, length);
                 SetText(text);
                 args.handled = true;
+                return;
             }
         }
 

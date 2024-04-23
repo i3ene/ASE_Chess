@@ -14,6 +14,7 @@ namespace Client.Views.Interactions
         public InteractionService(IContainer container)
         {
             this.container = container;
+            Console.CursorVisible = false;
         }
 
         public Task ListenForInteraction()

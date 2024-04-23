@@ -43,7 +43,8 @@ namespace Client
 
             InputComponent input = new InputComponent();
             input.size.heightUnit = ComponentUnit.Auto;
-            input.size.widthUnit = ComponentUnit.Auto;
+            input.size.widthUnit = ComponentUnit.Relative;
+            input.size.width = 100;
             input.position.yUnit = ComponentUnit.Auto;
             input.border.style = ComponentBorderStyle.Dashed;
 
