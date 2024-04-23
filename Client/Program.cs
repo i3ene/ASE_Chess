@@ -28,11 +28,12 @@ namespace Client
             text.position.yUnit = Views.Components.Styles.ComponentUnit.Auto;
 
             TextComponent text2 = new TextComponent();
-            text2.SetText("4Test");
+            text2.SetText("4Test 5Test 6Test 7Test 8Test 9Test 10Test 11Test 12Test 13Test 14Test 15Test 16Test 17Test 18Test 19Test 20Test 21Test 22Test 23Test 24Test 25Test");
             text2.size.heightUnit = Views.Components.Styles.ComponentUnit.Auto;
             text2.size.widthUnit = Views.Components.Styles.ComponentUnit.Auto;
             text2.border.style = Views.Components.Styles.Borders.ComponentBorderStyle.Thick;
             text2.position.y = 1;
+            text2.position.x = 1;
             text2.position.yUnit = Views.Components.Styles.ComponentUnit.Auto;
 
             root.AddChild(text);

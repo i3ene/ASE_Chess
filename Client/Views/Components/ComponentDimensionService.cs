@@ -48,7 +48,7 @@ namespace Client.Views.Components
 
         public int CalculateOuterWidth(Component component)
         {
-            int? parentInnerWidth = component.parent is null ? null : CalculateInnerWidth(component.parent);
+            int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int outerWidth = 0;
             switch (component.size.widthUnit)
             {
@@ -56,7 +56,6 @@ namespace Client.Views.Components
                     outerWidth = component.size.width;
                     break;
                 case ComponentUnit.Absolute:
-                    if (parentInnerWidth is null) break;
                     outerWidth = (int)(parentInnerWidth * ToPercent(component.size.width));
                     break;
                 case ComponentUnit.Relative:
@@ -64,16 +63,11 @@ namespace Client.Views.Components
                     if (component.size.widthUnit == ComponentUnit.Auto && component is IDynamicDimension)
                     {
                         outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
-                        if (component.border.isEnabled)
-                        {
-                            if (component.border.HasAnyLeft()) outerWidth += 1;
-                            if (component.border.HasAnyRight()) outerWidth += 1;
-                        }
                         break;
                     }
 
-                    if (parentInnerWidth is null || component.parent is null) break;
-                    outerWidth = (int)parentInnerWidth;
+                    if (component.parent is null) break;
+                    outerWidth = parentInnerWidth;
                     if (component.parent.GetType() == typeof(ComponentContainer))
                     {
                         foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
@@ -90,7 +84,7 @@ namespace Client.Views.Components
 
         public int CalculateOuterHeight(Component component)
         {
-            int? parentInnerHeight = component.parent is null ? null : CalculateInnerHeight(component.parent);
+            int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int outerHeight = 0;
             switch (component.size.heightUnit)
             {
@@ -98,7 +92,6 @@ namespace Client.Views.Components
                     outerHeight = component.size.height;
                     break;
                 case ComponentUnit.Absolute:
-                    if (parentInnerHeight is null) break;
                     outerHeight = (int)(parentInnerHeight * ToPercent(component.size.height));
                     break;
                 case ComponentUnit.Relative:
@@ -106,16 +99,11 @@ namespace Client.Views.Components
                     if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
                     {
                         outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
-                        if (component.border.isEnabled)
-                        {
-                            if (component.border.HasAnyTop()) outerHeight += 1;
-                            if (component.border.HasAnyBottom()) outerHeight += 1;
-                        }
                         break;
                     }
 
-                    if (parentInnerHeight is null || component.parent is null) break;
-                    outerHeight = (int)parentInnerHeight;
+                    if (component.parent is null) break;
+                    outerHeight = parentInnerHeight;
                     if (component.parent.GetType() == typeof(ComponentContainer))
                     {
                         foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())

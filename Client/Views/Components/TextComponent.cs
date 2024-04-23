@@ -158,13 +158,13 @@ namespace Client.Views.Components
                     .SelectMany(word => word)
                 .ToArray();
             List<ContentString> lines = new List<ContentString>();
-            lines.Add(new ContentString());
+            lines.Insert(0, new ContentString());
             foreach (ContentString word in words)
             {
-                int index = lines.Count - 1;
+                int index = 0;
                 if (word.Length == 1 && word[0].character == '\n')
                 {
-                    lines.Add(new ContentString());
+                    lines.Insert(index, new ContentString());
                     continue;
                 }
                 if (lines[index].Length == 0)
@@ -174,7 +174,7 @@ namespace Client.Views.Components
                 }
                 if ((lines[index].Length + word.Length) > maxWidth)
                 {
-                    lines.Add(word);
+                    lines.Insert(index, word);
                     continue;
                 }
                 lines[index].Add(" ");
@@ -193,6 +193,10 @@ namespace Client.Views.Components
             }
 
             int parentHeight = dimensionService.CalculateInnerHeight(parent);
+            int parentYPosition = dimensionService.CalculateYPosition(parent);
+            int yPosition = dimensionService.CalculateYPosition(this);
+            yPosition -= parentYPosition;
+            parentHeight -= yPosition;
             return Math.Min(parentHeight, height);
         }
 
@@ -205,6 +209,10 @@ namespace Client.Views.Components
             }
 
             int parentWidth = dimensionService.CalculateInnerWidth(parent);
+            int parentXPosition = dimensionService.CalculateXPosition(parent);
+            int xPosition = dimensionService.CalculateXPosition(this);
+            xPosition -= parentXPosition;
+            parentWidth -= xPosition;
             return Math.Min(parentWidth, width);
         }
     }
