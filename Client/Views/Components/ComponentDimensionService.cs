@@ -46,74 +46,118 @@ namespace Client.Views.Components
             return new ComponentSize(CalculateOuterWidth(component), CalculateOuterHeight(component));
         }
 
-        public int CalculateOuterWidth(Component component)
+        public int CalculateOuterWidth(Component component) => component.size.widthUnit switch
+        {
+            ComponentUnit.Fixed => CalculateOuterWidthFixed(component),
+            ComponentUnit.Absolute => CalculateOuterWidthAbsolute(component),
+            ComponentUnit.Relative => CalculateOuterWidthRelative(component),
+            ComponentUnit.Auto => CalculateOuterWidthAuto(component),
+            _ => 0
+        };
+
+        private int CalculateOuterWidthFixed(Component component)
+        {
+            return component.size.width;
+        }
+
+        private int CalculateOuterWidthAbsolute(Component component)
         {
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
-            int outerWidth = 0;
-            switch (component.size.widthUnit)
-            {
-                case ComponentUnit.Fixed:
-                    outerWidth = component.size.width;
-                    break;
-                case ComponentUnit.Absolute:
-                    outerWidth = (int)(parentInnerWidth * ToPercent(component.size.width));
-                    break;
-                case ComponentUnit.Relative:
-                case ComponentUnit.Auto:
-                    if (component.size.widthUnit == ComponentUnit.Auto && component is IDynamicDimension)
-                    {
-                        outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
-                        break;
-                    }
+            return (int)(parentInnerWidth * ToPercent(component.size.width));
+        }
 
-                    if (component.parent is null) break;
-                    outerWidth = parentInnerWidth;
-                    if (component.parent.GetType() == typeof(ComponentContainer))
-                    {
-                        foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
-                        {
-                            if (child == component) break;
-                            outerWidth -= CalculateOuterWidth(child);
-                        }
-                    }
-                    if (component.size.widthUnit == ComponentUnit.Relative) outerWidth = (int)(outerWidth * ToPercent(component.size.width));
-                    break;
+        private int CalculateOuterWidthRelative(Component component)
+        {
+            int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
+            int outerWidth = parentInnerWidth;
+            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            {
+                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
+                {
+                    if (child == component) break;
+                    outerWidth -= CalculateOuterWidth(child);
+                }
+            }
+            outerWidth = (int)(outerWidth * ToPercent(component.size.width));
+            return outerWidth;
+        }
+
+        private int CalculateOuterWidthAuto(Component component)
+        {
+            int outerWidth = 0;
+            if (component is IDynamicDimension)
+            {
+                outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
+                return outerWidth;
+            }
+
+            int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
+            outerWidth = parentInnerWidth;
+            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            {
+                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
+                {
+                    if (child == component) break;
+                    outerWidth -= CalculateOuterWidth(child);
+                }
             }
             return outerWidth;
         }
 
-        public int CalculateOuterHeight(Component component)
+        public int CalculateOuterHeight(Component component) => component.size.heightUnit switch
+        {
+            ComponentUnit.Fixed => CalculateOuterHeightFixed(component),
+            ComponentUnit.Absolute => CalculateOuterHeightAbsolute(component),
+            ComponentUnit.Relative => CalculateOuterHeightRelative(component),
+            ComponentUnit.Auto => CalculateOuterHeightAuto(component),
+            _ => 0
+        };
+
+        private int CalculateOuterHeightFixed(Component component)
+        {
+            return component.size.height;
+        }
+
+        private int CalculateOuterHeightAbsolute(Component component)
         {
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
-            int outerHeight = 0;
-            switch (component.size.heightUnit)
-            {
-                case ComponentUnit.Fixed:
-                    outerHeight = component.size.height;
-                    break;
-                case ComponentUnit.Absolute:
-                    outerHeight = (int)(parentInnerHeight * ToPercent(component.size.height));
-                    break;
-                case ComponentUnit.Relative:
-                case ComponentUnit.Auto:
-                    if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
-                    {
-                        outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
-                        break;
-                    }
+            return (int)(parentInnerHeight * ToPercent(component.size.height));
+        }
 
-                    if (component.parent is null) break;
-                    outerHeight = parentInnerHeight;
-                    if (component.parent.GetType() == typeof(ComponentContainer))
-                    {
-                        foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
-                        {
-                            if (child == component) break;
-                            outerHeight -= CalculateOuterHeight(child);
-                        }
-                    }
-                    if (component.size.heightUnit == ComponentUnit.Relative) outerHeight = (int)(outerHeight * ToPercent(component.size.height));
-                    break;
+        private int CalculateOuterHeightRelative(Component component)
+        {
+            int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
+            int outerHeight = parentInnerHeight;
+            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            {
+                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
+                {
+                    if (child == component) break;
+                    outerHeight -= CalculateOuterHeight(child);
+                }
+            }
+            outerHeight = (int)(outerHeight * ToPercent(component.size.height));
+            return outerHeight;
+        }
+
+        private int CalculateOuterHeightAuto(Component component)
+        {
+            int outerHeight = 0;
+            if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
+            {
+                outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
+                return outerHeight;
+            }
+
+            int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
+            outerHeight = parentInnerHeight;
+            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            {
+                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
+                {
+                    if (child == component) break;
+                    outerHeight -= CalculateOuterHeight(child);
+                }
             }
             return outerHeight;
         }
