@@ -43,11 +43,14 @@ namespace Logic.Pieces
                 case PieceType.King:
                     position.x = 4;
                     break;
+                case PieceType.Bishop:
+                    position.x = index == 0 ? 2 : (BoardPosition.MAX - 3);
+                    break;
                 case PieceType.Knight:
-                    position.x = index == 0 ? 1 : (BoardPosition.MAX - 1);
+                    position.x = index == 0 ? 1 : (BoardPosition.MAX - 2);
                     break;
                 case PieceType.Rook:
-                    position.x = index == 0 ? 0 : (BoardPosition.MAX);
+                    position.x = index == 0 ? 0 : (BoardPosition.MAX - 1);
                     break;
                 case PieceType.Pawn:
                     position.x = index;
@@ -57,7 +60,7 @@ namespace Logic.Pieces
 
             if (PieceColor.Black == color)
             {
-                position.y = BoardPosition.MAX;
+                position.y = BoardPosition.MAX - 1;
                 if (type == PieceType.Pawn)
                 {
                     position.y -= 1;
