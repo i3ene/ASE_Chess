@@ -9,7 +9,7 @@ namespace Client.Views
 {
     public class View : ComponentContainer
     {
-        private ViewRouter router;
+        public ViewRouter router;
 
         public View(ViewRouter router) : base()
         {

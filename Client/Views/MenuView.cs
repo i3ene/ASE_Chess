@@ -38,6 +38,7 @@ namespace Client.Views
             joinButton.size.height = 3;
             joinButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
             joinButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            joinButton.OnSelection += (button) => ViewJoin();
 
             ButtonComponent hostButton = new ButtonComponent("Host");
             hostButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
@@ -45,6 +46,7 @@ namespace Client.Views
             hostButton.size.height = 3;
             hostButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
             hostButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            hostButton.OnSelection += (button) => ViewHost();
 
             ButtonComponent viewButton = new ButtonComponent("View");
             viewButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
@@ -52,6 +54,7 @@ namespace Client.Views
             viewButton.size.height = 3;
             viewButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
             viewButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            viewButton.OnSelection += (button) => ViewView();
 
             ButtonComponent settingsButton = new ButtonComponent("Settings");
             settingsButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
@@ -59,6 +62,7 @@ namespace Client.Views
             settingsButton.size.height = 3;
             settingsButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
             settingsButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            settingsButton.OnSelection += (button) => ViewSettings();
 
             list.AddChild(joinButton);
             list.AddChild(hostButton);
@@ -85,7 +89,8 @@ namespace Client.Views
 
         private void ViewSettings()
         {
-
+            SettingsView settings = new SettingsView(router);
+            router.Display(settings);
         }
     }
 }
