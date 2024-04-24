@@ -82,7 +82,7 @@ namespace Logic.Pieces
         /// <returns><see cref="Piece"/> or <see langword="null"/> if <paramref name="position"/> is empty</returns>
         public Piece? GetPiece(BoardPosition position)
         {
-            return pieces.First(p => p.position == position);
+            return pieces.FirstOrDefault(p => p.position == position);
         }
 
         /// <summary>

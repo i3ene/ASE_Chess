@@ -53,7 +53,7 @@ namespace Logic.Players
 
         public Player? GetPlayer(PieceColor color)
         {
-            return players.First(p => p.color == color);
+            return players.FirstOrDefault(p => p.color == color);
         }
         
     }
