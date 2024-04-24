@@ -13,8 +13,8 @@ namespace Client
         {
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
-            root.size.width = 50;
-            root.size.height = 16;
+            root.size.width = 60;
+            root.size.height = 26;
             root.border.style = ComponentBorderStyle.Thin;
 
             TextComponent text = new TextComponent();
@@ -55,14 +55,22 @@ namespace Client
             input2.size.width = 50;
             input2.position.yUnit = ComponentUnit.Auto;
             input2.position.y = 1;
+            input2.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+
+            SliderComponent slider = new SliderComponent();
+            slider.size.heightUnit = ComponentUnit.Fixed;
+            slider.size.widthUnit = ComponentUnit.Relative;
+            slider.size.height = 3;
+            slider.size.width = 100;
+            slider.position.yUnit = ComponentUnit.Auto;
 
             ButtonComponent button = new ButtonComponent();
             button.size.heightUnit = ComponentUnit.Fixed;
             button.size.widthUnit = ComponentUnit.Auto;
             button.size.height = 3;
-            button.SetText("Ok");
+            button.SetText("Display " + slider.IsValueDisplayed().ToString());
             button.position.yUnit = ComponentUnit.Auto;
-            button.OnSelection += (button) => button.SetText("Selected");
+            button.OnSelection += (button) => button.SetText("Display " + slider.ToogleValueDisplay().ToString());
 
             ListComponent list = new ListComponent();
             list.size.heightUnit = ComponentUnit.Auto;
@@ -71,6 +79,7 @@ namespace Client
             list.position.yUnit = ComponentUnit.Auto;
             list.border.style = ComponentBorderStyle.Dashed;
 
+            list.AddChild(slider);
             list.AddChild(input);
             list.AddChild(input2);
             list.AddChild(button);
