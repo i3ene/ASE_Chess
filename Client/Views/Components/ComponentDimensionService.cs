@@ -389,17 +389,17 @@ namespace Client.Views.Components
         {
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
-            return (parentYPosition + parentInnerHeight) - component.position.y;
+            int height = CalculateOuterHeight(component);
+            int center = (parentInnerHeight / 2) - (height / 2);
+            center += component.position.y;
+            return parentYPosition + center;
         }
 
         private int CalculateYPositionAbsoluteBottom(Component component)
         {
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
-            int height = CalculateOuterWidth(component);
-            int center = (parentInnerHeight / 2) - (height / 2);
-            center += component.position.y;
-            return parentYPosition + center;
+            return (parentYPosition + parentInnerHeight) - component.position.y;
         }
 
         private int CalculateYPositionRelative(Component component) => component.alignment.verticalAlignment switch
