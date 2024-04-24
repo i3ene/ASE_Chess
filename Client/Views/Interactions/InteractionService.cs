@@ -24,25 +24,30 @@ namespace Client.Views.Interactions
                 while (true)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    InteractionArgument args = new InteractionArgument(key);
-                    InvokeInteractionEvent(container, args);
+                    InteractionArgument args = new InteractionArgument(this, key);
+                    TraverseContainer(container, args);
                 }
             });
         }
 
-        private void InvokeInteractionEvent(IContainer container, InteractionArgument args)
+        private void TraverseContainer(IContainer container, InteractionArgument args)
         {
             foreach (object child in container.GetAllChilds())
             {
                 if (args.handled) break;
-                if (child is IInteraction)
-                {
-                    ((IInteraction)child).HandleInteraction(args);
-                }
-                if (child is IContainer)
-                {
-                    InvokeInteractionEvent((IContainer)child, args);
-                }
+                InvokeInteractionEvent(child, args);
+            }
+        }
+
+        public void InvokeInteractionEvent(object element, InteractionArgument args)
+        {
+            if (element is IInteraction)
+            {
+                ((IInteraction)element).HandleInteraction(args);
+            }
+            if (element is IContainer)
+            {
+                TraverseContainer((IContainer)element, args);
             }
         }
     }

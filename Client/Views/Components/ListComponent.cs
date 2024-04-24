@@ -83,10 +83,7 @@ namespace Client.Views.Components
             }
 
             Component current = GetCurrentSelection();
-            if (current is IInteraction)
-            {
-                ((IInteraction)current).HandleInteraction(args);
-            }
+            args.sender.InvokeInteractionEvent(current, args);
             args.handled = true;
         }
 
