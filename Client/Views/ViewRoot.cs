@@ -9,7 +9,7 @@ namespace Client.Views
 {
     public class ViewRoot : ComponentContainer
     {
-        private readonly ViewRouter router;
+        public readonly ViewRouter router;
         private View? view;
 
         public ViewRoot()

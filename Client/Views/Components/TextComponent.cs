@@ -21,6 +21,11 @@ namespace Client.Views.Components
             text = new ContentString();
         }
 
+        public TextComponent(string text) : this()
+        {
+            SetText(text);
+        }
+
         public ContentString GetText()
         {
             return text;
@@ -167,17 +172,17 @@ namespace Client.Views.Components
                     lines.Add(new ContentString());
                     continue;
                 }
+                word.Add(" ");
                 if (lines[index].Length == 0)
                 {
                     lines[index].Add(word);
                     continue;
                 }
-                if ((lines[index].Length + word.Length) >= maxWidth)
+                if ((lines[index].Length + (word.Length - 1)) >= maxWidth)
                 {
                     lines.Add(word);
                     continue;
                 }
-                lines[index].Add(" ");
                 lines[index].Add(word);
             }
             return lines.ToArray();
@@ -194,10 +199,6 @@ namespace Client.Views.Components
             }
 
             int parentHeight = dimensionService.CalculateInnerHeight(parent);
-            int parentYPosition = dimensionService.CalculateYPosition(parent);
-            int yPosition = dimensionService.CalculateYPosition(this);
-            yPosition -= parentYPosition;
-            parentHeight -= yPosition;
             return Math.Min(parentHeight, height);
         }
 
@@ -212,10 +213,6 @@ namespace Client.Views.Components
             }
 
             int parentWidth = dimensionService.CalculateInnerWidth(parent);
-            int parentXPosition = dimensionService.CalculateXPosition(parent);
-            int xPosition = dimensionService.CalculateXPosition(this);
-            xPosition -= parentXPosition;
-            parentWidth -= xPosition;
             return Math.Min(parentWidth, width);
         }
     }

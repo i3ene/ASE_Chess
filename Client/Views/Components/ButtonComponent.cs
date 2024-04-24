@@ -14,6 +14,8 @@ namespace Client.Views.Components
 
         public ButtonComponent() : base() { }
 
+        public ButtonComponent(string text) : base(text) { }
+
         public void HandleInteraction(InteractionArgument args)
         {
             if (args.key.Key == ConsoleKey.Enter)

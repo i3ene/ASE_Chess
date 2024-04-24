@@ -27,8 +27,8 @@ namespace Client.Views
                     if (needsUpdate)
                     {
                         Task display = Task.Factory.StartNew(() => DisplayContent(view));
-                        if (!async) display.Wait();
                         needsUpdate = false;
+                        if (!async) display.Wait();
                     }
                     Thread.Sleep(33);
                 }
