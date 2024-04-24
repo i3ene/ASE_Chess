@@ -42,13 +42,31 @@ namespace Client
             text2.position.yUnit = ComponentUnit.Auto;
 
             InputComponent input = new InputComponent();
-            input.size.heightUnit = ComponentUnit.Auto;
+            input.size.heightUnit = ComponentUnit.Fixed;
             input.size.widthUnit = ComponentUnit.Relative;
+            input.size.height = 3;
             input.size.width = 100;
             input.position.yUnit = ComponentUnit.Auto;
-            input.border.style = ComponentBorderStyle.Dashed;
 
-            root.AddChild(input);
+            InputComponent input2 = new InputComponent();
+            input2.size.heightUnit = ComponentUnit.Fixed;
+            input2.size.widthUnit = ComponentUnit.Relative;
+            input2.size.height = 3;
+            input2.size.width = 50;
+            input2.position.yUnit = ComponentUnit.Auto;
+            input2.position.y = 1;
+
+            ListComponent list = new ListComponent();
+            list.size.heightUnit = ComponentUnit.Auto;
+            list.size.widthUnit = ComponentUnit.Relative;
+            list.size.width = 100;
+            list.position.yUnit = ComponentUnit.Auto;
+            list.border.style = ComponentBorderStyle.Dashed;
+
+            list.AddChild(input);
+            list.AddChild(input2);
+
+            root.AddChild(list);
             root.AddChild(text);
             root.AddChild(text2);
 
