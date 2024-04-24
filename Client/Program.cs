@@ -83,6 +83,7 @@ namespace Client
             ClientSocket<Logic.Communications.Actions.Action> socket = new ClientSocket<Logic.Communications.Actions.Action>();
             ClientGame game = new ClientGame(socket);
             BoardComponent board = new BoardComponent(game);
+            board.position.yUnit = ComponentUnit.Auto;
 
             root.AddChild(board);
 
@@ -91,9 +92,9 @@ namespace Client
             list.AddChild(input2);
             list.AddChild(button);
 
-            //root.AddChild(list);
-            //root.AddChild(text);
-            //root.AddChild(text2);
+            root.AddChild(list);
+            root.AddChild(text);
+            root.AddChild(text2);
 
             InteractionService interactionService = new InteractionService(root);
             Task interactionLoop = interactionService.ListenForInteraction();
