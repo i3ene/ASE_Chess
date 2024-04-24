@@ -73,11 +73,11 @@ namespace Client.Views.Components
             switch (args.key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    SelectNext();
+                    SelectPrevious();
                     args.handled = true;
                     return;
                 case ConsoleKey.DownArrow:
-                    SelectPrevious();
+                    SelectNext();
                     args.handled = true;
                     return;
             }
