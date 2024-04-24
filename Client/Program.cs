@@ -56,6 +56,14 @@ namespace Client
             input2.position.yUnit = ComponentUnit.Auto;
             input2.position.y = 1;
 
+            ButtonComponent button = new ButtonComponent();
+            button.size.heightUnit = ComponentUnit.Fixed;
+            button.size.widthUnit = ComponentUnit.Auto;
+            button.size.height = 3;
+            button.SetText("Ok");
+            button.position.yUnit = ComponentUnit.Auto;
+            button.OnSelection += (button) => button.SetText("Selected");
+
             ListComponent list = new ListComponent();
             list.size.heightUnit = ComponentUnit.Auto;
             list.size.widthUnit = ComponentUnit.Relative;
@@ -65,6 +73,7 @@ namespace Client
 
             list.AddChild(input);
             list.AddChild(input2);
+            list.AddChild(button);
 
             root.AddChild(list);
             root.AddChild(text);
