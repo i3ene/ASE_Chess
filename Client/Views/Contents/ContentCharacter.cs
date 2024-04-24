@@ -56,7 +56,7 @@ namespace Client.Views.Contents
 
         public override string ToString()
         {
-            return $"{character}";
+            return $"{ColorFormat(foregroundColor, false)}{ColorFormat(backgroundColor, true)}{character}{ResetFormat()}";
         }
 
         public ContentCharacter Clone()
@@ -67,6 +67,17 @@ namespace Client.Views.Contents
         object ICloneable.Clone()
         {
             return Clone();
+        }
+
+        public static string ColorFormat(ContentColor? color, bool background)
+        {
+            color ??= background ? ContentColor.BLACK : ContentColor.GRAY;
+            return $"\x1B[{(background ? 48 : 38)};5;{(int)color}m";
+        }
+
+        public static string ResetFormat()
+        {
+            return "\x1B[0m";
         }
     }
 }
