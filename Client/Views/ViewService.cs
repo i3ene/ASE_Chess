@@ -9,6 +9,13 @@ namespace Client.Views
 {
     public class ViewService
     {
+        public bool async;
+
+        public ViewService()
+        {
+            async = false;
+        }
+
         public Task Display(IViewable view)
         {
             return Task.Factory.StartNew(() =>
@@ -19,7 +26,8 @@ namespace Client.Views
                 {
                     if (needsUpdate)
                     {
-                        Task.Factory.StartNew(() => DisplayContent(view));
+                        Task display = Task.Factory.StartNew(() => DisplayContent(view));
+                        if (!async) display.Wait();
                         needsUpdate = false;
                     }
                     Thread.Sleep(33);
