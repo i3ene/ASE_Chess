@@ -12,7 +12,8 @@ namespace Logic
     public class Game
     {
         public readonly PieceRepository board;
-        private readonly BoardService boardService;
+        public readonly BoardService boardService;
+        public readonly PieceService pieceService;
         public readonly PlayerRepository players;
         public PieceColor currentColor;
 
@@ -21,8 +22,8 @@ namespace Logic
             board = new PieceRepository();
             boardService = new BoardService(board);
             players = new PlayerRepository();
+            pieceService = new PieceService();
 
-            PieceService pieceService = new PieceService();
             PieceFactory pieceFactory = new PieceFactory(pieceService);
             board.AddPieces(pieceFactory.CreatePieces().ToArray());
 

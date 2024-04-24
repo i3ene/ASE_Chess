@@ -22,5 +22,13 @@ namespace Client.Views.Components.Styles
             widthUnit = ComponentUnit.Fixed;
             heightUnit = ComponentUnit.Fixed;
         }
+
+        public override ComponentSize Clone()
+        {
+            ComponentSize size = new ComponentSize(width, height);
+            size.widthUnit = widthUnit;
+            size.heightUnit = heightUnit;
+            return size;
+        }
     }
 }

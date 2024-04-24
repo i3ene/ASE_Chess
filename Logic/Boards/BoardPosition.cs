@@ -13,18 +13,22 @@ namespace Logic.Boards
 
 
         public int _x;
-        public new int x { get => GetX(); set => SetX(value); }
+        public override int x { get => GetX(); set => SetX(value); }
 
         public int _y;
-        public new int y { get => GetY(); set => SetY(value); }
+        public override int y { get => GetY(); set => SetY(value); }
 
         public char cx { get => GetCharX(); set => SetCharX(value); }
 
         public BoardPosition() : base() { }
 
-        public BoardPosition(int x, int y) : base(x, y) { }
+        public BoardPosition(int x, int y) : base()
+        {
+            SetX(x);
+            SetY(y);
+        }
 
-        public BoardPosition(char x, int y) : base(CharToInt(x), y) { }
+        public BoardPosition(char x, int y) : this(CharToInt(x), y) { }
 
         public int GetX()
         {
@@ -89,7 +93,7 @@ namespace Logic.Boards
             return char.ToUpper(c) - CHAR_OFFSET;
         }
 
-        public new BoardPosition Clone()
+        public override BoardPosition Clone()
         {
             return new BoardPosition(x, y);
         }

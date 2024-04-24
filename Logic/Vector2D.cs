@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class Vector2D : ICloneable
+    public abstract class Vector2D : ICloneable
     {
-        public int x, y;
+        public virtual int x { get; set; }
+        public virtual int y { get; set; }
 
         public Vector2D() : this(0, 0) { }
 
@@ -102,10 +103,7 @@ namespace Logic
 
         public override int GetHashCode() => (x, y).GetHashCode();
 
-        public Vector2D Clone()
-        {
-            return new Vector2D(x, y);
-        }
+        public abstract Vector2D Clone();
 
         object ICloneable.Clone()
         {
