@@ -49,7 +49,13 @@ namespace Client.Views.Contents
 
         public ContentString Insert(int startIndex, string str)
         {
-            characters.InsertRange(startIndex, str.ToContentCharacters());
+            Insert(startIndex, str.ToContentString());
+            return this;
+        }
+
+        public ContentString Insert(int startIndex, ContentString str)
+        {
+            characters.InsertRange(startIndex, str.characters);
             return this;
         }
 

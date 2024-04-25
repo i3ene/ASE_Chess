@@ -134,8 +134,11 @@ namespace Client.Views
         private void ViewGame()
         {
             // TODO
-            GameView game = new GameView(router, new Logic.Game());
-            router.Display(game);
+            //GameView game = new GameView(router, new Logic.Game());
+            //router.Display(game);
+
+            ChatView chat = new ChatView(router, new Communications.ChatRepository());
+            router.Display(chat);
         }
 
         private void ViewMenu()
