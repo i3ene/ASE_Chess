@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.Views.Components;
 using Client.Views.Components.Styles.Borders;
+using Client.Views.Contents;
 
 namespace Client.Views
 {
     public class ConnectionView : View
     {
         public readonly ConnectionType connectionType;
+        private readonly TextComponent info;
 
         public ConnectionView(ViewRouter router, ConnectionType connectionType) : base(router)
         {
@@ -27,11 +29,23 @@ namespace Client.Views
 
             AddChild(title);
 
+            info = new TextComponent();
+            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.width = 100;
+            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.border.positions = [ComponentBorderPosition.Top];
+            info.border.style = ComponentBorderStyle.Thin;
+            AddChild(info);
+
             ListComponent list = new ListComponent();
             list.size.widthUnit = Components.Styles.ComponentUnit.Relative;
             list.size.width = 100;
             list.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             list.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
+            list.OnUpdate += () => UpdateInfoText(list);
 
             AddChild(list);
 
@@ -44,7 +58,7 @@ namespace Client.Views
                 ipContainer.size.height = 3;
                 ipContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
 
-                TextComponent ipText = new TextComponent("IP:");
+                TextComponent ipText = new TextComponent("IP: ");
                 ipText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
                 ipText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
                 ipText.size.height = 1;
@@ -68,7 +82,7 @@ namespace Client.Views
             portContainer.size.height = 3;
             portContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
 
-            TextComponent portText = new TextComponent("Port:");
+            TextComponent portText = new TextComponent("Port: ");
             portText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
             portText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             portText.size.height = 1;
@@ -128,6 +142,30 @@ namespace Client.Views
         {
             MenuView menu = new MenuView(router);
             router.Display(menu);
+        }
+
+        private void UpdateInfoText(ListComponent list)
+        {
+            ContentString text = new ContentString();
+            text.Add("Press ");
+            text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
+            text.Add(" or ");
+            text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
+            text.Add(" to change selection.");
+
+            Component selected = list.GetCurrentSelection();
+            if (selected is ComponentContainer)
+            {
+                text.Add("\nType to enter text.");
+            }
+            else
+            {
+                text.Add("\nPress ");
+                text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
+                text.Add(" to confirm.");
+            }
+
+            info.SetText(text);
         }
     }
 }
