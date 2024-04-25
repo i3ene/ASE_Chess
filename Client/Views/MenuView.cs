@@ -64,8 +64,8 @@ namespace Client.Views
             settingsButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             settingsButton.OnSelection += (button) => ViewSettings();
 
-            list.AddChild(joinButton);
             list.AddChild(hostButton);
+            list.AddChild(joinButton);
             list.AddChild(viewButton);
             list.AddChild(settingsButton);
 
@@ -75,17 +75,20 @@ namespace Client.Views
 
         private void ViewJoin()
         {
-
+            ConnectionView connection = new ConnectionView(router, ConnectionType.Join);
+            router.Display(connection);
         }
 
         private void ViewHost()
         {
-
+            ConnectionView connection = new ConnectionView(router, ConnectionType.Host);
+            router.Display(connection);
         }
 
         private void ViewView()
         {
-
+            ConnectionView connection = new ConnectionView(router, ConnectionType.View);
+            router.Display(connection);
         }
 
         private void ViewSettings()
