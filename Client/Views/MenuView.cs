@@ -1,4 +1,6 @@
 ﻿using Client.Views.Components;
+using Client.Views.Components.Styles.Borders;
+using Client.Views.Contents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,28 @@ namespace Client.Views
             title.size.height = 6;
             title.position.yUnit = Components.Styles.ComponentUnit.Auto;
             title.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+
+            ContentString text = new ContentString();
+            text.Add("Press ");
+            text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
+            text.Add(" or ");
+            text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
+            text.Add(" to change selection.");
+            text.Add("\nPress ");
+            text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
+            text.Add(" to confirm.");
+
+            TextComponent info = new TextComponent();
+            info.SetText(text);
+            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.width = 100;
+            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.border.positions = [ComponentBorderPosition.Top];
+            info.border.style = ComponentBorderStyle.Thin;
+            AddChild(info);
 
             ListComponent list = new ListComponent();
             list.size.widthUnit = Components.Styles.ComponentUnit.Relative;
