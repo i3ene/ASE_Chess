@@ -151,6 +151,16 @@ namespace Client.Views
             if (board.GetTargetPosition() != null || board.GetSourcePosition() != null)
             {
                 text.Add("\nPress ");
+                text.Add(new ContentString("[←]").Background(ContentColor.PURPLE));
+                text.Add(", ");
+                text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
+                text.Add(", ");
+                text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
+                text.Add(", ");
+                text.Add(new ContentString("[→]").Background(ContentColor.PURPLE));
+                text.Add(" to change selection.");
+
+                text.Add("\nPress ");
                 text.Add(new ContentString("[Delete]").Background(ContentColor.PURPLE));
                 text.Add(" to cancel current action.");
             }
