@@ -1,4 +1,5 @@
 ﻿using Client.Views.Components;
+using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Client.Views.Interactions;
 using Logic;
@@ -15,6 +16,7 @@ namespace Client.Views
     {
         private readonly Game game;
         private readonly BoardComponent board;
+        private readonly TextComponent info;
 
         public GameView(ViewRouter router, Game game) : base(router)
         {
@@ -23,6 +25,19 @@ namespace Client.Views
             board = new BoardComponent(game);
             board.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             AddChild(board);
+
+            info = new TextComponent();
+            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.width = 100;
+            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.border.positions = [ComponentBorderPosition.Top];
+            info.border.style = ComponentBorderStyle.Thin;
+            AddChild(info);
+
+            UpdateInfoText();
         }
 
         public void HandleInteraction(InteractionArgument args)
@@ -42,6 +57,7 @@ namespace Client.Views
                     HandleInteractionArrow(args);
                     break;
             }
+            UpdateInfoText();
         }
 
         private void HandleInteractionDelete(InteractionArgument args)
@@ -108,6 +124,38 @@ namespace Client.Views
             {
                 board.SetSourcePosition(currentPosition);
             }
+        }
+
+        private void UpdateInfoText()
+        {
+            ContentString text = new ContentString();
+            text.Add("Press ");
+            text.Add(new ContentString("[ESC]").Background(ContentColor.PURPLE));
+            text.Add(" to quit.");
+
+            text.Add("\nPress ");
+            text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
+            if (board.GetTargetPosition() != null)
+            {
+                text.Add(" to confirm target position.");
+            }
+            else if (board.GetSourcePosition() != null)
+            {
+                text.Add(" to confirm source position.");
+            }
+            else
+            {
+                text.Add(" to enable cursor.");
+            }
+
+            if (board.GetTargetPosition() != null || board.GetSourcePosition() != null)
+            {
+                text.Add("\nPress ");
+                text.Add(new ContentString("[Delete]").Background(ContentColor.PURPLE));
+                text.Add(" to cancel current action.");
+            }
+
+            info.SetText(text);
         }
     }
 }
