@@ -120,6 +120,8 @@ namespace Client.Views
         private void ViewGame()
         {
             // TODO
+            GameView game = new GameView(router, new Logic.Game());
+            router.Display(game);
         }
 
         private void ViewMenu()
