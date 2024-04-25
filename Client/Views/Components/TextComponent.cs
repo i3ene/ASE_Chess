@@ -191,8 +191,6 @@ namespace Client.Views.Components
         public int GetDynamicHeight()
         {
             int height = GetTextLines().Length;
-            if (border.HasAnyTop()) height += 1;
-            if (border.HasAnyBottom()) height += 1;
             if (parent == null)
             {
                 return height;
@@ -205,8 +203,6 @@ namespace Client.Views.Components
         public int GetDynamicWidth()
         {
             int width = text.Length;
-            if (border.HasAnyLeft()) width += 1;
-            if (border.HasAnyRight()) width += 1;
             if (parent == null)
             {
                 return width;

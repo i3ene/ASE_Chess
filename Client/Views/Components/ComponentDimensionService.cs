@@ -88,6 +88,11 @@ namespace Client.Views.Components
             if (component is IDynamicDimension)
             {
                 outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
+                if (component.border.isEnabled)
+                {
+                    if (component.border.HasAnyLeft()) outerWidth += 1;
+                    if (component.border.HasAnyRight()) outerWidth += 1;
+                }
                 return outerWidth;
             }
 
@@ -146,6 +151,11 @@ namespace Client.Views.Components
             if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
             {
                 outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
+                if (component.border.isEnabled)
+                {
+                    if (component.border.HasAnyTop()) outerHeight += 1;
+                    if (component.border.HasAnyBottom()) outerHeight += 1;
+                }
                 return outerHeight;
             }
 
@@ -309,8 +319,8 @@ namespace Client.Views.Components
                 }
                 else
                 {
-                    int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
-                    xPosition += parentXPosition;
+                    int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
+                    xPosition += parentInnerWidth;
                 }
             }
             return xPosition;
@@ -476,7 +486,7 @@ namespace Client.Views.Components
         private int CalculateYPositionAutoBottom(Component component)
         {
             int yPosition = -component.position.y;
-            yPosition -= CalculateOuterWidth(component);
+            yPosition -= CalculateOuterHeight(component);
             if (component.parent is ComponentContainer)
             {
                 Component? lastChild = null;
@@ -494,8 +504,8 @@ namespace Client.Views.Components
                 }
                 else
                 {
-                    int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
-                    yPosition += parentYPosition;
+                    int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
+                    yPosition += parentInnerHeight;
                 }
             }
             return yPosition;
