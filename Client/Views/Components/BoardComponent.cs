@@ -1,5 +1,6 @@
 ﻿using Client.Views.Components.Styles;
 using Client.Views.Contents;
+using Client.Views.Interactions;
 using Logic;
 using Logic.Boards;
 using Logic.Pieces;
@@ -17,6 +18,9 @@ namespace Client.Views.Components
 
         private readonly Game game;
         private new readonly ComponentSize size;
+
+        private BoardPosition? sourcePosition;
+        private BoardPosition? targetPosition;
 
         private bool displayChessSymbols;
 
@@ -40,10 +44,13 @@ namespace Client.Views.Components
                 ContentString row = new ContentString();
                 for (int x = 0; x < BoardPosition.MAX; x++)
                 {
-                    Piece? piece = game.board.GetPiece(new BoardPosition(x, y));
+                    BoardPosition position = new BoardPosition(x, y);
+                    Piece? piece = game.board.GetPiece(position);
                     ContentCharacter field = piece == null ? new ContentCharacter(' ') : GetPieceCharacter(piece);
                     bool isWhiteSquare = (x + y) % 2 == 0;
                     field.Background(isWhiteSquare ? ContentColor.GRAY : ContentColor.BLACK);
+                    if (sourcePosition == position) field.Background(ContentColor.PURPLE);
+                    if (targetPosition == position) field.Background(ContentColor.ORANGE);
                     row.Add(new ContentString([field]));
                 }
                 rows.Add(row);
@@ -93,6 +100,28 @@ namespace Client.Views.Components
             }
             ContentCharacter letter = new ContentCharacter(character);
             return letter;
+        }
+
+        public BoardPosition? GetSourcePosition()
+        {
+            return sourcePosition?.Clone();
+        }
+
+        public void SetSourcePosition(BoardPosition? position)
+        {
+            sourcePosition = position;
+            Update();
+        }
+
+        public BoardPosition? GetTargetPosition()
+        {
+            return targetPosition?.Clone();
+        }
+
+        public void SetTargetPosition(BoardPosition? position)
+        {
+            targetPosition = position;
+            Update();
         }
     }
 }
