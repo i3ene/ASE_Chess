@@ -10,8 +10,8 @@ namespace Client.Views.Components
 {
     public class SliderComponent : Component, IInteraction
     {
-        private const char emptyCharacter = '-';
-        private const char filledCharacter = '#';
+        private const char emptyCharacter = '░';
+        private const char filledCharacter = '█';
 
         private int maxValue;
         private int minValue;
@@ -102,7 +102,16 @@ namespace Client.Views.Components
                 {
                     string displayedValue = currentValue.ToString();
                     int startIndex = (centerRow.Length / 2) - (displayedValue.Length / 2) - 1;
-                    centerRow.Inplace(startIndex, displayedValue);
+                    for (int i = 0; i < displayedValue.Length; i++)
+                    {
+                        ContentCharacter character = centerRow[i + startIndex];
+                        if (character.character == filledCharacter)
+                        {
+                           character.Foreground(ContentColor.BLACK);
+                           character.Background(ContentColor.GRAY);
+                        }
+                        character.character = displayedValue[i];
+                    }
                 }
             }
 

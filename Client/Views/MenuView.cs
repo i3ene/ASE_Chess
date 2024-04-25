@@ -68,6 +68,7 @@ namespace Client.Views
             list.AddChild(hostButton);
             list.AddChild(viewButton);
             list.AddChild(settingsButton);
+
             AddChild(title);
             AddChild(list);
         }
