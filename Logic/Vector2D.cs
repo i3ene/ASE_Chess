@@ -74,8 +74,13 @@ namespace Logic
             return lhs.Clone().Divide(rhs);
         }
 
-        public bool Equals(Vector2D v)
+        public bool Equals(Vector2D? v)
         {
+            if (v is null)
+            {
+                return false;
+            }
+
             if (ReferenceEquals(this, v))
             {
                 return true;
@@ -89,12 +94,17 @@ namespace Logic
             return x == v.x && y == v.y;
         }
 
-        public static bool operator ==(Vector2D lhs, Vector2D rhs)
+        public static bool operator ==(Vector2D? lhs, Vector2D? rhs)
         {
+            if (lhs is null)
+            {
+                return rhs is null;
+            }
+
             return lhs.Equals(rhs);
         }
 
-        public static bool operator !=(Vector2D lhs, Vector2D rhs) => !(lhs == rhs);
+        public static bool operator !=(Vector2D? lhs, Vector2D? rhs) => !(lhs == rhs);
 
         public override bool Equals(object? obj)
         {
