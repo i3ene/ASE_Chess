@@ -35,6 +35,14 @@ namespace Client.Views.Components
             Update();
         }
 
+        public void RemoveAllChilds()
+        {
+            foreach (Component child in childs.ToArray())
+            {
+                RemoveChild(child);
+            }
+        }
+
         object[] IContainer.GetAllChilds()
         {
             return GetAllChilds();
@@ -48,7 +56,7 @@ namespace Client.Views.Components
         public override ContentCanvas GetCanvas(ContentCanvas canvas)
         {
             ComponentDimension dimension = dimensionService.CalculateDimension(this);
-            foreach (Component child in childs)
+            foreach (Component child in childs.ToArray())
             {
                 ContentCanvas childCanvas = child.View();
                 ComponentDimension childDimension = dimensionService.CalculateDimension(child);
