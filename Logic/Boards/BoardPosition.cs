@@ -37,7 +37,9 @@ namespace Logic.Boards
 
         public int SetX(int x)
         {
-            _x = x % MAX;
+            x = x % MAX;
+            if (x < 0) x = MAX + x;
+            _x = x;
             return _x;
         }
 
@@ -48,7 +50,9 @@ namespace Logic.Boards
 
         public int SetY(int y)
         {
-            _y = y % MAX;
+            y = y % MAX;
+            if (y < 0) y = MAX + y;
+            _y = y;
             return _y;
         }
 
