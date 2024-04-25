@@ -14,6 +14,7 @@ namespace Client.Views
         public ViewService()
         {
             async = false;
+            Console.OutputEncoding = Encoding.UTF8;
         }
 
         public Task Display(IViewable view)
