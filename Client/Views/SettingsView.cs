@@ -1,5 +1,6 @@
 ﻿using Client.Views.Components;
 using Client.Views.Components.Styles.Borders;
+using Client.Views.Contents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,21 @@ namespace Client.Views
 {
     public class SettingsView : View
     {
+        private readonly TextComponent info;
+
         public SettingsView(ViewRouter router) : base(router)
         {
+            info = new TextComponent();
+            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.width = 100;
+            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.border.positions = [ComponentBorderPosition.Top];
+            info.border.style = ComponentBorderStyle.Thin;
+            AddChild(info);
+
             TextComponent title = new TextComponent("Settings");
             title.size.widthUnit = Components.Styles.ComponentUnit.Auto;
             title.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
@@ -26,6 +40,7 @@ namespace Client.Views
             list.size.width = 100;
             list.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             list.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
+            list.OnUpdate += () => UpdateInfoText(list);
 
             ComponentContainer widthContainer = new ComponentContainer();
             widthContainer.size.widthUnit = Components.Styles.ComponentUnit.Relative;
@@ -93,6 +108,33 @@ namespace Client.Views
         {
             MenuView menu = new MenuView(router);
             router.Display(menu);
+        }
+
+        private void UpdateInfoText(ListComponent list)
+        {
+            ContentString text = new ContentString();
+            text.Add("Press ");
+            text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
+            text.Add(" or ");
+            text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
+            text.Add(" to change selection.");
+
+            if (list.GetCurrentSelectionIndex() == 2)
+            {
+                text.Add("\nPress ");
+                text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
+                text.Add(" to confirm.");
+            }
+            else
+            {
+                text.Add("\nPress ");
+                text.Add(new ContentString("[←]").Background(ContentColor.PURPLE));
+                text.Add(" or ");
+                text.Add(new ContentString("[→]").Background(ContentColor.PURPLE));
+                text.Add(" to change value.");
+            }
+
+            info.SetText(text);
         }
     }
 }

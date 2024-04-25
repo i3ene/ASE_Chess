@@ -18,6 +18,11 @@ namespace Client.Views.Components
             currentSelectionIndex = 0;
         }
 
+        public int GetCurrentSelectionIndex()
+        {
+            return currentSelectionIndex;
+        }
+
         public Component GetCurrentSelection()
         {
             Component[] childs = GetAllChilds();
