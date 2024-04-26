@@ -98,11 +98,11 @@ namespace Client.Views.Components
             foreach (Component child in GetAllChilds())
             {
                 if (child.size.widthUnit != ComponentUnit.Fixed) continue;
-                int childWidth = dimensionService.CalculateOuterWidth(child);
+                int childWidth = dimensionHelper.CalculateOuterWidth(child);
                 childWidth += child.position.x;
                 width = Math.Max(width, childWidth);
             }
-            int parentWidth = parent == null ? 0 : dimensionService.CalculateInnerWidth(parent);
+            int parentWidth = parent == null ? 0 : dimensionHelper.CalculateInnerWidth(parent);
             width = Math.Min(width, parentWidth);
             return width;
         }
@@ -113,11 +113,11 @@ namespace Client.Views.Components
             foreach (Component child in GetAllChilds())
             {
                 if (child.size.heightUnit != ComponentUnit.Fixed) continue;
-                int childHeight = dimensionService.CalculateOuterHeight(child);
+                int childHeight = dimensionHelper.CalculateOuterHeight(child);
                 childHeight += child.position.y;
                 height += childHeight;
             }
-            int parentHeight = parent == null ? 0 : dimensionService.CalculateInnerHeight(parent);
+            int parentHeight = parent == null ? 0 : dimensionHelper.CalculateInnerHeight(parent);
             height = Math.Min(height, parentHeight);
             if (border.HasAnyTop()) height += 1;
             if (border.HasAnyBottom()) height += 1;

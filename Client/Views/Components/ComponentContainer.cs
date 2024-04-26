@@ -55,11 +55,11 @@ namespace Client.Views.Components
 
         public override ContentCanvas GetCanvas(ContentCanvas canvas)
         {
-            ComponentDimension dimension = dimensionService.CalculateDimension(this);
+            ComponentDimension dimension = dimensionHelper.CalculateDimension(this);
             foreach (Component child in childs.ToArray())
             {
                 ContentCanvas childCanvas = child.View();
-                ComponentDimension childDimension = dimensionService.CalculateDimension(child);
+                ComponentDimension childDimension = dimensionHelper.CalculateDimension(child);
                 int left = childDimension.position.x - dimension.position.x;
                 int top = childDimension.position.y - dimension.position.y;
 

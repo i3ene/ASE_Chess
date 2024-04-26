@@ -47,15 +47,15 @@ namespace Client.Views.Components
             ContentString[] lines = GetTextLines();
             lines = HorizontalAlignText(lines);
             lines = VerticalAlignText(lines);
-            canvas = canvasService.ToCanvas(lines);
+            canvas = canvasHelper.ToCanvas(lines);
 
             return canvas;
         }
 
         private ContentString[] VerticalAlignText(ContentString[] lines)
         {
-            int maxHeight = dimensionService.CalculateInnerHeight(this);
-            int maxWidth = dimensionService.CalculateInnerWidth(this);
+            int maxHeight = dimensionHelper.CalculateInnerHeight(this);
+            int maxWidth = dimensionHelper.CalculateInnerWidth(this);
 
             int missing = maxHeight - lines.Length;
             List<ContentString> extendedLines = new List<ContentString>();
@@ -117,7 +117,7 @@ namespace Client.Views.Components
 
         private ContentString[] HorizontalAlignText(ContentString[] lines)
         {
-            int maxWidth = dimensionService.CalculateInnerWidth(this);
+            int maxWidth = dimensionHelper.CalculateInnerWidth(this);
             switch (textAlignment.horizontalAlignment)
             {
                 case ComponentHorizontalAlignment.Left:
@@ -147,7 +147,7 @@ namespace Client.Views.Components
 
         private ContentString[] GetTextLines()
         {
-            int maxWidth = dimensionService.CalculateInnerWidth(this);
+            int maxWidth = dimensionHelper.CalculateInnerWidth(this);
             ContentString[] words = text.Split(' ')
                 .Select(word => 
                     // Split every "New Line" Character
@@ -196,7 +196,7 @@ namespace Client.Views.Components
                 return height;
             }
 
-            int parentHeight = dimensionService.CalculateInnerHeight(parent);
+            int parentHeight = dimensionHelper.CalculateInnerHeight(parent);
             return Math.Min(parentHeight, height);
         }
 
@@ -208,7 +208,7 @@ namespace Client.Views.Components
                 return width;
             }
 
-            int parentWidth = dimensionService.CalculateInnerWidth(parent);
+            int parentWidth = dimensionHelper.CalculateInnerWidth(parent);
             return Math.Min(parentWidth, width);
         }
     }

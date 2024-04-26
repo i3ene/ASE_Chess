@@ -56,7 +56,7 @@ namespace Client.Views.Components
                 rows.Add(row);
             }
 
-            return canvasService.ToCanvas(rows.ToArray());
+            return canvasHelper.ToCanvas(rows.ToArray());
         }
 
         private ContentCharacter GetPieceCharacter(Piece piece)

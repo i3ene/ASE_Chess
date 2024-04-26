@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class ComponentCanvasService
+    public class ComponentCanvasHelper
     {
-        private readonly ComponentDimensionService dimensionService;
+        private readonly ComponentDimensionHelper dimensionHelper;
 
-        public ComponentCanvasService(ComponentDimensionService dimensionService)
+        public ComponentCanvasHelper(ComponentDimensionHelper dimensionService)
         {
-            this.dimensionService = dimensionService;
+            this.dimensionHelper = dimensionService;
         }
 
         public ContentCanvas CreateCanvas(Component component)
         {
-            return new ContentCanvas(dimensionService.CalculateInnerWidth(component), dimensionService.CalculateInnerHeight(component));
+            return new ContentCanvas(dimensionHelper.CalculateInnerWidth(component), dimensionHelper.CalculateInnerHeight(component));
         }
 
         public ContentCanvas ToCanvas(ContentString[] rows)
@@ -36,7 +36,7 @@ namespace Client.Views.Components
 
         public ContentCanvas OverflowCanvas(Component component, ContentCanvas canvas)
         {
-            int innerWidth = dimensionService.CalculateInnerWidth(component);
+            int innerWidth = dimensionHelper.CalculateInnerWidth(component);
             foreach((ContentString row, int index) in canvas.GetRows().Select((row, index) => (row, index)))
             {
                 canvas.SetRow(index, row.Substring(0, innerWidth - 1));
@@ -49,7 +49,7 @@ namespace Client.Views.Components
             if (!component.border.isEnabled) return canvas;
 
             List<ContentString> viewWithBorder = new List<ContentString>(canvas.GetRows());
-            int innerWidth = dimensionService.CalculateInnerWidth(component);
+            int innerWidth = dimensionHelper.CalculateInnerWidth(component);
 
             if (component.border.HasAnyTop())
             {

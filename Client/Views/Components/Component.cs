@@ -19,8 +19,8 @@ namespace Client.Views.Components
         public readonly ComponentSize size;
         public readonly ComponentBorder border;
         public readonly ComponentAlignment alignment;
-        public readonly ComponentDimensionService dimensionService;
-        public readonly ComponentCanvasService canvasService;
+        public readonly ComponentDimensionHelper dimensionHelper;
+        public readonly ComponentCanvasHelper canvasHelper;
 
         public Component()
         {
@@ -28,8 +28,8 @@ namespace Client.Views.Components
             size = new ComponentSize();
             border = new ComponentBorder();
             alignment = new ComponentAlignment();
-            dimensionService = new ComponentDimensionService();
-            canvasService = new ComponentCanvasService(dimensionService);
+            dimensionHelper = new ComponentDimensionHelper();
+            canvasHelper = new ComponentCanvasHelper(dimensionHelper);
         }
 
         public void Update()
@@ -41,10 +41,10 @@ namespace Client.Views.Components
 
         public ContentCanvas View()
         {
-            ContentCanvas canvas = canvasService.CreateCanvas(this);
+            ContentCanvas canvas = canvasHelper.CreateCanvas(this);
             canvas = GetCanvas(canvas);
-            canvas = canvasService.OverflowCanvas(this, canvas);
-            canvas = canvasService.AddBorder(this, canvas);
+            canvas = canvasHelper.OverflowCanvas(this, canvas);
+            canvas = canvasHelper.AddBorder(this, canvas);
             return canvas;
         }        
         
