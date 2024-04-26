@@ -77,6 +77,7 @@ namespace Client.Views.Components
         private int CalculateOuterWidthAuto(Component component)
         {
             int outerWidth = 0;
+            int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             if (component is IDynamicDimension)
             {
                 outerWidth = ((IDynamicDimension)component).GetDynamicWidth();
@@ -85,10 +86,10 @@ namespace Client.Views.Components
                     if (component.border.HasAnyLeft()) outerWidth += 1;
                     if (component.border.HasAnyRight()) outerWidth += 1;
                 }
+                outerWidth = Math.Min(outerWidth, parentInnerWidth);
                 return outerWidth;
             }
 
-            int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             outerWidth = parentInnerWidth;
             if (component.parent != null && component.parent is ComponentContainer)
             {
@@ -132,6 +133,7 @@ namespace Client.Views.Components
         private int CalculateOuterHeightAuto(Component component)
         {
             int outerHeight = 0;
+            int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
             {
                 outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
@@ -140,10 +142,10 @@ namespace Client.Views.Components
                     if (component.border.HasAnyTop()) outerHeight += 1;
                     if (component.border.HasAnyBottom()) outerHeight += 1;
                 }
+                outerHeight = Math.Min(outerHeight, parentInnerHeight);
                 return outerHeight;
             }
 
-            int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             outerHeight = parentInnerHeight;
             if (component.parent != null && component.parent is ComponentContainer)
             {
