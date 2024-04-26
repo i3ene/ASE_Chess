@@ -178,7 +178,7 @@ namespace Client.Views.Components
                     lines[index].Add(word);
                     continue;
                 }
-                if ((lines[index].Length + (word.Length - 1)) >= maxWidth)
+                if ((lines[index].Length + (word.Length - 1)) > maxWidth)
                 {
                     lines.Add(word);
                     continue;
