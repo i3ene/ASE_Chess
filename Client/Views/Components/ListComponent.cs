@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class ListComponent : ComponentContainer, IDynamicDimension, IInteraction
+    public class ListComponent : ComponentContainer, IDynamicDimension, IInteractable
     {
         private int currentSelectionIndex;
 

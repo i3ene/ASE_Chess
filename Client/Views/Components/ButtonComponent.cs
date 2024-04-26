@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class ButtonComponent : TextComponent, IInteraction
+    public class ButtonComponent : TextComponent, IInteractable
     {
         public delegate void ButtonSelectionHandler(ButtonComponent sender);
         public event ButtonSelectionHandler? OnSelection;

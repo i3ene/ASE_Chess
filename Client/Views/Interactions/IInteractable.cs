@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Interactions
 {
-    public interface IInteraction
+    public interface IInteractable
     {
         public void HandleInteraction(InteractionArgument args);
     }

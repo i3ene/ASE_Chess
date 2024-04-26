@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views
 {
-    public class ChatView : View, IInteraction
+    public class ChatView : View, IInteractable
     {
         private readonly ChatRepository chat;
         private readonly InputComponent input;

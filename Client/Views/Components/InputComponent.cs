@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class InputComponent : TextComponent, IInteraction
+    public class InputComponent : TextComponent, IInteractable
     {
         public InputComponent() : base() { }
 

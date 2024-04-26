@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
-    public class SliderComponent : Component, IInteraction
+    public class SliderComponent : Component, IInteractable
     {
         public delegate void SliderValueHandler(SliderComponent sender);
         public event SliderValueHandler? OnChange;

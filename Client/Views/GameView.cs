@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Client.Views
 {
-    public class GameView : View, IInteraction
+    public class GameView : View, IInteractable
     {
         private readonly Game game;
         private readonly BoardComponent board;

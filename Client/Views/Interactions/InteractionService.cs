@@ -41,9 +41,9 @@ namespace Client.Views.Interactions
 
         public void InvokeInteractionEvent(object element, InteractionArgument args)
         {
-            if (element is IInteraction)
+            if (element is IInteractable)
             {
-                ((IInteraction)element).HandleInteraction(args);
+                ((IInteractable)element).HandleInteraction(args);
             }
             if (element is IContainer)
             {
