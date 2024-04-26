@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Client.Views.Components.Styles;
+using Client.Views.Components.Styles.Alignments;
 using Client.Views.Contents;
 
 namespace Client.Views.Components
@@ -28,10 +29,10 @@ namespace Client.Views.Components
 
             actionContainer = new ListComponent(true);
             actionContainer.size.widthUnit = ComponentUnit.Auto;
-            //actionContainer.size.width = 100;
             actionContainer.size.heightUnit = ComponentUnit.Fixed;
             actionContainer.size.height = 3;
             actionContainer.position.yUnit = ComponentUnit.Auto;
+            actionContainer.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             AddChild(actionContainer);
         }
 
