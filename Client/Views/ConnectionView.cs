@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Client.Communications;
 using Client.Views.Components;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
+using Action = Logic.Communications.Actions.Action;
 
 namespace Client.Views
 {
@@ -134,11 +136,9 @@ namespace Client.Views
         private void ViewGame()
         {
             // TODO
-            //GameView game = new GameView(router, new Logic.Game());
-            //router.Display(game);
-
-            ChatView chat = new ChatView(router, new Communications.ChatRepository());
-            router.Display(chat);
+            ClientSocket<Action> socket = new ClientSocket<Action>();
+            GameChatView game = new GameChatView(router, socket);
+            router.Display(game);
         }
 
         private void ViewMenu()

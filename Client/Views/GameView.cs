@@ -44,6 +44,9 @@ namespace Client.Views
         {
             switch (args.key.Key)
             {
+                case ConsoleKey.Escape:
+                    HandleInteractionEscape(args);
+                    break;
                 case ConsoleKey.Delete:
                     HandleInteractionDelete(args);
                     break;
@@ -58,6 +61,14 @@ namespace Client.Views
                     break;
             }
             UpdateInfoText();
+        }
+
+        private void HandleInteractionEscape(InteractionArgument args)
+        {
+            args.handled = true;
+            // TODO
+            MenuView menu = new MenuView(router);
+            router.Display(menu);
         }
 
         private void HandleInteractionDelete(InteractionArgument args)
