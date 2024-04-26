@@ -12,10 +12,14 @@ namespace Client.Views.Components
     public class ListComponent : ComponentContainer, IDynamicDimension, IInteractable
     {
         private int currentSelectionIndex;
+        private bool vertical;
 
-        public ListComponent() : base()
+        public ListComponent() : this(false) { }
+
+        public ListComponent(bool vertical) : base()
         {
             currentSelectionIndex = 0;
+            this.vertical = vertical;
         }
 
         public int GetCurrentSelectionIndex()
@@ -75,16 +79,33 @@ namespace Client.Views.Components
 
         public void HandleInteraction(InteractionArgument args)
         {
-            switch (args.key.Key)
+            if (vertical)
             {
-                case ConsoleKey.UpArrow:
-                    SelectPrevious();
-                    args.handled = true;
-                    return;
-                case ConsoleKey.DownArrow:
-                    SelectNext();
-                    args.handled = true;
-                    return;
+                switch (args.key.Key)
+                {
+                    case ConsoleKey.LeftArrow:
+                        SelectPrevious();
+                        args.handled = true;
+                        return;
+                    case ConsoleKey.RightArrow:
+                        SelectNext();
+                        args.handled = true;
+                        return;
+                }
+            }
+            else
+            {
+                switch (args.key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        SelectPrevious();
+                        args.handled = true;
+                        return;
+                    case ConsoleKey.DownArrow:
+                        SelectNext();
+                        args.handled = true;
+                        return;
+                }
             }
 
             Component current = GetCurrentSelection();
@@ -99,8 +120,16 @@ namespace Client.Views.Components
             {
                 if (child.size.widthUnit != ComponentUnit.Fixed) continue;
                 int childWidth = dimensionHelper.CalculateOuterWidth(child);
-                childWidth += child.position.x;
-                width = Math.Max(width, childWidth);
+                if (vertical)
+                {
+                    childWidth += child.position.x;
+                    width += childWidth;
+                }
+                else
+                {
+                    childWidth += child.position.x;
+                    width = Math.Max(width, childWidth);
+                }
             }
             int parentWidth = parent == null ? 0 : dimensionHelper.CalculateInnerWidth(parent);
             width = Math.Min(width, parentWidth);
@@ -114,8 +143,16 @@ namespace Client.Views.Components
             {
                 if (child.size.heightUnit != ComponentUnit.Fixed) continue;
                 int childHeight = dimensionHelper.CalculateOuterHeight(child);
-                childHeight += child.position.y;
-                height += childHeight;
+                if (vertical)
+                {
+                    childHeight += child.position.y;
+                    height = Math.Max(height, childHeight);
+                }
+                else
+                {
+                    childHeight += child.position.y;
+                    height += childHeight;
+                }
             }
             int parentHeight = parent == null ? 0 : dimensionHelper.CalculateInnerHeight(parent);
             height = Math.Min(height, parentHeight);
