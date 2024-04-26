@@ -35,7 +35,7 @@ namespace Client
             width = Console.WindowWidth - 1;
 
             maxHeight = Math.Max(40, Console.WindowHeight - 1);
-            minHeight = 20;
+            minHeight = 21;
             height = Console.WindowHeight - 1;
         }
 

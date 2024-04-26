@@ -16,11 +16,11 @@ namespace Client.Views
             TextComponent title = new TextComponent();
             title.size.widthUnit = Components.Styles.ComponentUnit.Relative;
             title.size.width = 100;
-            title.size.height = 6;
             title.position.yUnit = Components.Styles.ComponentUnit.Auto;
             title.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
 
-            if (dimensionService.CalculateInnerWidth(this) >= 78)
+            Settings settings = Settings.getInstance();
+            if (settings.GetWidth() >= 80 && settings.GetHeight() >= 28)
             {
                 title.SetText(
                     "                                              ▄▄                              \n" +
@@ -34,7 +34,7 @@ namespace Client.Views
                 );
                 title.size.height = 8;
             }
-            else
+            else if (settings.GetWidth() >= 55)
             {
                 title.SetText(
                     "           _____ ______    _____ _                   \n" +
@@ -45,6 +45,11 @@ namespace Client.Views
                     "/_/    \\_\\_____/|______|  \\_____|_| |_|\\___||___/___/"
                 );
                 title.size.height = 6;
+            }
+            else
+            {
+                title.SetText("ASE Chess");
+                title.size.height = 1;
             }
 
             ContentString text = new ContentString();
