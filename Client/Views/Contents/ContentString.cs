@@ -152,6 +152,18 @@ namespace Client.Views.Contents
             return new ContentString(characters.Select(c => c.Clone()).ToArray());
         }
 
+        public string ToString(bool formatted)
+        {
+            if (formatted)
+            {
+                return ToString();
+            }
+            else
+            {
+                return string.Join(null, characters.Select(c => c.character));
+            }
+        }
+
         public override string ToString()
         {
             return string.Join(null, characters.Select(c => c.ToString()));

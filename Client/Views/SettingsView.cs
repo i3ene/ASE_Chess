@@ -49,7 +49,7 @@ namespace Client.Views
             widthContainer.size.height = 3;
             widthContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
 
-            TextComponent widthText = new TextComponent("Width");
+            TextComponent widthText = new TextComponent("Width ");
             widthText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
             widthText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             widthText.size.height = 1;
@@ -73,7 +73,7 @@ namespace Client.Views
             heightContainer.size.height = 3;
             heightContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
 
-            TextComponent heightText = new TextComponent("Height");
+            TextComponent heightText = new TextComponent("Height ");
             heightText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
             heightText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             heightText.size.height = 1;

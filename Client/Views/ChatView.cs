@@ -50,19 +50,27 @@ namespace Client.Views
                 TextComponent messageText = new TextComponent();
                 messageText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+                messageText.position.xUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.position.yUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+                messageText.border.style = ComponentBorderStyle.Round;
+                messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
 
                 ContentString text = new ContentString(message.message);
-                if (message.sender == string.Empty)
+
+                switch (message.sender)
                 {
-                    messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
-                    text.Foreground(ContentColor.DARKGRAY);
-                } 
-                else
-                {
-                    messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Left;
-                    text.Insert(0, new ContentString($"\n{message.sender}:").Foreground(ContentColor.BROWN));
+                    case "":
+                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+                        text.Foreground(ContentColor.DARKGRAY);
+                        break;
+                    case "self":
+                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
+                        break;
+                    default:
+                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Left;
+                        text.Insert(0, new ContentString($"{message.sender}:\n").Foreground(ContentColor.BROWN));
+                        break;
                 }
 
                 messageText.SetText(text);
@@ -76,7 +84,7 @@ namespace Client.Views
 
             if (args.key.Key == ConsoleKey.Tab)
             {
-                chat.AddMessage(new ChatMessage(input.GetText().ToString()));
+                chat.AddMessage(new ChatMessage("self", input.GetText().ToString(false)));
                 input.SetText("");
                 args.handled = true;
             }

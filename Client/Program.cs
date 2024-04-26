@@ -14,8 +14,8 @@ namespace Client
         {
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
-            root.size.width = 80;
-            root.size.height = 26;
+            root.size.width = 100;
+            root.size.height = 28;
             root.border.style = ComponentBorderStyle.Thin;
 
             MenuView menu = new MenuView(root.router);
