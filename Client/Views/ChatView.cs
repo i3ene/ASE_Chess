@@ -45,19 +45,17 @@ namespace Client.Views
         {
             messagesContainer.RemoveAllChilds();
 
-            foreach (ChatMessage message in chat.GetAllMessages())
+            foreach (ChatMessage message in chat.GetAllMessages().Reverse())
             {
                 TextComponent messageText = new TextComponent();
                 messageText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-                messageText.position.xUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.position.yUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
                 messageText.border.style = ComponentBorderStyle.Round;
                 messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
 
                 ContentString text = new ContentString(message.message);
-
                 switch (message.sender)
                 {
                     case "":
