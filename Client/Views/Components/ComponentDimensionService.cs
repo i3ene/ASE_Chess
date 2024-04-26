@@ -70,14 +70,6 @@ namespace Client.Views.Components
         {
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int outerWidth = parentInnerWidth;
-            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
-            {
-                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
-                {
-                    if (child == component) break;
-                    outerWidth -= CalculateOuterWidth(child);
-                }
-            }
             outerWidth = (int)(outerWidth * ToPercent(component.size.width));
             return outerWidth;
         }
@@ -98,7 +90,7 @@ namespace Client.Views.Components
 
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             outerWidth = parentInnerWidth;
-            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            if (component.parent != null && component.parent is ComponentContainer)
             {
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
@@ -133,14 +125,6 @@ namespace Client.Views.Components
         {
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int outerHeight = parentInnerHeight;
-            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
-            {
-                foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
-                {
-                    if (child == component) break;
-                    outerHeight -= CalculateOuterHeight(child);
-                }
-            }
             outerHeight = (int)(outerHeight * ToPercent(component.size.height));
             return outerHeight;
         }
@@ -161,7 +145,7 @@ namespace Client.Views.Components
 
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             outerHeight = parentInnerHeight;
-            if (component.parent != null && component.parent.GetType() == typeof(ComponentContainer))
+            if (component.parent != null && component.parent is ComponentContainer)
             {
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
