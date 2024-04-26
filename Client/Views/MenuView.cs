@@ -13,19 +13,39 @@ namespace Client.Views
     {
         public MenuView(ViewRouter router) : base(router)
         {
-            TextComponent title = new TextComponent(
-                "           _____ ______    _____ _                   \n" + 
-                "    /\\    / ____|  ____|  / ____| |                  \n" + 
-                "   /  \\  | (___ | |__    | |    | |__   ___  ___ ___ \n" + 
-                "  / /\\ \\  \\___ \\|  __|   | |    | '_ \\ / _ \\/ __/ __|\n" + 
-                " / ____ \\ ____) | |____  | |____| | | |  __/\\__ \\__ \\\n" +
-                "/_/    \\_\\_____/|______|  \\_____|_| |_|\\___||___/___/"
-            );
+            TextComponent title = new TextComponent();
             title.size.widthUnit = Components.Styles.ComponentUnit.Relative;
             title.size.width = 100;
             title.size.height = 6;
             title.position.yUnit = Components.Styles.ComponentUnit.Auto;
             title.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+
+            if (dimensionService.CalculateInnerWidth(this) >= 78)
+            {
+                title.SetText(
+                    "                                              ▄▄                              \n" +
+                    "      ██      ▄█▀▀▀█▄████▀▀▀███      ▄▄█▀▀▀█▄███                              \n" +
+                    "     ▄██▄    ▄██    ▀█ ██    ▀█    ▄██▀     ▀███                              \n" +
+                    "    ▄█▀██▄   ▀███▄     ██   █      ██▀       ▀███████▄   ▄▄█▀██ ▄██▀███▄██▀███\n" +
+                    "   ▄█  ▀██     ▀█████▄ ██████      ██         ██    ██  ▄█▀   ████   ▀▀██   ▀▀\n" +
+                    "   ████████  ▄     ▀██ ██   █  ▄   ██▄        ██    ██  ██▀▀▀▀▀▀▀█████▄▀█████▄\n" +
+                    "  █▀      ██ ██     ██ ██     ▄█   ▀██▄     ▄▀██    ██  ██▄    ▄█▄   ███▄   ██\n" +
+                    "▄███▄   ▄████▄▀█████▀▄██████████     ▀▀█████▀████  ████▄ ▀█████▀██████▀██████▀"
+                );
+                title.size.height = 8;
+            }
+            else
+            {
+                title.SetText(
+                    "           _____ ______    _____ _                   \n" +
+                    "    /\\    / ____|  ____|  / ____| |                  \n" +
+                    "   /  \\  | (___ | |__    | |    | |__   ___  ___ ___ \n" +
+                    "  / /\\ \\  \\___ \\|  __|   | |    | '_ \\ / _ \\/ __/ __|\n" +
+                    " / ____ \\ ____) | |____  | |____| | | |  __/\\__ \\__ \\\n" +
+                    "/_/    \\_\\_____/|______|  \\_____|_| |_|\\___||___/___/"
+                );
+                title.size.height = 6;
+            }
 
             ContentString text = new ContentString();
             text.Add("Press ");

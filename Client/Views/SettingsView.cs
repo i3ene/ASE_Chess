@@ -15,6 +15,8 @@ namespace Client.Views
 
         public SettingsView(ViewRouter router) : base(router)
         {
+            Settings settings = Settings.getInstance();
+
             info = new TextComponent();
             info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
             info.size.width = 100;
@@ -61,6 +63,12 @@ namespace Client.Views
             widthSlider.size.height = 1;
             widthSlider.position.xUnit = Components.Styles.ComponentUnit.Auto;
 
+            widthSlider.SetMinValue(settings.GetMinWidth());
+            widthSlider.SetMaxValue(settings.GetMaxWidth());
+            widthSlider.SetCurrentValue(settings.GetWidth());
+
+            widthSlider.OnChange += (slider) => settings.SetWidth(slider.GetCurrentValue());
+
             widthContainer.AddChild(widthText);
             widthContainer.AddChild(widthSlider);
 
@@ -84,6 +92,12 @@ namespace Client.Views
             heightSlider.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             heightSlider.size.height = 1;
             heightSlider.position.xUnit = Components.Styles.ComponentUnit.Auto;
+
+            heightSlider.SetMinValue(settings.GetMinHeight());
+            heightSlider.SetMaxValue(settings.GetMaxHeight());
+            heightSlider.SetCurrentValue(settings.GetHeight());
+
+            heightSlider.OnChange += (slider) => settings.SetHeight(slider.GetCurrentValue());
 
             heightContainer.AddChild(heightText);
             heightContainer.AddChild(heightSlider);

@@ -45,6 +45,12 @@ namespace Client.Views
                 ContentString line = row.PadRight(Console.WindowWidth);
                 Console.WriteLine(line);
             }
+            for (int i = Console.CursorTop; i < Console.WindowHeight; i++)
+            {
+                string line = "".PadRight(Console.WindowWidth);
+                Console.WriteLine(line);
+            }
+            Console.SetCursorPosition(0, 0);
         }
     }
 }

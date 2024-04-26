@@ -10,6 +10,9 @@ namespace Client.Views.Components
 {
     public class SliderComponent : Component, IInteraction
     {
+        public delegate void SliderValueHandler(SliderComponent sender);
+        public event SliderValueHandler? OnChange;
+
         private const char emptyCharacter = '░';
         private const char filledCharacter = '█';
 
@@ -25,6 +28,7 @@ namespace Client.Views.Components
             minValue = 0;
             currentValue = 50;
             displayValue = true;
+            OnChange += (sender) => Update();
         }
 
         public bool IsValueDisplayed()
@@ -35,7 +39,7 @@ namespace Client.Views.Components
         public void SetValueDisplay(bool display)
         {
             displayValue = display;
-            Update();
+            OnChange?.Invoke(this);
         }
 
         public bool ToogleValueDisplay()
@@ -50,7 +54,7 @@ namespace Client.Views.Components
             maxValue = value;
             if (maxValue < minValue) minValue = maxValue;
             if (maxValue < currentValue) currentValue = maxValue;
-            Update();
+            OnChange?.Invoke(this);
         }
 
         public void SetMinValue(int value)
@@ -58,14 +62,19 @@ namespace Client.Views.Components
             minValue = value;
             if (minValue > maxValue) maxValue = minValue;
             if (minValue > currentValue) currentValue = minValue;
-            Update();
+            OnChange?.Invoke(this);
         }
 
         public int SetCurrentValue(int value)
         {
             value = Math.Min(Math.Max(value, minValue), maxValue);
             currentValue = value;
-            Update();
+            OnChange?.Invoke(this);
+            return currentValue;
+        }
+
+        public int GetCurrentValue()
+        {
             return currentValue;
         }
 

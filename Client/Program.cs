@@ -12,11 +12,20 @@ namespace Client
     {
         public static void Main(string[] args)
         {
+            Settings settings = Settings.getInstance();
+
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
-            root.size.width = 100;
-            root.size.height = 28;
+            root.size.width = settings.GetWidth();
+            root.size.height = settings.GetHeight();
             root.border.style = ComponentBorderStyle.Thin;
+
+            settings.OnPropertyChange += (settings, property) =>
+            {
+                root.size.width = settings.GetWidth();
+                root.size.height = settings.GetHeight();
+                root.Update();
+            };
 
             MenuView menu = new MenuView(root.router);
             root.ChangeView(menu);
