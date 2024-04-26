@@ -1,14 +1,11 @@
 ﻿using Client.Views.Components;
+using Client.Views.Components.Styles;
+using Client.Views.Components.Styles.Alignments;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Client.Views.Interactions;
 using Logic;
 using Logic.Boards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Views
 {
@@ -17,31 +14,64 @@ namespace Client.Views
         private readonly Game game;
         private readonly BoardComponent board;
         private readonly TextComponent info;
+        private readonly DialogComponent dialog;
 
         public GameView(ViewRouter router, Game game) : base(router)
         {
             this.game = game;
 
             board = new BoardComponent(game);
-            board.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            board.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             AddChild(board);
 
             info = new TextComponent();
-            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.widthUnit = ComponentUnit.Relative;
             info.size.width = 100;
-            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.size.heightUnit = ComponentUnit.Auto;
+            info.position.yUnit = ComponentUnit.Auto;
+            info.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
 
+            dialog = new DialogComponent();
+            dialog.size.widthUnit = ComponentUnit.Auto;
+            dialog.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            dialog.alignment.verticalAlignment = ComponentVerticalAlignment.Middle;
+            dialog.border.style = ComponentBorderStyle.Thin;
+            dialog.SetText("Are you sure you want to quit?");
+            dialog.SetActions(["Quit", "Cancel"]);
+            dialog.OnAction += HandleDialogAction;
+
             UpdateInfoText();
+        }
+
+        private void HandleDialogAction(DialogComponent sender, string action)
+        {
+            if (action == "Quit")
+            {
+                ViewMenu();
+                return;
+            }
+            RemoveChild(dialog);
+        }
+
+        private void ViewMenu()
+        {
+            MenuView menu = new MenuView(router);
+            router.Display(menu);
         }
 
         public void HandleInteraction(InteractionArgument args)
         {
+            if (IsDialogOpen())
+            {
+                args.sender.InvokeInteractionEvent(dialog, args);
+                args.handled = true;
+                return;
+            }
+
             switch (args.key.Key)
             {
                 case ConsoleKey.Escape:
@@ -66,9 +96,7 @@ namespace Client.Views
         private void HandleInteractionEscape(InteractionArgument args)
         {
             args.handled = true;
-            // TODO
-            MenuView menu = new MenuView(router);
-            router.Display(menu);
+            AddChild(dialog);
         }
 
         private void HandleInteractionDelete(InteractionArgument args)
@@ -177,6 +205,15 @@ namespace Client.Views
             }
 
             info.SetText(text);
+        }
+
+        private bool IsDialogOpen()
+        {
+            foreach (Component child in GetAllChilds())
+            {
+                if (child == dialog) return true;
+            }
+            return false;
         }
     }
 }
