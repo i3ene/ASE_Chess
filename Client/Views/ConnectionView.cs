@@ -1,17 +1,21 @@
 ﻿using Client.Communications;
 using Client.Views.Components;
 using Client.Views.Components.Styles;
+using Client.Views.Components.Styles.Alignments;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
+using Client.Views.Interactions;
 using Logic.Communications.Actions;
 using Action = Logic.Communications.Actions.Action;
 
 namespace Client.Views
 {
-    public class ConnectionView : View
+    public class ConnectionView : View, IInteractable
     {
         public readonly ConnectionType connectionType;
         private readonly TextComponent info;
+
+        private readonly DialogComponent dialog;
 
         private readonly InputComponent ipInput;
         private readonly InputComponent portInput;
@@ -19,6 +23,14 @@ namespace Client.Views
         public ConnectionView(ViewRouter router, ConnectionType connectionType) : base(router)
         {
             this.connectionType = connectionType;
+
+            dialog = new DialogComponent();
+            dialog.size.width = new StyleValue(StyleUnit.Auto);
+            dialog.alignment.horizontal = HorizontalAlignment.Center;
+            dialog.alignment.vertical = VerticalAlignment.Middle;
+            dialog.border.style = BorderStyle.Thin;
+            dialog.SetActions(["Ok"]);
+            dialog.OnAction += (dialog, action) => RemoveChild(dialog);
 
             TextComponent title = new TextComponent("Connection");
             title.size.width = new StyleValue(StyleUnit.Auto);
@@ -121,6 +133,15 @@ namespace Client.Views
             list.AddChild(backButton);
         }
 
+        private bool IsDialogOpen()
+        {
+            foreach (Component child in GetAllChilds())
+            {
+                if (child == dialog) return true;
+            }
+            return false;
+        }
+
         private Uri GetUri() => connectionType switch
         {
             ConnectionType.Host => new Uri($"ws://127.0.0.1:{portInput.GetText().ToString(false)}"),
@@ -155,9 +176,17 @@ namespace Client.Views
 
         private void ViewGame()
         {
-            ClientSocket<Action> socket = CreateConnection();
-            GameChatView game = new GameChatView(router, socket);
-            router.Display(game);
+            try
+            {
+                ClientSocket<Action> socket = CreateConnection();
+                GameChatView game = new GameChatView(router, socket);
+                router.Display(game);
+            }
+            catch (Exception ex)
+            {
+                dialog.SetText(ex.Message);
+                AddChild(dialog);
+            }
         }
 
         private void ViewMenu()
@@ -188,6 +217,16 @@ namespace Client.Views
             }
 
             info.SetText(text);
+        }
+
+
+        public void HandleInteraction(InteractionArgument args)
+        {
+            if (IsDialogOpen())
+            {
+                args.sender.InvokeInteractionEvent(dialog, args);
+                args.handled = true;
+            }
         }
     }
 }
