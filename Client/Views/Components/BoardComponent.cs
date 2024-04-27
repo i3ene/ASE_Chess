@@ -1,4 +1,5 @@
 ﻿using Client.Views.Components.Styles;
+using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Logic;
 using Logic.Boards;
@@ -22,12 +23,20 @@ namespace Client.Views.Components
         {
             this.game = game;
             size = base.size;
-            size.width = new StyleValue(StyleUnit.Fixed, 8);
-            size.height = new StyleValue(StyleUnit.Fixed, 8);
+            size.width = new StyleValue(StyleUnit.Fixed, 12);
+            size.height = new StyleValue(StyleUnit.Fixed, 12);
+            border.style = BorderStyle.Default;
             displayChessSymbols = false;
         }
 
         public override ContentCanvas GetCanvas(ContentCanvas canvas)
+        {
+            canvas = GetBoard();
+            canvas = AddBoardLabels(canvas);
+            return canvas;
+        }
+
+        private ContentCanvas GetBoard()
         {
             List<ContentString> rows = new List<ContentString>();
 
@@ -47,6 +56,30 @@ namespace Client.Views.Components
                 }
                 rows.Add(row);
             }
+
+            return canvasHelper.ToCanvas(rows.ToArray());
+        }
+
+        private ContentCanvas AddBoardLabels(ContentCanvas canvas)
+        {
+            List<ContentString> rows = new List<ContentString>(canvas.GetRows());
+
+            ContentString letterText = new ContentString(new string(' ', 2));
+            int[] numbers = new int[BoardPosition.MAX].Select((c, i) => (i + 1)).ToArray();
+            char[] numberChars = numbers.Select(i => i.ToString()[0]).ToArray();
+            char[] letterChars = numbers.Select(i => (char)(i + BoardPosition.CHAR_OFFSET)).ToArray();
+            string letterString = new string(letterChars);
+            letterText.Insert(1, letterString);
+
+            numberChars = numberChars.Reverse().ToArray();
+            for (int i = 0; i < BoardPosition.MAX; i++)
+            {
+                string number = numberChars[i].ToString();
+                rows[i].Insert(0, number);
+                rows[i].Add(number);
+            }
+            rows.Insert(0, letterText);
+            rows.Add(letterText);
 
             return canvasHelper.ToCanvas(rows.ToArray());
         }
