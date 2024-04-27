@@ -1,6 +1,6 @@
 ﻿namespace Client.Views.Components.Styles.Borders
 {
-    public enum ComponentBorderPosition
+    public enum BorderPosition
     {
         TopLeft = 0,
         TopRight = 1,

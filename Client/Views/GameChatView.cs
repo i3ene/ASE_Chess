@@ -12,15 +12,15 @@ namespace Client.Views
         {
             ClientGame game = new ClientGame(socket);
             GameView gameView = new GameView(router, game);
-            gameView.size.width = new ComponentValue(ComponentUnit.Relative, 50);
+            gameView.size.width = new StyleValue(StyleUnit.Relative, 50);
             AddChild(gameView);
 
             ChatRepository chat = new ChatRepository();
             ChatView chatView = new ChatView(router, chat);
-            chatView.size.width = new ComponentValue(ComponentUnit.Relative, 50);
-            chatView.position.x = new ComponentValue(ComponentUnit.Relative, 50);
-            chatView.border.positions = [ComponentBorderPosition.Left];
-            chatView.border.style = ComponentBorderStyle.Thin;
+            chatView.size.width = new StyleValue(StyleUnit.Relative, 50);
+            chatView.position.x = new StyleValue(StyleUnit.Relative, 50);
+            chatView.border.positions = [BorderPosition.Left];
+            chatView.border.style = BorderStyle.Thin;
             AddChild(chatView);
         }
 

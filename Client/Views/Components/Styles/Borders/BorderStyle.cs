@@ -1,6 +1,6 @@
 ﻿namespace Client.Views.Components.Styles.Borders
 {
-    public enum ComponentBorderStyle
+    public enum BorderStyle
     {
         None = 0,
         Default = 1,

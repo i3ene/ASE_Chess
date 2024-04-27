@@ -17,29 +17,29 @@ namespace Client.Views
             this.connectionType = connectionType;
 
             TextComponent title = new TextComponent("Connection");
-            title.size.width = new ComponentValue(ComponentUnit.Auto);
-            title.size.height = new ComponentValue(ComponentUnit.Fixed, 2);
-            title.position.y = new ComponentValue(ComponentUnit.Auto);
-            title.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
-            title.border.positions = [ComponentBorderPosition.Bottom];
-            title.border.style = ComponentBorderStyle.Thin;
+            title.size.width = new StyleValue(StyleUnit.Auto);
+            title.size.height = new StyleValue(StyleUnit.Fixed, 2);
+            title.position.y = new StyleValue(StyleUnit.Auto);
+            title.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            title.border.positions = [BorderPosition.Bottom];
+            title.border.style = BorderStyle.Thin;
 
             AddChild(title);
 
             info = new TextComponent();
-            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            info.size.height = new ComponentValue(ComponentUnit.Auto);
-            info.position.y = new ComponentValue(ComponentUnit.Auto);
-            info.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
-            info.border.positions = [ComponentBorderPosition.Top];
-            info.border.style = ComponentBorderStyle.Thin;
+            info.size.width = new StyleValue(StyleUnit.Relative, 100);
+            info.size.height = new StyleValue(StyleUnit.Auto);
+            info.position.y = new StyleValue(StyleUnit.Auto);
+            info.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            info.border.positions = [BorderPosition.Top];
+            info.border.style = BorderStyle.Thin;
             AddChild(info);
 
             ListComponent list = new ListComponent();
-            list.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            list.size.height = new ComponentValue(ComponentUnit.Auto);
-            list.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
+            list.size.width = new StyleValue(StyleUnit.Relative, 100);
+            list.size.height = new StyleValue(StyleUnit.Auto);
+            list.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
             AddChild(list);
@@ -47,19 +47,19 @@ namespace Client.Views
             if (connectionType != ConnectionType.Host)
             {
                 ComponentContainer ipContainer = new ComponentContainer();
-                ipContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-                ipContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-                ipContainer.position.y = new ComponentValue(ComponentUnit.Auto);
+                ipContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+                ipContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
+                ipContainer.position.y = new StyleValue(StyleUnit.Auto);
 
                 TextComponent ipText = new TextComponent("IP: ");
-                ipText.size.width = new ComponentValue(ComponentUnit.Auto);
-                ipText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-                ipText.position.x = new ComponentValue(ComponentUnit.Auto);
+                ipText.size.width = new StyleValue(StyleUnit.Auto);
+                ipText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+                ipText.position.x = new StyleValue(StyleUnit.Auto);
 
                 InputComponent ipInput = new InputComponent();
-                ipInput.size.width = new ComponentValue(ComponentUnit.Auto);
-                ipInput.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-                ipInput.position.x = new ComponentValue(ComponentUnit.Auto);
+                ipInput.size.width = new StyleValue(StyleUnit.Auto);
+                ipInput.size.height = new StyleValue(StyleUnit.Fixed, 1);
+                ipInput.position.x = new StyleValue(StyleUnit.Auto);
 
                 ipContainer.AddChild(ipText);
                 ipContainer.AddChild(ipInput);
@@ -67,19 +67,19 @@ namespace Client.Views
             }
 
             ComponentContainer portContainer = new ComponentContainer();
-            portContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            portContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            portContainer.position.y = new ComponentValue(ComponentUnit.Auto);
+            portContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            portContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            portContainer.position.y = new StyleValue(StyleUnit.Auto);
 
             TextComponent portText = new TextComponent("Port: ");
-            portText.size.width = new ComponentValue(ComponentUnit.Auto);
-            portText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            portText.position.x = new ComponentValue(ComponentUnit.Auto);
+            portText.size.width = new StyleValue(StyleUnit.Auto);
+            portText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            portText.position.x = new StyleValue(StyleUnit.Auto);
 
             InputComponent portInput = new InputComponent();
-            portInput.size.width = new ComponentValue(ComponentUnit.Auto);
-            portInput.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            portInput.position.x = new ComponentValue(ComponentUnit.Auto);
+            portInput.size.width = new StyleValue(StyleUnit.Auto);
+            portInput.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            portInput.position.x = new StyleValue(StyleUnit.Auto);
 
             portContainer.AddChild(portText);
             portContainer.AddChild(portInput);
@@ -87,10 +87,10 @@ namespace Client.Views
 
 
             ButtonComponent actionButton = new ButtonComponent();
-            actionButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            actionButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            actionButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            actionButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            actionButton.size.width = new StyleValue(StyleUnit.Auto);
+            actionButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            actionButton.position.y = new StyleValue(StyleUnit.Auto);
+            actionButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
             actionButton.OnSelection += (button) => ViewGame();
             list.AddChild(actionButton);
 
@@ -108,10 +108,10 @@ namespace Client.Views
             }
 
             ButtonComponent backButton = new ButtonComponent("Back");
-            backButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            backButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            backButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            backButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            backButton.size.width = new StyleValue(StyleUnit.Auto);
+            backButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            backButton.position.y = new StyleValue(StyleUnit.Auto);
+            backButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
             list.AddChild(backButton);
         }

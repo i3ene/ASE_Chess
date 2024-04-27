@@ -14,19 +14,19 @@ namespace Client.Views.Components
 
         public DialogComponent()
         {
-            size.height = new ComponentValue(ComponentUnit.Auto);
+            size.height = new StyleValue(StyleUnit.Auto);
 
             text = new TextComponent();
-            text.size.width = new ComponentValue(ComponentUnit.Auto);
-            text.size.height = new ComponentValue(ComponentUnit.Auto);
-            text.position.y = new ComponentValue(ComponentUnit.Auto);
+            text.size.width = new StyleValue(StyleUnit.Auto);
+            text.size.height = new StyleValue(StyleUnit.Auto);
+            text.position.y = new StyleValue(StyleUnit.Auto);
             AddChild(text);
 
             actionContainer = new ListComponent(true);
-            actionContainer.size.width = new ComponentValue(ComponentUnit.Auto);
-            actionContainer.size.width = new ComponentValue(ComponentUnit.Fixed, 3);
-            actionContainer.position.y = new ComponentValue(ComponentUnit.Auto);
-            actionContainer.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            actionContainer.size.width = new StyleValue(StyleUnit.Auto);
+            actionContainer.size.width = new StyleValue(StyleUnit.Fixed, 3);
+            actionContainer.position.y = new StyleValue(StyleUnit.Auto);
+            actionContainer.alignment.horizontal = HorizontalAlignment.Center;
             AddChild(actionContainer);
         }
 
@@ -47,9 +47,9 @@ namespace Client.Views.Components
             foreach (string action in actions)
             {
                 ButtonComponent button = new ButtonComponent(action);
-                button.size.width = new ComponentValue(ComponentUnit.Fixed, action.Length + 2);
-                button.size.height = new ComponentValue(ComponentUnit.Auto);
-                button.position.x = new ComponentValue(ComponentUnit.Auto);
+                button.size.width = new StyleValue(StyleUnit.Fixed, action.Length + 2);
+                button.size.height = new StyleValue(StyleUnit.Auto);
+                button.position.x = new StyleValue(StyleUnit.Auto);
 
                 button.OnSelection += (button) => OnAction?.Invoke(this, action);
 

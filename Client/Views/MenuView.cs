@@ -11,9 +11,9 @@ namespace Client.Views
         public MenuView(ViewRouter router) : base(router)
         {
             TextComponent title = new TextComponent();
-            title.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            title.position.y = new ComponentValue(ComponentUnit.Auto);
-            title.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
+            title.size.width = new StyleValue(StyleUnit.Relative, 100);
+            title.position.y = new StyleValue(StyleUnit.Auto);
+            title.textAlignment.horizontal = HorizontalAlignment.Center;
 
             int height = 0;
             Settings settings = Settings.getInstance();
@@ -48,7 +48,7 @@ namespace Client.Views
                 title.SetText("ASE Chess");
                 height = 1;
             }
-            title.size.height = new ComponentValue(ComponentUnit.Fixed, height);
+            title.size.height = new StyleValue(StyleUnit.Fixed, height);
 
             ContentString text = new ContentString();
             text.Add("Press ");
@@ -62,46 +62,46 @@ namespace Client.Views
 
             TextComponent info = new TextComponent();
             info.SetText(text);
-            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            info.size.height = new ComponentValue(ComponentUnit.Auto);
-            info.position.y = new ComponentValue(ComponentUnit.Auto);
-            info.alignment.vertical = ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
-            info.border.positions = [ComponentBorderPosition.Top];
-            info.border.style = ComponentBorderStyle.Thin;
+            info.size.width = new StyleValue(StyleUnit.Relative, 100);
+            info.size.height = new StyleValue(StyleUnit.Auto);
+            info.position.y = new StyleValue(StyleUnit.Auto);
+            info.alignment.vertical = VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = HorizontalAlignment.Center;
+            info.border.positions = [BorderPosition.Top];
+            info.border.style = BorderStyle.Thin;
             AddChild(info);
 
             ListComponent list = new ListComponent();
-            list.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            list.size.height = new ComponentValue(ComponentUnit.Auto);
-            list.position.y = new ComponentValue(ComponentUnit.Auto, 1);
+            list.size.width = new StyleValue(StyleUnit.Relative, 100);
+            list.size.height = new StyleValue(StyleUnit.Auto);
+            list.position.y = new StyleValue(StyleUnit.Auto, 1);
 
             ButtonComponent joinButton = new ButtonComponent("Join");
-            joinButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            joinButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            joinButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            joinButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            joinButton.size.width = new StyleValue(StyleUnit.Auto);
+            joinButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            joinButton.position.y = new StyleValue(StyleUnit.Auto);
+            joinButton.alignment.horizontal = HorizontalAlignment.Center;
             joinButton.OnSelection += (button) => ViewJoin();
 
             ButtonComponent hostButton = new ButtonComponent("Host");
-            hostButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            hostButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            hostButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            hostButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            hostButton.size.width = new StyleValue(StyleUnit.Auto);
+            hostButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            hostButton.position.y = new StyleValue(StyleUnit.Auto);
+            hostButton.alignment.horizontal = HorizontalAlignment.Center;
             hostButton.OnSelection += (button) => ViewHost();
 
             ButtonComponent viewButton = new ButtonComponent("View");
-            viewButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            viewButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            viewButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            viewButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            viewButton.size.width = new StyleValue(StyleUnit.Auto);
+            viewButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            viewButton.position.y = new StyleValue(StyleUnit.Auto);
+            viewButton.alignment.horizontal = HorizontalAlignment.Center;
             viewButton.OnSelection += (button) => ViewView();
 
             ButtonComponent settingsButton = new ButtonComponent("Settings");
-            settingsButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            settingsButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            settingsButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            settingsButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            settingsButton.size.width = new StyleValue(StyleUnit.Auto);
+            settingsButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            settingsButton.position.y = new StyleValue(StyleUnit.Auto);
+            settingsButton.alignment.horizontal = HorizontalAlignment.Center;
             settingsButton.OnSelection += (button) => ViewSettings();
 
             list.AddChild(hostButton);

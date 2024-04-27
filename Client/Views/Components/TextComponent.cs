@@ -6,13 +6,13 @@ namespace Client.Views.Components
 {
     public class TextComponent : Component, IDynamicDimension
     {
-        public readonly ComponentAlignment textAlignment;
+        public readonly Alignment textAlignment;
 
         private ContentString text;
 
         public TextComponent() : base()
         {
-            textAlignment = new ComponentAlignment();
+            textAlignment = new Alignment();
             text = new ContentString();
         }
 
@@ -61,8 +61,8 @@ namespace Client.Views.Components
 
             switch (textAlignment.vertical)
             {
-                case ComponentVerticalAlignment.Position:
-                case ComponentVerticalAlignment.Top:
+                case VerticalAlignment.Position:
+                case VerticalAlignment.Top:
                     if (missing < 0)
                     {
                         lines = lines[..maxHeight];
@@ -76,7 +76,7 @@ namespace Client.Views.Components
                         lines = extendedLines.ToArray();
                     }
                     break;
-                case ComponentVerticalAlignment.Bottom:
+                case VerticalAlignment.Bottom:
                     if (missing < 0)
                     {
                         lines = lines[^maxHeight..];
@@ -90,7 +90,7 @@ namespace Client.Views.Components
                         lines = extendedLines.ToArray();
                     }
                     break;
-                case ComponentVerticalAlignment.Middle:
+                case VerticalAlignment.Middle:
                     int top = missing / 2;
                     if (missing < 0)
                     {
@@ -115,20 +115,20 @@ namespace Client.Views.Components
             int maxWidth = dimensionHelper.CalculateInnerWidth(this);
             switch (textAlignment.horizontal)
             {
-                case ComponentHorizontalAlignment.Left:
-                case ComponentHorizontalAlignment.Position:
+                case HorizontalAlignment.Left:
+                case HorizontalAlignment.Position:
                     foreach (var line in lines)
                     {
                         line.PadRight(maxWidth);
                     }
                     break;
-                case ComponentHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     foreach (var line in lines)
                     {
                         line.PadLeft(maxWidth);
                     }
                     break;
-                case ComponentHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     foreach (var line in lines)
                     {
                         int left = (maxWidth - line.Length) / 2;

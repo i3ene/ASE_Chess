@@ -67,7 +67,7 @@ namespace Client.Views.Components
             Component[] childs = GetAllChilds();
             for (int i = 0; i < childs.Length; i++)
             {
-                childs[i].border.style = index == i ? ComponentBorderStyle.Thick : ComponentBorderStyle.Thin;
+                childs[i].border.style = index == i ? BorderStyle.Thick : BorderStyle.Thin;
             }
             Update();
         }
@@ -113,7 +113,7 @@ namespace Client.Views.Components
             int width = 0;
             foreach (Component child in GetAllChilds())
             {
-                if (child.size.width.unit != ComponentUnit.Fixed) continue;
+                if (child.size.width.unit != StyleUnit.Fixed) continue;
                 int childWidth = dimensionHelper.CalculateOuterWidth(child);
                 if (vertical)
                 {
@@ -136,7 +136,7 @@ namespace Client.Views.Components
             int height = 0;
             foreach (Component child in GetAllChilds())
             {
-                if (child.size.height.unit != ComponentUnit.Fixed) continue;
+                if (child.size.height.unit != StyleUnit.Fixed) continue;
                 int childHeight = dimensionHelper.CalculateOuterHeight(child);
                 if (vertical)
                 {

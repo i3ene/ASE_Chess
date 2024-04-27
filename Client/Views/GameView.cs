@@ -21,24 +21,24 @@ namespace Client.Views
             this.game = game;
 
             board = new BoardComponent(game);
-            board.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            board.alignment.horizontal = HorizontalAlignment.Center;
             AddChild(board);
 
             info = new TextComponent();
-            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            info.size.height = new ComponentValue(ComponentUnit.Auto);
-            info.position.y = new ComponentValue(ComponentUnit.Auto);
-            info.alignment.vertical = ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
-            info.border.positions = [ComponentBorderPosition.Top];
-            info.border.style = ComponentBorderStyle.Thin;
+            info.size.width = new StyleValue(StyleUnit.Relative, 100);
+            info.size.height = new StyleValue(StyleUnit.Auto);
+            info.position.y = new StyleValue(StyleUnit.Auto);
+            info.alignment.vertical = VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = HorizontalAlignment.Center;
+            info.border.positions = [BorderPosition.Top];
+            info.border.style = BorderStyle.Thin;
             AddChild(info);
 
             dialog = new DialogComponent();
-            dialog.size.width = new ComponentValue(ComponentUnit.Auto);
-            dialog.alignment.horizontal = ComponentHorizontalAlignment.Center;
-            dialog.alignment.vertical = ComponentVerticalAlignment.Middle;
-            dialog.border.style = ComponentBorderStyle.Thin;
+            dialog.size.width = new StyleValue(StyleUnit.Auto);
+            dialog.alignment.horizontal = HorizontalAlignment.Center;
+            dialog.alignment.vertical = VerticalAlignment.Middle;
+            dialog.border.style = BorderStyle.Thin;
             dialog.SetText("Are you sure you want to quit?");
             dialog.SetActions(["Quit", "Cancel"]);
             dialog.OnAction += HandleDialogAction;

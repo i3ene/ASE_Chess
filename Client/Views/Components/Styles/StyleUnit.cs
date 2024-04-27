@@ -1,6 +1,6 @@
 ﻿namespace Client.Views.Components.Styles
 {
-    public enum ComponentUnit
+    public enum StyleUnit
     {
         Fixed,
         Absolute,

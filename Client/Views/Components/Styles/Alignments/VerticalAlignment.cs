@@ -1,6 +1,6 @@
 ﻿namespace Client.Views.Components.Styles.Alignments
 {
-    public enum ComponentVerticalAlignment
+    public enum VerticalAlignment
     {
         Position,
         Top,

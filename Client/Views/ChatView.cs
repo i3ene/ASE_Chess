@@ -21,13 +21,13 @@ namespace Client.Views
             this.chat.OnChange += UpdateChat;
 
             info = new TextComponent();
-            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            info.size.height = new ComponentValue(ComponentUnit.Auto);
-            info.position.y = new ComponentValue(ComponentUnit.Auto);
-            info.alignment.vertical = ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
-            info.border.positions = [ComponentBorderPosition.Top];
-            info.border.style = ComponentBorderStyle.Thin;
+            info.size.width = new StyleValue(StyleUnit.Relative, 100);
+            info.size.height = new StyleValue(StyleUnit.Auto);
+            info.position.y = new StyleValue(StyleUnit.Auto);
+            info.alignment.vertical = VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = HorizontalAlignment.Center;
+            info.border.positions = [BorderPosition.Top];
+            info.border.style = BorderStyle.Thin;
             AddChild(info);
 
             ContentString text = new ContentString();
@@ -38,19 +38,19 @@ namespace Client.Views
             info.SetText(text);
 
             input = new InputComponent();
-            input.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            input.size.height = new ComponentValue(ComponentUnit.Auto);
-            input.position.y = new ComponentValue(ComponentUnit.Auto);
-            input.alignment.vertical = ComponentVerticalAlignment.Bottom;
-            input.border.positions = [ComponentBorderPosition.Top];
-            input.border.style = ComponentBorderStyle.Default;
+            input.size.width = new StyleValue(StyleUnit.Relative, 100);
+            input.size.height = new StyleValue(StyleUnit.Auto);
+            input.position.y = new StyleValue(StyleUnit.Auto);
+            input.alignment.vertical = VerticalAlignment.Bottom;
+            input.border.positions = [BorderPosition.Top];
+            input.border.style = BorderStyle.Default;
             AddChild(input);
 
             messagesContainer = new ComponentContainer();
-            messagesContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            messagesContainer.size.height = new ComponentValue(ComponentUnit.Auto);
-            messagesContainer.position.y = new ComponentValue(ComponentUnit.Auto);
-            messagesContainer.alignment.vertical = ComponentVerticalAlignment.Bottom;
+            messagesContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            messagesContainer.size.height = new StyleValue(StyleUnit.Auto);
+            messagesContainer.position.y = new StyleValue(StyleUnit.Auto);
+            messagesContainer.alignment.vertical = VerticalAlignment.Bottom;
             AddChild(messagesContainer);
         }
 
@@ -61,28 +61,28 @@ namespace Client.Views
             foreach (ChatMessage message in chat.GetAllMessages().Reverse())
             {
                 TextComponent messageText = new TextComponent();
-                messageText.size.width = new ComponentValue(ComponentUnit.Auto);
-                messageText.size.height = new ComponentValue(ComponentUnit.Auto);
-                messageText.position.y = new ComponentValue(ComponentUnit.Auto);
-                messageText.alignment.vertical = ComponentVerticalAlignment.Bottom;
-                messageText.border.style = ComponentBorderStyle.Round;
-                messageText.alignment.horizontal = ComponentHorizontalAlignment.Right;
+                messageText.size.width = new StyleValue(StyleUnit.Auto);
+                messageText.size.height = new StyleValue(StyleUnit.Auto);
+                messageText.position.y = new StyleValue(StyleUnit.Auto);
+                messageText.alignment.vertical = VerticalAlignment.Bottom;
+                messageText.border.style = BorderStyle.Round;
+                messageText.alignment.horizontal = HorizontalAlignment.Right;
 
                 ContentString text = new ContentString(message.message);
                 switch (message.sender)
                 {
                     case "":
-                        messageText.alignment.horizontal = ComponentHorizontalAlignment.Center;
-                        messageText.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
+                        messageText.alignment.horizontal = HorizontalAlignment.Center;
+                        messageText.textAlignment.horizontal = HorizontalAlignment.Center;
                         text.Foreground(ContentColor.DARKGRAY);
                         break;
                     case "self":
-                        messageText.alignment.horizontal = ComponentHorizontalAlignment.Right;
-                        messageText.textAlignment.horizontal = ComponentHorizontalAlignment.Right;
+                        messageText.alignment.horizontal = HorizontalAlignment.Right;
+                        messageText.textAlignment.horizontal = HorizontalAlignment.Right;
                         break;
                     default:
-                        messageText.alignment.horizontal = ComponentHorizontalAlignment.Left;
-                        messageText.textAlignment.horizontal = ComponentHorizontalAlignment.Left;
+                        messageText.alignment.horizontal = HorizontalAlignment.Left;
+                        messageText.textAlignment.horizontal = HorizontalAlignment.Left;
                         text.Insert(0, new ContentString($"{message.sender}:\n").Foreground(ContentColor.BROWN));
                         break;
                 }

@@ -11,8 +11,8 @@ namespace Client.Views
         {
             this.router = router;
 
-            size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            size.height = new ComponentValue(ComponentUnit.Relative, 100);
+            size.width = new StyleValue(StyleUnit.Relative, 100);
+            size.height = new StyleValue(StyleUnit.Relative, 100);
         }
 
     }

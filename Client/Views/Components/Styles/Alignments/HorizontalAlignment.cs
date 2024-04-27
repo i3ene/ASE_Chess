@@ -1,6 +1,6 @@
 ﻿namespace Client.Views.Components.Styles.Alignments
 {
-    public enum ComponentHorizontalAlignment
+    public enum HorizontalAlignment
     {
         Position,
         Left,

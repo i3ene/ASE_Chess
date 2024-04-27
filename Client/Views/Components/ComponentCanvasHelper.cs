@@ -48,45 +48,45 @@ namespace Client.Views.Components
 
             if (component.border.HasAnyTop())
             {
-                viewWithBorder.Insert(0, new ContentString(new string(component.border.GetPosition(ComponentBorderPosition.Top), innerWidth)));
+                viewWithBorder.Insert(0, new ContentString(new string(component.border.GetPosition(BorderPosition.Top), innerWidth)));
             }
             if (component.border.HasAnyBottom())
             {
-                viewWithBorder.Add(new ContentString(new string(component.border.GetPosition(ComponentBorderPosition.Bottom), innerWidth)));
+                viewWithBorder.Add(new ContentString(new string(component.border.GetPosition(BorderPosition.Bottom), innerWidth)));
             }
             if (component.border.HasAnyLeft())
             {
                 foreach (ContentString viewLine in viewWithBorder)
                 {
-                    viewLine.Insert(0, component.border.GetPosition(ComponentBorderPosition.Left).ToString());
+                    viewLine.Insert(0, component.border.GetPosition(BorderPosition.Left).ToString());
                 }
             }
             if (component.border.HasAnyRight())
             {
                 foreach (ContentString viewLine in viewWithBorder)
                 {
-                    viewLine.Add(component.border.GetPosition(ComponentBorderPosition.Right).ToString());
+                    viewLine.Add(component.border.GetPosition(BorderPosition.Right).ToString());
                 }
             }
 
-            if (component.border.HasPosition(ComponentBorderPosition.TopLeft))
+            if (component.border.HasPosition(BorderPosition.TopLeft))
             {
-                viewWithBorder[0].Inplace(0, component.border.GetPosition(ComponentBorderPosition.TopLeft).ToString());
+                viewWithBorder[0].Inplace(0, component.border.GetPosition(BorderPosition.TopLeft).ToString());
             }
 
-            if (component.border.HasPosition(ComponentBorderPosition.TopRight))
+            if (component.border.HasPosition(BorderPosition.TopRight))
             {
-                viewWithBorder[0].Inplace(viewWithBorder[0].Length - 1, component.border.GetPosition(ComponentBorderPosition.TopRight).ToString());
+                viewWithBorder[0].Inplace(viewWithBorder[0].Length - 1, component.border.GetPosition(BorderPosition.TopRight).ToString());
             }
 
-            if (component.border.HasPosition(ComponentBorderPosition.BottomLeft))
+            if (component.border.HasPosition(BorderPosition.BottomLeft))
             {
-                viewWithBorder[viewWithBorder.Count - 1].Inplace(0, component.border.GetPosition(ComponentBorderPosition.BottomLeft).ToString());
+                viewWithBorder[viewWithBorder.Count - 1].Inplace(0, component.border.GetPosition(BorderPosition.BottomLeft).ToString());
             }
 
-            if (component.border.HasPosition(ComponentBorderPosition.BottomRight))
+            if (component.border.HasPosition(BorderPosition.BottomRight))
             {
-                viewWithBorder[viewWithBorder.Count - 1].Inplace(viewWithBorder[0].Length - 1, component.border.GetPosition(ComponentBorderPosition.BottomRight).ToString());
+                viewWithBorder[viewWithBorder.Count - 1].Inplace(viewWithBorder[0].Length - 1, component.border.GetPosition(BorderPosition.BottomRight).ToString());
             }
 
             return ToCanvas(viewWithBorder.ToArray());

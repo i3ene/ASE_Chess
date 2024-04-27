@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Client.Views.Components.Styles
 {
-    public class ComponentValue
+    public class StyleValue
     {
-        public readonly ComponentUnit unit;
+        public readonly StyleUnit unit;
         public readonly int value;
 
-        public ComponentValue(ComponentUnit unit) : this(unit, 0) { }
+        public StyleValue(StyleUnit unit) : this(unit, 0) { }
 
-        public ComponentValue(int value) : this(ComponentUnit.Auto, value) { }
+        public StyleValue(int value) : this(StyleUnit.Auto, value) { }
 
-        public ComponentValue(ComponentUnit unit, int value)
+        public StyleValue(StyleUnit unit, int value)
         {
             this.unit = unit;
             this.value = value;

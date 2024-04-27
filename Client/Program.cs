@@ -13,14 +13,14 @@ namespace Client
 
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
-            root.size.width = new ComponentValue(ComponentUnit.Fixed, settings.GetWidth());
-            root.size.height = new ComponentValue(ComponentUnit.Fixed, settings.GetHeight());
-            root.border.style = ComponentBorderStyle.Thin;
+            root.size.width = new StyleValue(StyleUnit.Fixed, settings.GetWidth());
+            root.size.height = new StyleValue(StyleUnit.Fixed, settings.GetHeight());
+            root.border.style = BorderStyle.Thin;
 
             settings.OnPropertyChange += (settings, property) =>
             {
-                root.size.width = new ComponentValue(ComponentUnit.Fixed, settings.GetWidth());
-                root.size.height = new ComponentValue(ComponentUnit.Fixed, settings.GetHeight());
+                root.size.width = new StyleValue(StyleUnit.Fixed, settings.GetWidth());
+                root.size.height = new StyleValue(StyleUnit.Fixed, settings.GetHeight());
                 root.Update();
             };
 

@@ -10,19 +10,19 @@ namespace Client.Views.Components
         public event UpdateHandler? OnUpdate;
 
         public Component? parent;
-        public readonly ComponentPosition position;
-        public readonly ComponentSize size;
-        public readonly ComponentBorder border;
-        public readonly ComponentAlignment alignment;
+        public readonly StylePosition position;
+        public readonly StyleSize size;
+        public readonly Border border;
+        public readonly Alignment alignment;
         public readonly ComponentDimensionHelper dimensionHelper;
         public readonly ComponentCanvasHelper canvasHelper;
 
         public Component()
         {
-            position = new ComponentPosition();
-            size = new ComponentSize();
-            border = new ComponentBorder();
-            alignment = new ComponentAlignment();
+            position = new StylePosition();
+            size = new StyleSize();
+            border = new Border();
+            alignment = new Alignment();
             dimensionHelper = new ComponentDimensionHelper();
             canvasHelper = new ComponentCanvasHelper(dimensionHelper);
         }

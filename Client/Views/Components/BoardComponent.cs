@@ -11,7 +11,7 @@ namespace Client.Views.Components
         private const int CHESS_UNICODE_OFFSET = 0x2654;
 
         private readonly Game game;
-        private new readonly ComponentSize size;
+        private new readonly StyleSize size;
 
         private BoardPosition? sourcePosition;
         private BoardPosition? targetPosition;
@@ -22,8 +22,8 @@ namespace Client.Views.Components
         {
             this.game = game;
             size = base.size;
-            size.width = new ComponentValue(ComponentUnit.Fixed, 8);
-            size.height = new ComponentValue(ComponentUnit.Fixed, 8);
+            size.width = new StyleValue(StyleUnit.Fixed, 8);
+            size.height = new StyleValue(StyleUnit.Fixed, 8);
             displayChessSymbols = false;
         }
 

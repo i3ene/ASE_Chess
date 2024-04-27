@@ -14,43 +14,43 @@ namespace Client.Views
             Settings settings = Settings.getInstance();
 
             info = new TextComponent();
-            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            info.size.height = new ComponentValue(ComponentUnit.Auto);
-            info.position.y = new ComponentValue(ComponentUnit.Auto);
-            info.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
-            info.border.positions = [ComponentBorderPosition.Top];
-            info.border.style = ComponentBorderStyle.Thin;
+            info.size.width = new StyleValue(StyleUnit.Relative, 100);
+            info.size.height = new StyleValue(StyleUnit.Auto);
+            info.position.y = new StyleValue(StyleUnit.Auto);
+            info.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            info.border.positions = [BorderPosition.Top];
+            info.border.style = BorderStyle.Thin;
             AddChild(info);
 
             TextComponent title = new TextComponent("Settings");
-            title.size.width = new ComponentValue(ComponentUnit.Auto);
-            title.size.height = new ComponentValue(ComponentUnit.Fixed, 2);
-            title.position.y = new ComponentValue(ComponentUnit.Auto);
-            title.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
-            title.border.positions = [ComponentBorderPosition.Bottom];
-            title.border.style = ComponentBorderStyle.Thin;
+            title.size.width = new StyleValue(StyleUnit.Auto);
+            title.size.height = new StyleValue(StyleUnit.Fixed, 2);
+            title.position.y = new StyleValue(StyleUnit.Auto);
+            title.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            title.border.positions = [BorderPosition.Bottom];
+            title.border.style = BorderStyle.Thin;
 
             ListComponent list = new ListComponent();
-            list.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            list.size.height = new ComponentValue(ComponentUnit.Auto);
-            list.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
+            list.size.width = new StyleValue(StyleUnit.Relative, 100);
+            list.size.height = new StyleValue(StyleUnit.Auto);
+            list.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
             ComponentContainer widthContainer = new ComponentContainer();
-            widthContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            widthContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            widthContainer.position.y = new ComponentValue(ComponentUnit.Auto);
+            widthContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            widthContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            widthContainer.position.y = new StyleValue(StyleUnit.Auto);
 
             TextComponent widthText = new TextComponent("Width ");
-            widthText.size.width = new ComponentValue(ComponentUnit.Auto);
-            widthText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            widthText.position.x = new ComponentValue(ComponentUnit.Auto);
+            widthText.size.width = new StyleValue(StyleUnit.Auto);
+            widthText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            widthText.position.x = new StyleValue(StyleUnit.Auto);
 
             SliderComponent widthSlider = new SliderComponent();
-            widthSlider.size.width = new ComponentValue(ComponentUnit.Auto);
-            widthSlider.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            widthSlider.position.x = new ComponentValue(ComponentUnit.Auto);
+            widthSlider.size.width = new StyleValue(StyleUnit.Auto);
+            widthSlider.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            widthSlider.position.x = new StyleValue(StyleUnit.Auto);
 
             widthSlider.SetMinValue(settings.GetMinWidth());
             widthSlider.SetMaxValue(settings.GetMaxWidth());
@@ -64,19 +64,19 @@ namespace Client.Views
             list.AddChild(widthContainer);
 
             ComponentContainer heightContainer = new ComponentContainer();
-            heightContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
-            heightContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            heightContainer.position.y = new ComponentValue(ComponentUnit.Auto);
+            heightContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            heightContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            heightContainer.position.y = new StyleValue(StyleUnit.Auto);
 
             TextComponent heightText = new TextComponent("Height ");
-            heightText.size.width = new ComponentValue(ComponentUnit.Auto);
-            heightText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            heightText.position.x = new ComponentValue(ComponentUnit.Auto);
+            heightText.size.width = new StyleValue(StyleUnit.Auto);
+            heightText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            heightText.position.x = new StyleValue(StyleUnit.Auto);
 
             SliderComponent heightSlider = new SliderComponent();
-            heightSlider.size.width = new ComponentValue(ComponentUnit.Auto);
-            heightSlider.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
-            heightSlider.position.x = new ComponentValue(ComponentUnit.Auto);
+            heightSlider.size.width = new StyleValue(StyleUnit.Auto);
+            heightSlider.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            heightSlider.position.x = new StyleValue(StyleUnit.Auto);
 
             heightSlider.SetMinValue(settings.GetMinHeight());
             heightSlider.SetMaxValue(settings.GetMaxHeight());
@@ -90,10 +90,10 @@ namespace Client.Views
             list.AddChild(heightContainer);
 
             ButtonComponent backButton = new ButtonComponent("Back");
-            backButton.size.width = new ComponentValue(ComponentUnit.Auto);
-            backButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
-            backButton.position.y = new ComponentValue(ComponentUnit.Auto);
-            backButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            backButton.size.width = new StyleValue(StyleUnit.Auto);
+            backButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            backButton.position.y = new StyleValue(StyleUnit.Auto);
+            backButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
 
             list.AddChild(backButton);
