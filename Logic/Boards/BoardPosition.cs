@@ -1,16 +1,16 @@
 ﻿namespace Logic.Boards
 {
-    public class BoardPosition : Vector2D
+    public class BoardPosition : ICloneable
     {
         public const int CHAR_OFFSET = 64;
         public const int MAX = 8;
 
 
         public int _x;
-        public override int x { get => GetX(); set => SetX(value); }
+        public int x { get => GetX(); set => SetX(value); }
 
         public int _y;
-        public override int y { get => GetY(); set => SetY(value); }
+        public int y { get => GetY(); set => SetY(value); }
 
         public char cx { get => GetCharX(); set => SetCharX(value); }
 
@@ -91,7 +91,106 @@
             return char.ToUpper(c) - CHAR_OFFSET;
         }
 
-        public override BoardPosition Clone()
+        public BoardPosition Set(BoardPosition other)
+        {
+            x = other.x;
+            y = other.y;
+            return this;
+        }
+
+        public BoardPosition Add(BoardPosition other)
+        {
+            x += other.x;
+            y += other.y;
+            return this;
+        }
+
+        public BoardPosition Subtract(BoardPosition other)
+        {
+            x -= other.x;
+            y -= other.y;
+            return this;
+        }
+
+        public BoardPosition Multiply(BoardPosition other)
+        {
+            x *= other.x;
+            y *= other.y;
+            return this;
+        }
+
+        public BoardPosition Divide(BoardPosition other)
+        {
+            x /= other.x;
+            y /= other.y;
+            return this;
+        }
+
+        public static BoardPosition operator +(BoardPosition lhs, BoardPosition rhs)
+        {
+            return lhs.Clone().Add(rhs);
+        }
+
+        public static BoardPosition operator -(BoardPosition lhs, BoardPosition rhs)
+        {
+            return lhs.Clone().Subtract(rhs);
+        }
+
+        public static BoardPosition operator *(BoardPosition lhs, BoardPosition rhs)
+        {
+            return lhs.Clone().Multiply(rhs);
+        }
+
+        public static BoardPosition operator /(BoardPosition lhs, BoardPosition rhs)
+        {
+            return lhs.Clone().Divide(rhs);
+        }
+
+        public bool Equals(BoardPosition? v)
+        {
+            if (v is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, v))
+            {
+                return true;
+            }
+
+            if (GetType() != v.GetType())
+            {
+                return false;
+            }
+
+            return x == v.x && y == v.y;
+        }
+
+        public static bool operator ==(BoardPosition? lhs, BoardPosition? rhs)
+        {
+            if (lhs is null)
+            {
+                return rhs is null;
+            }
+
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(BoardPosition? lhs, BoardPosition? rhs) => !(lhs == rhs);
+
+        public override bool Equals(object? obj)
+        {
+            return obj is BoardPosition && Equals((BoardPosition)obj);
+        }
+
+        public override int GetHashCode() => (x, y).GetHashCode();
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
+
+        public BoardPosition Clone()
         {
             return new BoardPosition(x, y);
         }
