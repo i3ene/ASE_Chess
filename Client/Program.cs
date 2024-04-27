@@ -1,4 +1,5 @@
 ﻿using Client.Views;
+using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Interactions;
 
@@ -12,14 +13,14 @@ namespace Client
 
             ViewService viewService = new ViewService();
             ViewRoot root = new ViewRoot();
-            root.size.width = settings.GetWidth();
-            root.size.height = settings.GetHeight();
+            root.size.width = new ComponentValue(ComponentUnit.Fixed, settings.GetWidth());
+            root.size.height = new ComponentValue(ComponentUnit.Fixed, settings.GetHeight());
             root.border.style = ComponentBorderStyle.Thin;
 
             settings.OnPropertyChange += (settings, property) =>
             {
-                root.size.width = settings.GetWidth();
-                root.size.height = settings.GetHeight();
+                root.size.width = new ComponentValue(ComponentUnit.Fixed, settings.GetWidth());
+                root.size.height = new ComponentValue(ComponentUnit.Fixed, settings.GetHeight());
                 root.Update();
             };
 

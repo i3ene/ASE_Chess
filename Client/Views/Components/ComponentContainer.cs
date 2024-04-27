@@ -55,8 +55,8 @@ namespace Client.Views.Components
             {
                 ContentCanvas childCanvas = child.View();
                 ComponentDimension childDimension = dimensionHelper.CalculateDimension(child);
-                int left = childDimension.position.x - dimension.position.x;
-                int top = childDimension.position.y - dimension.position.y;
+                int left = childDimension.position.x.value - dimension.position.x.value;
+                int top = childDimension.position.y.value - dimension.position.y.value;
 
                 foreach ((ContentString row, int y) in childCanvas.GetRows().Select((row, index) => (row, index)))
                 {

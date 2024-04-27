@@ -2,25 +2,27 @@
 
 namespace Client.Views.Components.Styles
 {
-    public class ComponentPosition : Vector2D
+    public class ComponentPosition : ICloneable
     {
-        public ComponentUnit xUnit;
-        public ComponentUnit yUnit;
+        public ComponentValue x;
+        public ComponentValue y;
 
-        public ComponentPosition() : this(0, 0) { }
+        public ComponentPosition() : this(new ComponentValue(ComponentUnit.Absolute), new ComponentValue(ComponentUnit.Absolute)) { }
 
-        public ComponentPosition(int x, int y) : base(x, y)
+        public ComponentPosition(ComponentValue x, ComponentValue y)
         {
-            xUnit = ComponentUnit.Absolute;
-            yUnit = ComponentUnit.Absolute;
+            this.x = x;
+            this.y = y;
         }
 
-        public override ComponentPosition Clone()
+        object ICloneable.Clone()
         {
-            ComponentPosition position = new ComponentPosition(x, y);
-            position.xUnit = xUnit;
-            position.yUnit = yUnit;
-            return position;
+            return Clone();
+        }
+
+        public ComponentPosition Clone()
+        {
+            return new ComponentPosition(x, y);
         }
     }
 }

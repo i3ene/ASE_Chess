@@ -6,7 +6,7 @@ namespace Client.Views.Components
     {
         public ComponentSize CalculateInnerSize(Component component)
         {
-            return new ComponentSize(CalculateInnerWidth(component), CalculateInnerHeight(component));
+            return new ComponentSize(new ComponentValue(CalculateInnerWidth(component)), new ComponentValue(CalculateInnerHeight(component)));
         }
 
         public int CalculateInnerWidth(Component component)
@@ -35,10 +35,10 @@ namespace Client.Views.Components
 
         public ComponentSize CalculateOuterSize(Component component)
         {
-            return new ComponentSize(CalculateOuterWidth(component), CalculateOuterHeight(component));
+            return new ComponentSize(new ComponentValue(CalculateOuterWidth(component)), new ComponentValue(CalculateOuterHeight(component)));
         }
 
-        public int CalculateOuterWidth(Component component) => component.size.widthUnit switch
+        public int CalculateOuterWidth(Component component) => component.size.width.unit switch
         {
             ComponentUnit.Fixed => CalculateOuterWidthFixed(component),
             ComponentUnit.Absolute => CalculateOuterWidthAbsolute(component),
@@ -49,20 +49,20 @@ namespace Client.Views.Components
 
         private int CalculateOuterWidthFixed(Component component)
         {
-            return component.size.width;
+            return component.size.width.value;
         }
 
         private int CalculateOuterWidthAbsolute(Component component)
         {
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
-            return (int)(parentInnerWidth * ToPercent(component.size.width));
+            return (int)(parentInnerWidth * ToPercent(component.size.width.value));
         }
 
         private int CalculateOuterWidthRelative(Component component)
         {
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int outerWidth = parentInnerWidth;
-            outerWidth = (int)(outerWidth * ToPercent(component.size.width));
+            outerWidth = (int)(outerWidth * ToPercent(component.size.width.value));
             return outerWidth;
         }
 
@@ -94,7 +94,7 @@ namespace Client.Views.Components
             return outerWidth;
         }
 
-        public int CalculateOuterHeight(Component component) => component.size.heightUnit switch
+        public int CalculateOuterHeight(Component component) => component.size.height.unit switch
         {
             ComponentUnit.Fixed => CalculateOuterHeightFixed(component),
             ComponentUnit.Absolute => CalculateOuterHeightAbsolute(component),
@@ -105,20 +105,20 @@ namespace Client.Views.Components
 
         private int CalculateOuterHeightFixed(Component component)
         {
-            return component.size.height;
+            return component.size.height.value;
         }
 
         private int CalculateOuterHeightAbsolute(Component component)
         {
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
-            return (int)(parentInnerHeight * ToPercent(component.size.height));
+            return (int)(parentInnerHeight * ToPercent(component.size.height.value));
         }
 
         private int CalculateOuterHeightRelative(Component component)
         {
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int outerHeight = parentInnerHeight;
-            outerHeight = (int)(outerHeight * ToPercent(component.size.height));
+            outerHeight = (int)(outerHeight * ToPercent(component.size.height.value));
             return outerHeight;
         }
 
@@ -126,7 +126,7 @@ namespace Client.Views.Components
         {
             int outerHeight = 0;
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
-            if (component.size.heightUnit == ComponentUnit.Auto && component is IDynamicDimension)
+            if (component.size.height.unit == ComponentUnit.Auto && component is IDynamicDimension)
             {
                 outerHeight = ((IDynamicDimension)component).GetDynamicHeight();
                 if (component.border.isEnabled)
@@ -152,10 +152,10 @@ namespace Client.Views.Components
 
         public ComponentPosition CalculatePosition(Component component)
         {
-            return new ComponentPosition(CalculateXPosition(component), CalculateYPosition(component));
+            return new ComponentPosition(new ComponentValue(CalculateXPosition(component)), new ComponentValue(CalculateYPosition(component)));
         }
 
-        public int CalculateXPosition(Component component) => component.position.xUnit switch
+        public int CalculateXPosition(Component component) => component.position.x.unit switch
         {
             ComponentUnit.Fixed => CalculateXPositionFixed(component),
             ComponentUnit.Absolute => CalculateXPositionAbsolute(component),
@@ -169,7 +169,7 @@ namespace Client.Views.Components
             Styles.Alignments.ComponentHorizontalAlignment.Position or
             Styles.Alignments.ComponentHorizontalAlignment.Left or
             Styles.Alignments.ComponentHorizontalAlignment.Right or
-            Styles.Alignments.ComponentHorizontalAlignment.Center => component.position.x,
+            Styles.Alignments.ComponentHorizontalAlignment.Center => component.position.x.value,
             _ => 0
         };
 
@@ -185,7 +185,7 @@ namespace Client.Views.Components
         private int CalculateXPositionAbsoluteLeft(Component component)
         {
             int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
-            return parentXPosition + component.position.x;
+            return parentXPosition + component.position.x.value;
         } 
 
         private int CalculateXPositionAbsoluteRight(Component component)
@@ -193,7 +193,7 @@ namespace Client.Views.Components
             int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int outerWidth = CalculateOuterWidth(component);
-            return (parentXPosition + parentInnerWidth) - component.position.x - outerWidth;
+            return (parentXPosition + parentInnerWidth) - component.position.x.value - outerWidth;
         }
 
         private int CalculateXPositionAbsoulteCenter(Component component)
@@ -202,7 +202,7 @@ namespace Client.Views.Components
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int width = CalculateOuterWidth(component);
             int center = (parentInnerWidth / 2) - (width / 2);
-            center += component.position.x;
+            center += component.position.x.value;
             return parentXPosition + center;
         }
 
@@ -219,7 +219,7 @@ namespace Client.Views.Components
         {
             int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
             int parentOuterWidth = component.parent is null ? 0 : CalculateOuterWidth(component.parent);
-            return (int)(parentXPosition + (parentOuterWidth * ToPercent(component.position.x)));
+            return (int)(parentXPosition + (parentOuterWidth * ToPercent(component.position.x.value)));
         }
 
         private int CalculateXPositionRelativeRight(Component component)
@@ -227,7 +227,7 @@ namespace Client.Views.Components
             int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
             int parentOuterWidth = component.parent is null ? 0 : CalculateOuterWidth(component.parent);
             int outerWidth = CalculateOuterWidth(component);
-            return (int)(parentXPosition + parentOuterWidth - (parentOuterWidth * ToPercent(component.position.x)) - outerWidth);
+            return (int)(parentXPosition + parentOuterWidth - (parentOuterWidth * ToPercent(component.position.x.value)) - outerWidth);
         }
 
         private int CalculateXPositionRelativeCenter(Component component)
@@ -236,7 +236,7 @@ namespace Client.Views.Components
             int parentInnerWidth = component.parent is null ? 0 : CalculateInnerWidth(component.parent);
             int width = CalculateOuterWidth(component);
             int center = (parentInnerWidth / 2) - (width / 2);
-            center = (int)(center * ToPercent(component.position.x));
+            center = (int)(center * ToPercent(component.position.x.value));
             return parentXPosition + center;
         }
 
@@ -251,14 +251,14 @@ namespace Client.Views.Components
 
         private int CalculateXPositionAutoLeft(Component component)
         {
-            int xPosition = component.position.x;
+            int xPosition = component.position.x.value;
             if (component.parent is ComponentContainer)
             {
                 Component? lastChild = null;
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
                     if (child == component) break;
-                    if (child.position.xUnit != ComponentUnit.Auto ||
+                    if (child.position.x.unit != ComponentUnit.Auto ||
                         (child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Position &&
                         child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Left)) continue;
                     lastChild = child;
@@ -280,7 +280,7 @@ namespace Client.Views.Components
 
         private int CalculateXPositionAutoRight(Component component)
         {
-            int xPosition = -component.position.x;
+            int xPosition = -component.position.x.value;
             xPosition -= CalculateOuterWidth(component);
             if (component.parent is ComponentContainer)
             {
@@ -288,7 +288,7 @@ namespace Client.Views.Components
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
                     if (child == component) break;
-                    if (child.position.xUnit != ComponentUnit.Auto ||
+                    if (child.position.x.unit != ComponentUnit.Auto ||
                         child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Right) continue;
                     lastChild = child;
                 }
@@ -327,11 +327,11 @@ namespace Client.Views.Components
                 else
                 {
                     int parentInnerWidth = component.parent == null ? 0 : CalculateInnerWidth(component.parent);
-                    int totalWidth = CalculateOuterWidth(component) + component.position.x;
+                    int totalWidth = CalculateOuterWidth(component) + component.position.x.value;
                     foreach (Component child in childs)
                     {
                         if (child == component) continue;
-                        totalWidth += CalculateOuterWidth(child) + child.position.x;
+                        totalWidth += CalculateOuterWidth(child) + child.position.x.value;
                     }
                     int parentXPosition = component.parent is null ? 0 : CalculateXPosition(component.parent);
                     xPosition += parentXPosition;
@@ -342,7 +342,7 @@ namespace Client.Views.Components
             return xPosition;
         }
 
-        public int CalculateYPosition(Component component) => component.position.yUnit switch
+        public int CalculateYPosition(Component component) => component.position.y.unit switch
         {
             ComponentUnit.Fixed => CalculateYPositionFixed(component),
             ComponentUnit.Absolute => CalculateYPositionAbsolute(component),
@@ -356,7 +356,7 @@ namespace Client.Views.Components
             Styles.Alignments.ComponentVerticalAlignment.Position or
             Styles.Alignments.ComponentVerticalAlignment.Top or
             Styles.Alignments.ComponentVerticalAlignment.Middle or
-            Styles.Alignments.ComponentVerticalAlignment.Bottom => component.position.y,
+            Styles.Alignments.ComponentVerticalAlignment.Bottom => component.position.y.value,
             _ => 0
         };
 
@@ -372,7 +372,7 @@ namespace Client.Views.Components
         private int CalculateYPositionAbsoluteTop(Component component)
         {
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
-            return parentYPosition + component.position.y;
+            return parentYPosition + component.position.y.value;
         }
 
         private int CalculateYPositionAbsoluteMiddle(Component component)
@@ -381,7 +381,7 @@ namespace Client.Views.Components
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int height = CalculateOuterHeight(component);
             int center = (parentInnerHeight / 2) - (height / 2);
-            center += component.position.y;
+            center += component.position.y.value;
             return parentYPosition + center;
         }
 
@@ -390,7 +390,7 @@ namespace Client.Views.Components
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int outerHeight = CalculateOuterHeight(component);
-            return (parentYPosition + parentInnerHeight) - component.position.y - outerHeight;
+            return (parentYPosition + parentInnerHeight) - component.position.y.value - outerHeight;
         }
 
         private int CalculateYPositionRelative(Component component) => component.alignment.vertical switch
@@ -406,7 +406,7 @@ namespace Client.Views.Components
         {
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
             int parentOuterHeight = component.parent is null ? 0 : CalculateOuterHeight(component.parent);
-            return (int)(parentYPosition + (parentOuterHeight * ToPercent(component.position.y)));
+            return (int)(parentYPosition + (parentOuterHeight * ToPercent(component.position.y.value)));
         }
 
         private int CalculateYPositionRelativeBottom(Component component)
@@ -414,7 +414,7 @@ namespace Client.Views.Components
             int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
             int parentOuterHeight = component.parent is null ? 0 : CalculateOuterHeight(component.parent);
             int outerHeight = CalculateOuterHeight(component);
-            return (int)(parentYPosition + parentOuterHeight - (parentOuterHeight * ToPercent(component.position.y)) - outerHeight);
+            return (int)(parentYPosition + parentOuterHeight - (parentOuterHeight * ToPercent(component.position.y.value)) - outerHeight);
         }
 
         private int CalculateYPositionRelativeMiddle(Component component)
@@ -423,7 +423,7 @@ namespace Client.Views.Components
             int parentInnerHeight = component.parent is null ? 0 : CalculateInnerHeight(component.parent);
             int height = CalculateOuterHeight(component);
             int center = (parentInnerHeight / 2) - (height / 2);
-            center = (int)(center * ToPercent(component.position.y));
+            center = (int)(center * ToPercent(component.position.y.value));
             return parentYPosition + center;
         }
 
@@ -438,14 +438,14 @@ namespace Client.Views.Components
 
         private int CalculateYPositionAutoTop(Component component)
         {
-            int yPosition = component.position.y;
+            int yPosition = component.position.y.value;
             if (component.parent is ComponentContainer)
             {
                 Component? lastChild = null;
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
                     if (child == component) break;
-                    if (child.position.yUnit != ComponentUnit.Auto ||
+                    if (child.position.y.unit != ComponentUnit.Auto ||
                         (child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Position &&
                         child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Top)) continue;
                     lastChild = child;
@@ -467,7 +467,7 @@ namespace Client.Views.Components
 
         private int CalculateYPositionAutoBottom(Component component)
         {
-            int yPosition = -component.position.y;
+            int yPosition = -component.position.y.value;
             yPosition -= CalculateOuterHeight(component);
             if (component.parent is ComponentContainer)
             {
@@ -475,7 +475,7 @@ namespace Client.Views.Components
                 foreach (Component child in ((ComponentContainer)component.parent).GetAllChilds())
                 {
                     if (child == component) break;
-                    if (child.position.yUnit != ComponentUnit.Auto ||
+                    if (child.position.y.unit != ComponentUnit.Auto ||
                         child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Bottom) continue;
                     lastChild = child;
                 }
@@ -514,11 +514,11 @@ namespace Client.Views.Components
                 else
                 {
                     int parentInnerHeight = component.parent == null ? 0 : CalculateInnerHeight(component.parent);
-                    int totalHeight = CalculateOuterHeight(component) + component.position.y;
+                    int totalHeight = CalculateOuterHeight(component) + component.position.y.value;
                     foreach (Component child in childs)
                     {
                         if (child == component) continue;
-                        totalHeight += CalculateOuterHeight(child) + child.position.y;
+                        totalHeight += CalculateOuterHeight(child) + child.position.y.value;
                     }
                     int parentYPosition = component.parent is null ? 0 : CalculateYPosition(component.parent);
                     yPosition += parentYPosition;

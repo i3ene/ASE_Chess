@@ -113,16 +113,16 @@ namespace Client.Views.Components
             int width = 0;
             foreach (Component child in GetAllChilds())
             {
-                if (child.size.widthUnit != ComponentUnit.Fixed) continue;
+                if (child.size.width.unit != ComponentUnit.Fixed) continue;
                 int childWidth = dimensionHelper.CalculateOuterWidth(child);
                 if (vertical)
                 {
-                    childWidth += child.position.x;
+                    childWidth += child.position.x.value;
                     width += childWidth;
                 }
                 else
                 {
-                    childWidth += child.position.x;
+                    childWidth += child.position.x.value;
                     width = Math.Max(width, childWidth);
                 }
             }
@@ -136,16 +136,16 @@ namespace Client.Views.Components
             int height = 0;
             foreach (Component child in GetAllChilds())
             {
-                if (child.size.heightUnit != ComponentUnit.Fixed) continue;
+                if (child.size.height.unit != ComponentUnit.Fixed) continue;
                 int childHeight = dimensionHelper.CalculateOuterHeight(child);
                 if (vertical)
                 {
-                    childHeight += child.position.y;
+                    childHeight += child.position.y.value;
                     height = Math.Max(height, childHeight);
                 }
                 else
                 {
-                    childHeight += child.position.y;
+                    childHeight += child.position.y.value;
                     height += childHeight;
                 }
             }

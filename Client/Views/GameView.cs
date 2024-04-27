@@ -25,10 +25,9 @@ namespace Client.Views
             AddChild(board);
 
             info = new TextComponent();
-            info.size.widthUnit = ComponentUnit.Relative;
-            info.size.width = 100;
-            info.size.heightUnit = ComponentUnit.Auto;
-            info.position.yUnit = ComponentUnit.Auto;
+            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            info.size.height = new ComponentValue(ComponentUnit.Auto);
+            info.position.y = new ComponentValue(ComponentUnit.Auto);
             info.alignment.vertical = ComponentVerticalAlignment.Bottom;
             info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
@@ -36,7 +35,7 @@ namespace Client.Views
             AddChild(info);
 
             dialog = new DialogComponent();
-            dialog.size.widthUnit = ComponentUnit.Auto;
+            dialog.size.width = new ComponentValue(ComponentUnit.Auto);
             dialog.alignment.horizontal = ComponentHorizontalAlignment.Center;
             dialog.alignment.vertical = ComponentVerticalAlignment.Middle;
             dialog.border.style = ComponentBorderStyle.Thin;

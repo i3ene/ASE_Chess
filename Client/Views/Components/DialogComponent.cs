@@ -14,19 +14,18 @@ namespace Client.Views.Components
 
         public DialogComponent()
         {
-            size.heightUnit = ComponentUnit.Auto;
+            size.height = new ComponentValue(ComponentUnit.Auto);
 
             text = new TextComponent();
-            text.size.widthUnit = ComponentUnit.Auto;
-            text.size.heightUnit = ComponentUnit.Auto;
-            text.position.yUnit = ComponentUnit.Auto;
+            text.size.width = new ComponentValue(ComponentUnit.Auto);
+            text.size.height = new ComponentValue(ComponentUnit.Auto);
+            text.position.y = new ComponentValue(ComponentUnit.Auto);
             AddChild(text);
 
             actionContainer = new ListComponent(true);
-            actionContainer.size.widthUnit = ComponentUnit.Auto;
-            actionContainer.size.heightUnit = ComponentUnit.Fixed;
-            actionContainer.size.height = 3;
-            actionContainer.position.yUnit = ComponentUnit.Auto;
+            actionContainer.size.width = new ComponentValue(ComponentUnit.Auto);
+            actionContainer.size.width = new ComponentValue(ComponentUnit.Fixed, 3);
+            actionContainer.position.y = new ComponentValue(ComponentUnit.Auto);
             actionContainer.alignment.horizontal = ComponentHorizontalAlignment.Center;
             AddChild(actionContainer);
         }
@@ -48,10 +47,9 @@ namespace Client.Views.Components
             foreach (string action in actions)
             {
                 ButtonComponent button = new ButtonComponent(action);
-                button.size.widthUnit = ComponentUnit.Fixed;
-                button.size.width = action.Length + 2;
-                button.size.heightUnit = ComponentUnit.Auto;
-                button.position.xUnit = ComponentUnit.Auto;
+                button.size.width = new ComponentValue(ComponentUnit.Fixed, action.Length + 2);
+                button.size.height = new ComponentValue(ComponentUnit.Auto);
+                button.position.x = new ComponentValue(ComponentUnit.Auto);
 
                 button.OnSelection += (button) => OnAction?.Invoke(this, action);
 

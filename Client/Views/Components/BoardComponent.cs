@@ -22,10 +22,8 @@ namespace Client.Views.Components
         {
             this.game = game;
             size = base.size;
-            size.widthUnit = ComponentUnit.Fixed;
-            size.heightUnit = ComponentUnit.Fixed;
-            size.x = 8;
-            size.y = 8;
+            size.width = new ComponentValue(ComponentUnit.Fixed, 8);
+            size.height = new ComponentValue(ComponentUnit.Fixed, 8);
             displayChessSymbols = false;
         }
 

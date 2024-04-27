@@ -11,11 +11,11 @@ namespace Client.Views
         public MenuView(ViewRouter router) : base(router)
         {
             TextComponent title = new TextComponent();
-            title.size.widthUnit = ComponentUnit.Relative;
-            title.size.width = 100;
-            title.position.yUnit = ComponentUnit.Auto;
+            title.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            title.position.y = new ComponentValue(ComponentUnit.Auto);
             title.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
 
+            int height = 0;
             Settings settings = Settings.getInstance();
             if (settings.GetWidth() >= 80 && settings.GetHeight() >= 28)
             {
@@ -29,7 +29,7 @@ namespace Client.Views
                     "  █▀      ██ ██     ██ ██     ▄█   ▀██▄     ▄▀██    ██  ██▄    ▄█▄   ███▄   ██\n" +
                     "▄███▄   ▄████▄▀█████▀▄██████████     ▀▀█████▀████  ████▄ ▀█████▀██████▀██████▀"
                 );
-                title.size.height = 8;
+                height = 8;
             }
             else if (settings.GetWidth() >= 55)
             {
@@ -41,13 +41,14 @@ namespace Client.Views
                     " / ____ \\ ____) | |____  | |____| | | |  __/\\__ \\__ \\\n" +
                     "/_/    \\_\\_____/|______|  \\_____|_| |_|\\___||___/___/"
                 );
-                title.size.height = 6;
+                height = 6;
             }
             else
             {
                 title.SetText("ASE Chess");
-                title.size.height = 1;
+                height = 1;
             }
+            title.size.height = new ComponentValue(ComponentUnit.Fixed, height);
 
             ContentString text = new ContentString();
             text.Add("Press ");
@@ -61,10 +62,9 @@ namespace Client.Views
 
             TextComponent info = new TextComponent();
             info.SetText(text);
-            info.size.widthUnit = ComponentUnit.Relative;
-            info.size.width = 100;
-            info.size.heightUnit = ComponentUnit.Auto;
-            info.position.yUnit = ComponentUnit.Auto;
+            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            info.size.height = new ComponentValue(ComponentUnit.Auto);
+            info.position.y = new ComponentValue(ComponentUnit.Auto);
             info.alignment.vertical = ComponentVerticalAlignment.Bottom;
             info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
@@ -72,41 +72,35 @@ namespace Client.Views
             AddChild(info);
 
             ListComponent list = new ListComponent();
-            list.size.widthUnit = ComponentUnit.Relative;
-            list.size.width = 100;
-            list.size.heightUnit = ComponentUnit.Auto;
-            list.position.yUnit = ComponentUnit.Auto;
-            list.position.y = 1;
+            list.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            list.size.height = new ComponentValue(ComponentUnit.Auto);
+            list.position.y = new ComponentValue(ComponentUnit.Auto, 1);
 
             ButtonComponent joinButton = new ButtonComponent("Join");
-            joinButton.size.widthUnit = ComponentUnit.Auto;
-            joinButton.size.heightUnit = ComponentUnit.Fixed;
-            joinButton.size.height = 3;
-            joinButton.position.yUnit = ComponentUnit.Auto;
+            joinButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            joinButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            joinButton.position.y = new ComponentValue(ComponentUnit.Auto);
             joinButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             joinButton.OnSelection += (button) => ViewJoin();
 
             ButtonComponent hostButton = new ButtonComponent("Host");
-            hostButton.size.widthUnit = ComponentUnit.Auto;
-            hostButton.size.heightUnit = ComponentUnit.Fixed;
-            hostButton.size.height = 3;
-            hostButton.position.yUnit = ComponentUnit.Auto;
+            hostButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            hostButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            hostButton.position.y = new ComponentValue(ComponentUnit.Auto);
             hostButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             hostButton.OnSelection += (button) => ViewHost();
 
             ButtonComponent viewButton = new ButtonComponent("View");
-            viewButton.size.widthUnit = ComponentUnit.Auto;
-            viewButton.size.heightUnit = ComponentUnit.Fixed;
-            viewButton.size.height = 3;
-            viewButton.position.yUnit = ComponentUnit.Auto;
+            viewButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            viewButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            viewButton.position.y = new ComponentValue(ComponentUnit.Auto);
             viewButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             viewButton.OnSelection += (button) => ViewView();
 
             ButtonComponent settingsButton = new ButtonComponent("Settings");
-            settingsButton.size.widthUnit = ComponentUnit.Auto;
-            settingsButton.size.heightUnit = ComponentUnit.Fixed;
-            settingsButton.size.height = 3;
-            settingsButton.position.yUnit = ComponentUnit.Auto;
+            settingsButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            settingsButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            settingsButton.position.y = new ComponentValue(ComponentUnit.Auto);
             settingsButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             settingsButton.OnSelection += (button) => ViewSettings();
 

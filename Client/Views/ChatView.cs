@@ -1,5 +1,6 @@
 ﻿using Client.Communications;
 using Client.Views.Components;
+using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Client.Views.Interactions;
@@ -20,10 +21,9 @@ namespace Client.Views
             this.chat.OnChange += UpdateChat;
 
             info = new TextComponent();
-            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            info.size.width = 100;
-            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            info.size.height = new ComponentValue(ComponentUnit.Auto);
+            info.position.y = new ComponentValue(ComponentUnit.Auto);
             info.alignment.vertical = ComponentVerticalAlignment.Bottom;
             info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
@@ -38,20 +38,18 @@ namespace Client.Views
             info.SetText(text);
 
             input = new InputComponent();
-            input.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            input.size.width = 100;
-            input.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            input.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            input.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            input.size.height = new ComponentValue(ComponentUnit.Auto);
+            input.position.y = new ComponentValue(ComponentUnit.Auto);
             input.alignment.vertical = ComponentVerticalAlignment.Bottom;
             input.border.positions = [ComponentBorderPosition.Top];
             input.border.style = ComponentBorderStyle.Default;
             AddChild(input);
 
             messagesContainer = new ComponentContainer();
-            messagesContainer.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            messagesContainer.size.width = 100;
-            messagesContainer.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            messagesContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            messagesContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            messagesContainer.size.height = new ComponentValue(ComponentUnit.Auto);
+            messagesContainer.position.y = new ComponentValue(ComponentUnit.Auto);
             messagesContainer.alignment.vertical = ComponentVerticalAlignment.Bottom;
             AddChild(messagesContainer);
         }
@@ -63,9 +61,9 @@ namespace Client.Views
             foreach (ChatMessage message in chat.GetAllMessages().Reverse())
             {
                 TextComponent messageText = new TextComponent();
-                messageText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-                messageText.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-                messageText.position.yUnit = Components.Styles.ComponentUnit.Auto;
+                messageText.size.width = new ComponentValue(ComponentUnit.Auto);
+                messageText.size.height = new ComponentValue(ComponentUnit.Auto);
+                messageText.position.y = new ComponentValue(ComponentUnit.Auto);
                 messageText.alignment.vertical = ComponentVerticalAlignment.Bottom;
                 messageText.border.style = ComponentBorderStyle.Round;
                 messageText.alignment.horizontal = ComponentHorizontalAlignment.Right;

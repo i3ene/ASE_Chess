@@ -1,4 +1,5 @@
 ﻿using Client.Views.Components;
+using Client.Views.Components.Styles;
 
 namespace Client.Views
 {
@@ -10,10 +11,8 @@ namespace Client.Views
         {
             this.router = router;
 
-            size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            size.width = 100;
-            size.heightUnit = Components.Styles.ComponentUnit.Relative;
-            size.height = 100;
+            size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            size.height = new ComponentValue(ComponentUnit.Relative, 100);
         }
 
     }

@@ -2,28 +2,27 @@
 
 namespace Client.Views.Components.Styles
 {
-    public class ComponentSize : Vector2D
+    public class ComponentSize : ICloneable
     {
-        public ComponentUnit widthUnit;
-        public ComponentUnit heightUnit;
+        public ComponentValue width;
+        public ComponentValue height;
 
-        public int width { get => x; set => x = value; }
-        public int height { get => y; set => y = value; }
+        public ComponentSize() : this(new ComponentValue(ComponentUnit.Fixed), new ComponentValue(ComponentUnit.Fixed)) { }
 
-        public ComponentSize() : this(0, 0) { }
-
-        public ComponentSize(int width, int height) : base(width, height)
+        public ComponentSize(ComponentValue width, ComponentValue height)
         {
-            widthUnit = ComponentUnit.Fixed;
-            heightUnit = ComponentUnit.Fixed;
+            this.width = width;
+            this.height = height;
         }
 
-        public override ComponentSize Clone()
+        object ICloneable.Clone()
         {
-            ComponentSize size = new ComponentSize(width, height);
-            size.widthUnit = widthUnit;
-            size.heightUnit = heightUnit;
-            return size;
+            return Clone();
+        }
+
+        public ComponentSize Clone()
+        {
+            return new ComponentSize(width, height);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Client.Communications;
 using Client.Views.Components;
+using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Action = Logic.Communications.Actions.Action;
@@ -16,10 +17,9 @@ namespace Client.Views
             this.connectionType = connectionType;
 
             TextComponent title = new TextComponent("Connection");
-            title.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            title.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            title.size.height = 2;
-            title.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            title.size.width = new ComponentValue(ComponentUnit.Auto);
+            title.size.height = new ComponentValue(ComponentUnit.Fixed, 2);
+            title.position.y = new ComponentValue(ComponentUnit.Auto);
             title.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             title.border.positions = [ComponentBorderPosition.Bottom];
             title.border.style = ComponentBorderStyle.Thin;
@@ -27,10 +27,9 @@ namespace Client.Views
             AddChild(title);
 
             info = new TextComponent();
-            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            info.size.width = 100;
-            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            info.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            info.size.height = new ComponentValue(ComponentUnit.Auto);
+            info.position.y = new ComponentValue(ComponentUnit.Auto);
             info.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
             info.textAlignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
@@ -38,9 +37,8 @@ namespace Client.Views
             AddChild(info);
 
             ListComponent list = new ListComponent();
-            list.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            list.size.width = 100;
-            list.size.heightUnit = Components.Styles.ComponentUnit.Auto;
+            list.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            list.size.height = new ComponentValue(ComponentUnit.Auto);
             list.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
@@ -49,23 +47,19 @@ namespace Client.Views
             if (connectionType != ConnectionType.Host)
             {
                 ComponentContainer ipContainer = new ComponentContainer();
-                ipContainer.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-                ipContainer.size.width = 100;
-                ipContainer.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-                ipContainer.size.height = 3;
-                ipContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
+                ipContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+                ipContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+                ipContainer.position.y = new ComponentValue(ComponentUnit.Auto);
 
                 TextComponent ipText = new TextComponent("IP: ");
-                ipText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-                ipText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-                ipText.size.height = 1;
-                ipText.position.xUnit = Components.Styles.ComponentUnit.Auto;
+                ipText.size.width = new ComponentValue(ComponentUnit.Auto);
+                ipText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
+                ipText.position.x = new ComponentValue(ComponentUnit.Auto);
 
                 InputComponent ipInput = new InputComponent();
-                ipInput.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-                ipInput.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-                ipInput.size.height = 1;
-                ipInput.position.xUnit = Components.Styles.ComponentUnit.Auto;
+                ipInput.size.width = new ComponentValue(ComponentUnit.Auto);
+                ipInput.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
+                ipInput.position.x = new ComponentValue(ComponentUnit.Auto);
 
                 ipContainer.AddChild(ipText);
                 ipContainer.AddChild(ipInput);
@@ -73,23 +67,19 @@ namespace Client.Views
             }
 
             ComponentContainer portContainer = new ComponentContainer();
-            portContainer.size.widthUnit = Components.Styles.ComponentUnit.Relative;
-            portContainer.size.width = 100;
-            portContainer.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            portContainer.size.height = 3;
-            portContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            portContainer.size.width = new ComponentValue(ComponentUnit.Relative, 100);
+            portContainer.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            portContainer.position.y = new ComponentValue(ComponentUnit.Auto);
 
             TextComponent portText = new TextComponent("Port: ");
-            portText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            portText.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            portText.size.height = 1;
-            portText.position.xUnit = Components.Styles.ComponentUnit.Auto;
+            portText.size.width = new ComponentValue(ComponentUnit.Auto);
+            portText.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
+            portText.position.x = new ComponentValue(ComponentUnit.Auto);
 
             InputComponent portInput = new InputComponent();
-            portInput.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            portInput.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            portInput.size.height = 1;
-            portInput.position.xUnit = Components.Styles.ComponentUnit.Auto;
+            portInput.size.width = new ComponentValue(ComponentUnit.Auto);
+            portInput.size.height = new ComponentValue(ComponentUnit.Fixed, 1);
+            portInput.position.x = new ComponentValue(ComponentUnit.Auto);
 
             portContainer.AddChild(portText);
             portContainer.AddChild(portInput);
@@ -97,10 +87,9 @@ namespace Client.Views
 
 
             ButtonComponent actionButton = new ButtonComponent();
-            actionButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            actionButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            actionButton.size.height = 3;
-            actionButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            actionButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            actionButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            actionButton.position.y = new ComponentValue(ComponentUnit.Auto);
             actionButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             actionButton.OnSelection += (button) => ViewGame();
             list.AddChild(actionButton);
@@ -119,10 +108,9 @@ namespace Client.Views
             }
 
             ButtonComponent backButton = new ButtonComponent("Back");
-            backButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            backButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
-            backButton.size.height = 3;
-            backButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            backButton.size.width = new ComponentValue(ComponentUnit.Auto);
+            backButton.size.height = new ComponentValue(ComponentUnit.Fixed, 3);
+            backButton.position.y = new ComponentValue(ComponentUnit.Auto);
             backButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
             list.AddChild(backButton);
