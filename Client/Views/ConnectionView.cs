@@ -3,6 +3,7 @@ using Client.Views.Components;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
+using Logic.Communications.Actions;
 using Action = Logic.Communications.Actions.Action;
 
 namespace Client.Views
@@ -11,6 +12,9 @@ namespace Client.Views
     {
         public readonly ConnectionType connectionType;
         private readonly TextComponent info;
+
+        private readonly InputComponent ipInput;
+        private readonly InputComponent portInput;
 
         public ConnectionView(ViewRouter router, ConnectionType connectionType) : base(router)
         {
@@ -44,25 +48,26 @@ namespace Client.Views
 
             AddChild(list);
 
+            ComponentContainer ipContainer = new ComponentContainer();
+            ipContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            ipContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
+            ipContainer.position.y = new StyleValue(StyleUnit.Auto);
+
+            TextComponent ipText = new TextComponent("IP: ");
+            ipText.size.width = new StyleValue(StyleUnit.Auto);
+            ipText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            ipText.position.x = new StyleValue(StyleUnit.Auto);
+
+            ipInput = new InputComponent();
+            ipInput.size.width = new StyleValue(StyleUnit.Auto);
+            ipInput.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            ipInput.position.x = new StyleValue(StyleUnit.Auto);
+
+            ipContainer.AddChild(ipText);
+            ipContainer.AddChild(ipInput);
+
             if (connectionType != ConnectionType.Host)
             {
-                ComponentContainer ipContainer = new ComponentContainer();
-                ipContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
-                ipContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
-                ipContainer.position.y = new StyleValue(StyleUnit.Auto);
-
-                TextComponent ipText = new TextComponent("IP: ");
-                ipText.size.width = new StyleValue(StyleUnit.Auto);
-                ipText.size.height = new StyleValue(StyleUnit.Fixed, 1);
-                ipText.position.x = new StyleValue(StyleUnit.Auto);
-
-                InputComponent ipInput = new InputComponent();
-                ipInput.size.width = new StyleValue(StyleUnit.Auto);
-                ipInput.size.height = new StyleValue(StyleUnit.Fixed, 1);
-                ipInput.position.x = new StyleValue(StyleUnit.Auto);
-
-                ipContainer.AddChild(ipText);
-                ipContainer.AddChild(ipInput);
                 list.AddChild(ipContainer);
             }
 
@@ -76,7 +81,7 @@ namespace Client.Views
             portText.size.height = new StyleValue(StyleUnit.Fixed, 1);
             portText.position.x = new StyleValue(StyleUnit.Auto);
 
-            InputComponent portInput = new InputComponent();
+            portInput = new InputComponent();
             portInput.size.width = new StyleValue(StyleUnit.Auto);
             portInput.size.height = new StyleValue(StyleUnit.Fixed, 1);
             portInput.position.x = new StyleValue(StyleUnit.Auto);
@@ -116,10 +121,41 @@ namespace Client.Views
             list.AddChild(backButton);
         }
 
+        private Uri GetUri() => connectionType switch
+        {
+            ConnectionType.Host => new Uri($"ws://127.0.0.1:{portInput.GetText().ToString(false)}"),
+            ConnectionType.Join or
+            ConnectionType.View => new Uri($"ws://{ipInput.GetText().ToString(false)}:{portInput.GetText().ToString(false)}"),
+            _ => new Uri("")
+        };
+
+        private ParticipationType GetParticipationType() => connectionType switch
+        {
+            ConnectionType.Host or
+            ConnectionType.Join => ParticipationType.Join,
+            ConnectionType.View => ParticipationType.View,
+            _ => ParticipationType.Leave
+        };
+
+        private ClientSocket<Action> CreateConnection()
+        {
+            Uri uri = GetUri();
+            if (connectionType == ConnectionType.Host)
+            {
+                // TODO: Set up server
+            }
+
+            ClientSocket<Action> socket = new ClientSocket<Action>();
+            Task connection = socket.ConnectAsync(uri);
+
+            ParticipationType participation = GetParticipationType();
+            socket.Send(new ParticipationAction(participation));
+            return socket;
+        }
+
         private void ViewGame()
         {
-            // TODO
-            ClientSocket<Action> socket = new ClientSocket<Action>();
+            ClientSocket<Action> socket = CreateConnection();
             GameChatView game = new GameChatView(router, socket);
             router.Display(game);
         }
