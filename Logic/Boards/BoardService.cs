@@ -4,18 +4,18 @@ namespace Logic.Boards
 {
     public class BoardService
     {
-        public readonly PieceRepository pieceRepository;
+        public readonly Board board;
 
-        public BoardService(PieceRepository pieceRepository)
+        public BoardService(Board board)
         {
-            this.pieceRepository = pieceRepository;
+            this.board = board;
         }
 
         public bool Move(Piece piece, BoardPosition position)
         {
             bool isPossible = IsMovePossible(piece, position);
             if (!isPossible) return false;
-            pieceRepository.RemovePiece(piece);
+            board.RemovePiece(piece);
             piece.position.Set(position);
             return true;
         }
@@ -26,7 +26,7 @@ namespace Logic.Boards
             if (piece.position == position) return false;
 
             // Check if position is already occupied by another Piece of same color
-            Piece? targetPiece = pieceRepository.GetPiece(position);
+            Piece? targetPiece = board.GetPiece(position);
             if (targetPiece != null && targetPiece.color == piece.color) return false;
 
             switch (piece.type)
@@ -125,13 +125,13 @@ namespace Logic.Boards
 
         public bool IsPositionOccupied(BoardPosition position)
         {
-            Piece? piece = pieceRepository.GetPiece(position);
+            Piece? piece = board.GetPiece(position);
             return piece != null;
         }
 
         public bool IsPieceCapturing(Piece piece, BoardPosition position)
         {
-            Piece? capturing = pieceRepository.GetPiece(position);
+            Piece? capturing = board.GetPiece(position);
             if (capturing is null) return false;
             return capturing.color != piece.color;
         }

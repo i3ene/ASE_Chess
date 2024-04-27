@@ -6,7 +6,7 @@ namespace Logic
 {
     public class Game
     {
-        public readonly PieceRepository board;
+        public readonly Board board;
         public readonly BoardService boardService;
         public readonly PieceService pieceService;
         public readonly PlayerRepository players;
@@ -14,7 +14,7 @@ namespace Logic
 
         public Game()
         {
-            board = new PieceRepository();
+            board = new Board();
             boardService = new BoardService(board);
             players = new PlayerRepository();
             pieceService = new PieceService();

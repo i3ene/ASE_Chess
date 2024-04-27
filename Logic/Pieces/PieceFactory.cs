@@ -2,9 +2,9 @@
 {
     public class PieceFactory
     {
-        public readonly PieceService pieceService;
+        public readonly IPieceService pieceService;
 
-        public PieceFactory(PieceService pieceService)
+        public PieceFactory(IPieceService pieceService)
         {
             this.pieceService = pieceService;
         }

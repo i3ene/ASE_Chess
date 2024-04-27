@@ -1,12 +1,12 @@
-﻿using Logic.Boards;
+﻿using Logic.Pieces;
 
-namespace Logic.Pieces
+namespace Logic.Boards
 {
-    public class PieceRepository
+    public class Board : IPieceRepository
     {
         private readonly List<Piece> pieces;
 
-        public PieceRepository()
+        public Board()
         {
             pieces = new List<Piece>();
         }

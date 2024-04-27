@@ -2,7 +2,7 @@
 
 namespace Logic.Pieces
 {
-    public class PieceService
+    public class PieceService : IPieceService
     {
         public IEnumerable<PieceColor> GetPieceColors()
         {
