@@ -138,7 +138,7 @@ namespace Client.Views
             text += new ContentString("[↓]").Background(ContentColor.PURPLE);
             text += " to change selection.";
 
-            if (list.GetCurrentSelectionIndex() == 2)
+            if (list.GetCurrentSelectionIndex() >= 2)
             {
                 text += "\nPress ";
                 text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
