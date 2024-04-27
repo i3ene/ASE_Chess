@@ -24,7 +24,7 @@ namespace Client.Views.Components
 
             actionContainer = new ListComponent(true);
             actionContainer.size.width = new StyleValue(StyleUnit.Auto);
-            actionContainer.size.width = new StyleValue(StyleUnit.Fixed, 3);
+            actionContainer.size.height = new StyleValue(StyleUnit.Fixed, 3);
             actionContainer.position.y = new StyleValue(StyleUnit.Auto);
             actionContainer.alignment.horizontal = HorizontalAlignment.Center;
             AddChild(actionContainer);
