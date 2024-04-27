@@ -1,12 +1,4 @@
-﻿using Client.Views.Components.Styles.Borders;
-using Client.Views.Components.Styles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.ComponentModel;
+﻿using Client.Views.Components.Styles;
 
 namespace Client.Views.Components
 {

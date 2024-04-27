@@ -3,10 +3,6 @@ using Logic;
 using Logic.Boards;
 using Logic.Communications.Actions;
 using Logic.Pieces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Client
 {

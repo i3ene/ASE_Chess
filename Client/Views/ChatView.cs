@@ -3,11 +3,6 @@ using Client.Views.Components;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 using Client.Views.Interactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Client.Views.Components.Styles.Alignments;
 
 namespace Client.Views
@@ -29,8 +24,8 @@ namespace Client.Views
             info.size.width = 100;
             info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             info.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
@@ -47,7 +42,7 @@ namespace Client.Views
             input.size.width = 100;
             input.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             input.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            input.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            input.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
             input.border.positions = [ComponentBorderPosition.Top];
             input.border.style = ComponentBorderStyle.Default;
             AddChild(input);
@@ -57,7 +52,7 @@ namespace Client.Views
             messagesContainer.size.width = 100;
             messagesContainer.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             messagesContainer.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            messagesContainer.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            messagesContainer.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
             AddChild(messagesContainer);
         }
 
@@ -71,24 +66,24 @@ namespace Client.Views
                 messageText.size.widthUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.size.heightUnit = Components.Styles.ComponentUnit.Auto;
                 messageText.position.yUnit = Components.Styles.ComponentUnit.Auto;
-                messageText.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+                messageText.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
                 messageText.border.style = ComponentBorderStyle.Round;
-                messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
+                messageText.alignment.horizontalAlignment = ComponentHorizontalAlignment.Right;
 
                 ContentString text = new ContentString(message.message);
                 switch (message.sender)
                 {
                     case "":
-                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+                        messageText.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
                         messageText.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
                         text.Foreground(ContentColor.DARKGRAY);
                         break;
                     case "self":
-                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Right;
+                        messageText.alignment.horizontalAlignment = ComponentHorizontalAlignment.Right;
                         messageText.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Right;
                         break;
                     default:
-                        messageText.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Left;
+                        messageText.alignment.horizontalAlignment = ComponentHorizontalAlignment.Left;
                         messageText.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Left;
                         text.Insert(0, new ContentString($"{message.sender}:\n").Foreground(ContentColor.BROWN));
                         break;

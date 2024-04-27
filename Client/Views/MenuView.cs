@@ -1,11 +1,6 @@
 ﻿using Client.Views.Components;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Alignments;
 
@@ -16,10 +11,10 @@ namespace Client.Views
         public MenuView(ViewRouter router) : base(router)
         {
             TextComponent title = new TextComponent();
-            title.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            title.size.widthUnit = ComponentUnit.Relative;
             title.size.width = 100;
-            title.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            title.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            title.position.yUnit = ComponentUnit.Auto;
+            title.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
 
             Settings settings = Settings.getInstance();
             if (settings.GetWidth() >= 80 && settings.GetHeight() >= 28)
@@ -66,53 +61,53 @@ namespace Client.Views
 
             TextComponent info = new TextComponent();
             info.SetText(text);
-            info.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            info.size.widthUnit = ComponentUnit.Relative;
             info.size.width = 100;
-            info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            info.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.size.heightUnit = ComponentUnit.Auto;
+            info.position.yUnit = ComponentUnit.Auto;
+            info.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
 
             ListComponent list = new ListComponent();
-            list.size.widthUnit = Components.Styles.ComponentUnit.Relative;
+            list.size.widthUnit = ComponentUnit.Relative;
             list.size.width = 100;
-            list.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            list.position.yUnit = Components.Styles.ComponentUnit.Auto;
+            list.size.heightUnit = ComponentUnit.Auto;
+            list.position.yUnit = ComponentUnit.Auto;
             list.position.y = 1;
 
             ButtonComponent joinButton = new ButtonComponent("Join");
-            joinButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            joinButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
+            joinButton.size.widthUnit = ComponentUnit.Auto;
+            joinButton.size.heightUnit = ComponentUnit.Fixed;
             joinButton.size.height = 3;
-            joinButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            joinButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            joinButton.position.yUnit = ComponentUnit.Auto;
+            joinButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             joinButton.OnSelection += (button) => ViewJoin();
 
             ButtonComponent hostButton = new ButtonComponent("Host");
-            hostButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            hostButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
+            hostButton.size.widthUnit = ComponentUnit.Auto;
+            hostButton.size.heightUnit = ComponentUnit.Fixed;
             hostButton.size.height = 3;
-            hostButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            hostButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            hostButton.position.yUnit = ComponentUnit.Auto;
+            hostButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             hostButton.OnSelection += (button) => ViewHost();
 
             ButtonComponent viewButton = new ButtonComponent("View");
-            viewButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            viewButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
+            viewButton.size.widthUnit = ComponentUnit.Auto;
+            viewButton.size.heightUnit = ComponentUnit.Fixed;
             viewButton.size.height = 3;
-            viewButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            viewButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            viewButton.position.yUnit = ComponentUnit.Auto;
+            viewButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             viewButton.OnSelection += (button) => ViewView();
 
             ButtonComponent settingsButton = new ButtonComponent("Settings");
-            settingsButton.size.widthUnit = Components.Styles.ComponentUnit.Auto;
-            settingsButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
+            settingsButton.size.widthUnit = ComponentUnit.Auto;
+            settingsButton.size.heightUnit = ComponentUnit.Fixed;
             settingsButton.size.height = 3;
-            settingsButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            settingsButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            settingsButton.position.yUnit = ComponentUnit.Auto;
+            settingsButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
             settingsButton.OnSelection += (button) => ViewSettings();
 
             list.AddChild(hostButton);

@@ -1,12 +1,5 @@
-﻿using Logic;
-using Logic.Pieces;
-using Logic.Players;
+﻿using Logic.Pieces;
 using Server.Communications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server.Players
 {

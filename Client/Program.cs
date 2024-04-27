@@ -1,8 +1,4 @@
-﻿using Client.Communications;
-using Client.Views;
-using Client.Views.Components;
-using Client.Views.Components.Styles;
-using Client.Views.Components.Styles.Alignments;
+﻿using Client.Views;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Interactions;
 

@@ -1,14 +1,8 @@
 ﻿using Client.Views.Components.Styles;
 using Client.Views.Contents;
-using Client.Views.Interactions;
 using Logic;
 using Logic.Boards;
 using Logic.Pieces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Views.Components
 {
