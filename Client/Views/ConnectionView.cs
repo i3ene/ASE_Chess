@@ -20,7 +20,7 @@ namespace Client.Views
             title.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             title.size.height = 2;
             title.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            title.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            title.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             title.border.positions = [ComponentBorderPosition.Bottom];
             title.border.style = ComponentBorderStyle.Thin;
 
@@ -31,8 +31,8 @@ namespace Client.Views
             info.size.width = 100;
             info.size.heightUnit = Components.Styles.ComponentUnit.Auto;
             info.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            info.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            info.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
@@ -41,7 +41,7 @@ namespace Client.Views
             list.size.widthUnit = Components.Styles.ComponentUnit.Relative;
             list.size.width = 100;
             list.size.heightUnit = Components.Styles.ComponentUnit.Auto;
-            list.alignment.verticalAlignment = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
+            list.alignment.vertical = Components.Styles.Alignments.ComponentVerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
             AddChild(list);
@@ -101,7 +101,7 @@ namespace Client.Views
             actionButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             actionButton.size.height = 3;
             actionButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            actionButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            actionButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             actionButton.OnSelection += (button) => ViewGame();
             list.AddChild(actionButton);
 
@@ -123,7 +123,7 @@ namespace Client.Views
             backButton.size.heightUnit = Components.Styles.ComponentUnit.Fixed;
             backButton.size.height = 3;
             backButton.position.yUnit = Components.Styles.ComponentUnit.Auto;
-            backButton.alignment.horizontalAlignment = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
+            backButton.alignment.horizontal = Components.Styles.Alignments.ComponentHorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
             list.AddChild(backButton);
         }

@@ -164,7 +164,7 @@ namespace Client.Views.Components
             _ => 0
         };
 
-        private int CalculateXPositionFixed(Component component) => component.alignment.horizontalAlignment switch
+        private int CalculateXPositionFixed(Component component) => component.alignment.horizontal switch
         {
             Styles.Alignments.ComponentHorizontalAlignment.Position or
             Styles.Alignments.ComponentHorizontalAlignment.Left or
@@ -173,7 +173,7 @@ namespace Client.Views.Components
             _ => 0
         };
 
-        private int CalculateXPositionAbsolute(Component component) => component.alignment.horizontalAlignment switch
+        private int CalculateXPositionAbsolute(Component component) => component.alignment.horizontal switch
         {
             Styles.Alignments.ComponentHorizontalAlignment.Position or
             Styles.Alignments.ComponentHorizontalAlignment.Left => CalculateXPositionAbsoluteLeft(component),
@@ -206,7 +206,7 @@ namespace Client.Views.Components
             return parentXPosition + center;
         }
 
-        private int CalculateXPositionRelative(Component component) => component.alignment.horizontalAlignment switch
+        private int CalculateXPositionRelative(Component component) => component.alignment.horizontal switch
         {
             Styles.Alignments.ComponentHorizontalAlignment.Position or
             Styles.Alignments.ComponentHorizontalAlignment.Left => CalculateXPositionRelativeLeft(component),
@@ -240,7 +240,7 @@ namespace Client.Views.Components
             return parentXPosition + center;
         }
 
-        private int CalculateXPositionAuto(Component component) => component.alignment.horizontalAlignment switch
+        private int CalculateXPositionAuto(Component component) => component.alignment.horizontal switch
         {
             Styles.Alignments.ComponentHorizontalAlignment.Position or
             Styles.Alignments.ComponentHorizontalAlignment.Left => CalculateXPositionAutoLeft(component),
@@ -259,8 +259,8 @@ namespace Client.Views.Components
                 {
                     if (child == component) break;
                     if (child.position.xUnit != ComponentUnit.Auto ||
-                        (child.alignment.horizontalAlignment != Styles.Alignments.ComponentHorizontalAlignment.Position &&
-                        child.alignment.horizontalAlignment != Styles.Alignments.ComponentHorizontalAlignment.Left)) continue;
+                        (child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Position &&
+                        child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Left)) continue;
                     lastChild = child;
                 }
 
@@ -289,7 +289,7 @@ namespace Client.Views.Components
                 {
                     if (child == component) break;
                     if (child.position.xUnit != ComponentUnit.Auto ||
-                        child.alignment.horizontalAlignment != Styles.Alignments.ComponentHorizontalAlignment.Right) continue;
+                        child.alignment.horizontal != Styles.Alignments.ComponentHorizontalAlignment.Right) continue;
                     lastChild = child;
                 }
 
@@ -311,7 +311,7 @@ namespace Client.Views.Components
             int xPosition = 0;
             if (component.parent is ComponentContainer)
             {
-                Component[] childs = ((ComponentContainer)component.parent).GetAllChilds().Where(child => child.alignment.horizontalAlignment == Styles.Alignments.ComponentHorizontalAlignment.Center).ToArray();
+                Component[] childs = ((ComponentContainer)component.parent).GetAllChilds().Where(child => child.alignment.horizontal == Styles.Alignments.ComponentHorizontalAlignment.Center).ToArray();
 
                 Component? lastChild = null;
                 foreach (Component child in childs)
@@ -351,7 +351,7 @@ namespace Client.Views.Components
             _ => 0
         };
 
-        private int CalculateYPositionFixed(Component component) => component.alignment.verticalAlignment switch
+        private int CalculateYPositionFixed(Component component) => component.alignment.vertical switch
         {
             Styles.Alignments.ComponentVerticalAlignment.Position or
             Styles.Alignments.ComponentVerticalAlignment.Top or
@@ -360,7 +360,7 @@ namespace Client.Views.Components
             _ => 0
         };
 
-        private int CalculateYPositionAbsolute(Component component) => component.alignment.verticalAlignment switch
+        private int CalculateYPositionAbsolute(Component component) => component.alignment.vertical switch
         {
             Styles.Alignments.ComponentVerticalAlignment.Position or
             Styles.Alignments.ComponentVerticalAlignment.Top => CalculateYPositionAbsoluteTop(component),
@@ -393,7 +393,7 @@ namespace Client.Views.Components
             return (parentYPosition + parentInnerHeight) - component.position.y - outerHeight;
         }
 
-        private int CalculateYPositionRelative(Component component) => component.alignment.verticalAlignment switch
+        private int CalculateYPositionRelative(Component component) => component.alignment.vertical switch
         {
             Styles.Alignments.ComponentVerticalAlignment.Position or
             Styles.Alignments.ComponentVerticalAlignment.Top => CalculateYPositionRelativeTop(component),
@@ -427,7 +427,7 @@ namespace Client.Views.Components
             return parentYPosition + center;
         }
 
-        private int CalculateYPositionAuto(Component component) => component.alignment.verticalAlignment switch
+        private int CalculateYPositionAuto(Component component) => component.alignment.vertical switch
         {
             Styles.Alignments.ComponentVerticalAlignment.Position or
             Styles.Alignments.ComponentVerticalAlignment.Top => CalculateYPositionAutoTop(component),
@@ -446,8 +446,8 @@ namespace Client.Views.Components
                 {
                     if (child == component) break;
                     if (child.position.yUnit != ComponentUnit.Auto ||
-                        (child.alignment.verticalAlignment != Styles.Alignments.ComponentVerticalAlignment.Position &&
-                        child.alignment.verticalAlignment != Styles.Alignments.ComponentVerticalAlignment.Top)) continue;
+                        (child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Position &&
+                        child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Top)) continue;
                     lastChild = child;
                 }
 
@@ -476,7 +476,7 @@ namespace Client.Views.Components
                 {
                     if (child == component) break;
                     if (child.position.yUnit != ComponentUnit.Auto ||
-                        child.alignment.verticalAlignment != Styles.Alignments.ComponentVerticalAlignment.Bottom) continue;
+                        child.alignment.vertical != Styles.Alignments.ComponentVerticalAlignment.Bottom) continue;
                     lastChild = child;
                 }
 
@@ -498,7 +498,7 @@ namespace Client.Views.Components
             int yPosition = 0;
             if (component.parent is ComponentContainer)
             {
-                Component[] childs = ((ComponentContainer)component.parent).GetAllChilds().Where(child => child.alignment.verticalAlignment == Styles.Alignments.ComponentVerticalAlignment.Middle).ToArray();
+                Component[] childs = ((ComponentContainer)component.parent).GetAllChilds().Where(child => child.alignment.vertical == Styles.Alignments.ComponentVerticalAlignment.Middle).ToArray();
 
                 Component? lastChild = null;
                 foreach (Component child in childs)

@@ -21,7 +21,7 @@ namespace Client.Views
             this.game = game;
 
             board = new BoardComponent(game);
-            board.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            board.alignment.horizontal = ComponentHorizontalAlignment.Center;
             AddChild(board);
 
             info = new TextComponent();
@@ -29,16 +29,16 @@ namespace Client.Views
             info.size.width = 100;
             info.size.heightUnit = ComponentUnit.Auto;
             info.position.yUnit = ComponentUnit.Auto;
-            info.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            info.alignment.vertical = ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
 
             dialog = new DialogComponent();
             dialog.size.widthUnit = ComponentUnit.Auto;
-            dialog.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
-            dialog.alignment.verticalAlignment = ComponentVerticalAlignment.Middle;
+            dialog.alignment.horizontal = ComponentHorizontalAlignment.Center;
+            dialog.alignment.vertical = ComponentVerticalAlignment.Middle;
             dialog.border.style = ComponentBorderStyle.Thin;
             dialog.SetText("Are you sure you want to quit?");
             dialog.SetActions(["Quit", "Cancel"]);

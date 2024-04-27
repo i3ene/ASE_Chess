@@ -14,7 +14,7 @@ namespace Client.Views
             title.size.widthUnit = ComponentUnit.Relative;
             title.size.width = 100;
             title.position.yUnit = ComponentUnit.Auto;
-            title.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            title.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
 
             Settings settings = Settings.getInstance();
             if (settings.GetWidth() >= 80 && settings.GetHeight() >= 28)
@@ -65,8 +65,8 @@ namespace Client.Views
             info.size.width = 100;
             info.size.heightUnit = ComponentUnit.Auto;
             info.position.yUnit = ComponentUnit.Auto;
-            info.alignment.verticalAlignment = ComponentVerticalAlignment.Bottom;
-            info.textAlignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            info.alignment.vertical = ComponentVerticalAlignment.Bottom;
+            info.textAlignment.horizontal = ComponentHorizontalAlignment.Center;
             info.border.positions = [ComponentBorderPosition.Top];
             info.border.style = ComponentBorderStyle.Thin;
             AddChild(info);
@@ -83,7 +83,7 @@ namespace Client.Views
             joinButton.size.heightUnit = ComponentUnit.Fixed;
             joinButton.size.height = 3;
             joinButton.position.yUnit = ComponentUnit.Auto;
-            joinButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            joinButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             joinButton.OnSelection += (button) => ViewJoin();
 
             ButtonComponent hostButton = new ButtonComponent("Host");
@@ -91,7 +91,7 @@ namespace Client.Views
             hostButton.size.heightUnit = ComponentUnit.Fixed;
             hostButton.size.height = 3;
             hostButton.position.yUnit = ComponentUnit.Auto;
-            hostButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            hostButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             hostButton.OnSelection += (button) => ViewHost();
 
             ButtonComponent viewButton = new ButtonComponent("View");
@@ -99,7 +99,7 @@ namespace Client.Views
             viewButton.size.heightUnit = ComponentUnit.Fixed;
             viewButton.size.height = 3;
             viewButton.position.yUnit = ComponentUnit.Auto;
-            viewButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            viewButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             viewButton.OnSelection += (button) => ViewView();
 
             ButtonComponent settingsButton = new ButtonComponent("Settings");
@@ -107,7 +107,7 @@ namespace Client.Views
             settingsButton.size.heightUnit = ComponentUnit.Fixed;
             settingsButton.size.height = 3;
             settingsButton.position.yUnit = ComponentUnit.Auto;
-            settingsButton.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            settingsButton.alignment.horizontal = ComponentHorizontalAlignment.Center;
             settingsButton.OnSelection += (button) => ViewSettings();
 
             list.AddChild(hostButton);

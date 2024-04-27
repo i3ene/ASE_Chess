@@ -59,7 +59,7 @@ namespace Client.Views.Components
                 extendedLines.Add(new ContentString(new string(' ', maxWidth)));
             }
 
-            switch (textAlignment.verticalAlignment)
+            switch (textAlignment.vertical)
             {
                 case ComponentVerticalAlignment.Position:
                 case ComponentVerticalAlignment.Top:
@@ -113,7 +113,7 @@ namespace Client.Views.Components
         private ContentString[] HorizontalAlignText(ContentString[] lines)
         {
             int maxWidth = dimensionHelper.CalculateInnerWidth(this);
-            switch (textAlignment.horizontalAlignment)
+            switch (textAlignment.horizontal)
             {
                 case ComponentHorizontalAlignment.Left:
                 case ComponentHorizontalAlignment.Position:

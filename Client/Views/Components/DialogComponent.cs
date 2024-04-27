@@ -27,7 +27,7 @@ namespace Client.Views.Components
             actionContainer.size.heightUnit = ComponentUnit.Fixed;
             actionContainer.size.height = 3;
             actionContainer.position.yUnit = ComponentUnit.Auto;
-            actionContainer.alignment.horizontalAlignment = ComponentHorizontalAlignment.Center;
+            actionContainer.alignment.horizontal = ComponentHorizontalAlignment.Center;
             AddChild(actionContainer);
         }
 
