@@ -16,10 +16,11 @@ namespace Client.Views
             title.textAlignment.horizontal = HorizontalAlignment.Center;
 
             int height = 0;
+            ContentString titleText = new ContentString();
             Settings settings = Settings.getInstance();
             if (settings.GetWidth() >= 80 && settings.GetHeight() >= 28)
             {
-                title.SetText(
+                titleText.Add(
                     "                                              ▄▄                              \n" +
                     "      ██      ▄█▀▀▀█▄████▀▀▀███      ▄▄█▀▀▀█▄███                              \n" +
                     "     ▄██▄    ▄██    ▀█ ██    ▀█    ▄██▀     ▀███                              \n" +
@@ -33,7 +34,7 @@ namespace Client.Views
             }
             else if (settings.GetWidth() >= 55)
             {
-                title.SetText(
+                titleText.Add(
                     "           _____ ______    _____ _                   \n" +
                     "    /\\    / ____|  ____|  / ____| |                  \n" +
                     "   /  \\  | (___ | |__    | |    | |__   ___  ___ ___ \n" +
@@ -45,9 +46,10 @@ namespace Client.Views
             }
             else
             {
-                title.SetText("ASE Chess");
+                titleText.Add("ASE Chess");
                 height = 1;
             }
+            title.SetText(titleText.Foreground(ContentColor.PURPLE));
             title.size.height = new StyleValue(StyleUnit.Fixed, height);
 
             ContentString text = new ContentString();
