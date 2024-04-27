@@ -53,14 +53,14 @@ namespace Client.Views
             title.size.height = new StyleValue(StyleUnit.Fixed, height);
 
             ContentString text = new ContentString();
-            text.Add("Press ");
-            text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
-            text.Add(" or ");
-            text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
-            text.Add(" to change selection.");
-            text.Add("\nPress ");
-            text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
-            text.Add(" to confirm.");
+            text += "Press ";
+            text += new ContentString("[↑]").Background(ContentColor.PURPLE);
+            text += " or ";
+            text += new ContentString("[↓]").Background(ContentColor.PURPLE);
+            text += " to change selection.";
+            text += "\nPress ";
+            text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
+            text += " to confirm.";
 
             TextComponent info = new TextComponent();
             info.SetText(text);

@@ -167,40 +167,40 @@ namespace Client.Views
         private void UpdateInfoText()
         {
             ContentString text = new ContentString();
-            text.Add("Press ");
-            text.Add(new ContentString("[ESC]").Background(ContentColor.PURPLE));
-            text.Add(" to quit.");
+            text += "Press ";
+            text += new ContentString("[ESC]").Background(ContentColor.PURPLE);
+            text += " to quit.";
 
-            text.Add("\nPress ");
-            text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
+            text += "\nPress ";
+            text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
             if (board.GetTargetPosition() != null)
             {
-                text.Add(" to confirm target position.");
+                text += " to confirm target position.";
             }
             else if (board.GetSourcePosition() != null)
             {
-                text.Add(" to confirm source position.");
+                text += " to confirm source position.";
             }
             else
             {
-                text.Add(" to enable cursor.");
+                text += " to enable cursor.";
             }
 
             if (board.GetTargetPosition() != null || board.GetSourcePosition() != null)
             {
-                text.Add("\nPress ");
-                text.Add(new ContentString("[←]").Background(ContentColor.PURPLE));
-                text.Add(", ");
-                text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
-                text.Add(", ");
-                text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
-                text.Add(", ");
-                text.Add(new ContentString("[→]").Background(ContentColor.PURPLE));
-                text.Add(" to change selection.");
+                text += "\nPress ";
+                text += new ContentString("[←]").Background(ContentColor.PURPLE);
+                text += ", ";
+                text += new ContentString("[↑]").Background(ContentColor.PURPLE);
+                text += ", ";
+                text += new ContentString("[↓]").Background(ContentColor.PURPLE);
+                text += ", ";
+                text += new ContentString("[→]").Background(ContentColor.PURPLE);
+                text += " to change selection.";
 
-                text.Add("\nPress ");
-                text.Add(new ContentString("[Delete]").Background(ContentColor.PURPLE));
-                text.Add(" to cancel current action.");
+                text += "\nPress ";
+                text += new ContentString("[Delete]").Background(ContentColor.PURPLE);
+                text += " to cancel current action.";
             }
 
             info.SetText(text);

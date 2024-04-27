@@ -132,25 +132,25 @@ namespace Client.Views
         private void UpdateInfoText(ListComponent list)
         {
             ContentString text = new ContentString();
-            text.Add("Press ");
-            text.Add(new ContentString("[↑]").Background(ContentColor.PURPLE));
-            text.Add(" or ");
-            text.Add(new ContentString("[↓]").Background(ContentColor.PURPLE));
-            text.Add(" to change selection.");
+            text += "Press ";
+            text += new ContentString("[↑]").Background(ContentColor.PURPLE);
+            text += " or ";
+            text += new ContentString("[↓]").Background(ContentColor.PURPLE);
+            text += " to change selection.";
 
             if (list.GetCurrentSelectionIndex() == 2)
             {
-                text.Add("\nPress ");
-                text.Add(new ContentString("[Enter]").Background(ContentColor.PURPLE));
-                text.Add(" to confirm.");
+                text += "\nPress ";
+                text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
+                text += " to confirm.";
             }
             else
             {
-                text.Add("\nPress ");
-                text.Add(new ContentString("[←]").Background(ContentColor.PURPLE));
-                text.Add(" or ");
-                text.Add(new ContentString("[→]").Background(ContentColor.PURPLE));
-                text.Add(" to change value.");
+                text += "\nPress ";
+                text += new ContentString("[←]").Background(ContentColor.PURPLE);
+                text += " or ";
+                text += new ContentString("[→]").Background(ContentColor.PURPLE);
+                text += " to change value.";
             }
 
             info.SetText(text);

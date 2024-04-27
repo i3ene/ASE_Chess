@@ -31,10 +31,10 @@ namespace Client.Views
             AddChild(info);
 
             ContentString text = new ContentString();
-            text.Add("Type to enter text.");
-            text.Add("\nPress ");
-            text.Add(new ContentString("[Tab]").Background(ContentColor.PURPLE));
-            text.Add(" to send message.");
+            text += "Type to enter text.";
+            text += "\nPress ";
+            text += new ContentString("[Tab]").Background(ContentColor.PURPLE);
+            text += " to send message.";
             info.SetText(text);
 
             input = new InputComponent();

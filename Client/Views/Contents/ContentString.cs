@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Logic.Boards;
+using System.Collections;
 
 namespace Client.Views.Contents
 {
@@ -114,6 +115,11 @@ namespace Client.Views.Contents
             }
             list.Add(Substring(lastIndex));
             return list.ToArray();
+        }
+
+        public static ContentString operator +(ContentString lhs, string rhs)
+        {
+            return lhs.Clone().Add(new ContentString(rhs));
         }
 
         public static ContentString operator +(ContentString lhs, ContentString rhs)
