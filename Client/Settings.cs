@@ -15,6 +15,8 @@
         private int height;
         private int maxHeight;
 
+        private bool displayChessSymbols;
+
         static Settings()
         {
             instance = new Settings();
@@ -22,13 +24,27 @@
 
         private Settings() 
         {
-            maxWidth = Math.Max(160, Console.WindowWidth - 1);
+            maxWidth = Math.Max(160, Console.WindowWidth);
             minWidth = 30;
-            width = Console.WindowWidth - 1;
+            width = Console.WindowWidth;
 
-            maxHeight = Math.Max(40, Console.WindowHeight - 1);
+            maxHeight = Math.Max(40, Console.WindowHeight);
             minHeight = 21;
-            height = Console.WindowHeight - 1;
+            height = Console.WindowHeight;
+
+            displayChessSymbols = false;
+        }
+
+        public bool IsChessSymbolDisplayed()
+        {
+            return displayChessSymbols;
+        }
+
+        public bool SetChessSymbolDisplay(bool displayChessSymbols)
+        {
+            this.displayChessSymbols = displayChessSymbols;
+            OnPropertyChange?.Invoke(this, "displayChessSymbols");
+            return this.displayChessSymbols;
         }
 
         public int GetWidth()

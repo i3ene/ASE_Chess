@@ -17,8 +17,6 @@ namespace Client.Views.Components
         private BoardPosition? sourcePosition;
         private BoardPosition? targetPosition;
 
-        private bool displayChessSymbols;
-
         public BoardComponent(Game game) : base()
         {
             this.game = game;
@@ -26,7 +24,6 @@ namespace Client.Views.Components
             size.width = new StyleValue(StyleUnit.Fixed, 12);
             size.height = new StyleValue(StyleUnit.Fixed, 12);
             border.style = BorderStyle.Default;
-            displayChessSymbols = false;
         }
 
         public override ContentCanvas GetCanvas(ContentCanvas canvas)
@@ -86,7 +83,8 @@ namespace Client.Views.Components
 
         private ContentCharacter GetPieceCharacter(Piece piece)
         {
-            ContentCharacter symbol = displayChessSymbols ? GetPieceSymbol(piece) : GetPieceLetter(piece);
+            Settings settings = Settings.getInstance();
+            ContentCharacter symbol = settings.IsChessSymbolDisplayed() ? GetPieceSymbol(piece) : GetPieceLetter(piece);
             symbol.Foreground(piece.color == PieceColor.White ? ContentColor.RED : ContentColor.BLUE);
             return symbol;
         }

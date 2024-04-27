@@ -9,7 +9,7 @@ namespace Client.Views.Components
 
         public ComponentCanvasHelper(ComponentDimensionHelper dimensionService)
         {
-            this.dimensionHelper = dimensionService;
+            dimensionHelper = dimensionService;
         }
 
         public ContentCanvas CreateCanvas(Component component)

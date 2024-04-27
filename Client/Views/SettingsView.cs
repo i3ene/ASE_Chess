@@ -1,5 +1,6 @@
 ﻿using Client.Views.Components;
 using Client.Views.Components.Styles;
+using Client.Views.Components.Styles.Alignments;
 using Client.Views.Components.Styles.Borders;
 using Client.Views.Contents;
 
@@ -17,8 +18,8 @@ namespace Client.Views
             info.size.width = new StyleValue(StyleUnit.Relative, 100);
             info.size.height = new StyleValue(StyleUnit.Auto);
             info.position.y = new StyleValue(StyleUnit.Auto);
-            info.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Bottom;
-            info.textAlignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            info.alignment.vertical = VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = HorizontalAlignment.Center;
             info.border.positions = [BorderPosition.Top];
             info.border.style = BorderStyle.Thin;
             AddChild(info);
@@ -27,14 +28,14 @@ namespace Client.Views
             title.size.width = new StyleValue(StyleUnit.Auto);
             title.size.height = new StyleValue(StyleUnit.Fixed, 2);
             title.position.y = new StyleValue(StyleUnit.Auto);
-            title.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            title.alignment.horizontal = HorizontalAlignment.Center;
             title.border.positions = [BorderPosition.Bottom];
             title.border.style = BorderStyle.Thin;
 
             ListComponent list = new ListComponent();
             list.size.width = new StyleValue(StyleUnit.Relative, 100);
             list.size.height = new StyleValue(StyleUnit.Auto);
-            list.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Middle;
+            list.alignment.vertical = VerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
             ComponentContainer widthContainer = new ComponentContainer();
@@ -89,11 +90,31 @@ namespace Client.Views
 
             list.AddChild(heightContainer);
 
+            ComponentContainer symbolContainer = new ComponentContainer();
+            symbolContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            symbolContainer.size.height = new StyleValue(StyleUnit.Fixed, 5);
+            symbolContainer.position.y = new StyleValue(StyleUnit.Auto);
+
+            TextComponent symbolText = new TextComponent("Display Chess Symbols ");
+            symbolText.size.width = new StyleValue(StyleUnit.Auto);
+            symbolText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            symbolText.position.x = new StyleValue(StyleUnit.Auto);
+            symbolText.alignment.vertical = VerticalAlignment.Middle;
+            symbolContainer.AddChild(symbolText);
+
+            CheckboxComponent symbolCheckbox = new CheckboxComponent(settings.IsChessSymbolDisplayed());
+            symbolCheckbox.position.x = new StyleValue(StyleUnit.Auto);
+            symbolCheckbox.alignment.horizontal = HorizontalAlignment.Right;
+            symbolCheckbox.OnSelection += (checkbox) => settings.SetChessSymbolDisplay(symbolCheckbox.IsChecked());
+            symbolContainer.AddChild(symbolCheckbox);
+
+            list.AddChild(symbolContainer);
+
             ButtonComponent backButton = new ButtonComponent("Back");
             backButton.size.width = new StyleValue(StyleUnit.Auto);
             backButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
             backButton.position.y = new StyleValue(StyleUnit.Auto);
-            backButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            backButton.alignment.horizontal = HorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
 
             list.AddChild(backButton);
