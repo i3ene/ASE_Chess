@@ -3,15 +3,19 @@ using Logic;
 using Logic.Boards;
 using Logic.Communications.Actions;
 using Logic.Pieces;
+using Action = Logic.Communications.Actions.Action;
 
 namespace Client
 {
     public class ClientGame : Game
     {
-        private PieceColor? color;
-        private readonly ClientSocket<Logic.Communications.Actions.Action> socket;
+        public delegate void GameChangeHandler();
+        public GameChangeHandler? OnChange;
 
-        public ClientGame(ClientSocket<Logic.Communications.Actions.Action> socket) : base()
+        private PieceColor? color;
+        private readonly ClientSocket<Action> socket;
+
+        public ClientGame(ClientSocket<Action> socket) : base()
         {
             this.socket = socket;
 
@@ -19,12 +23,17 @@ namespace Client
             this.socket.Data += SocketData;
         }
 
+        public PieceColor? GetOwnColor()
+        {
+            return color;
+        }
+
         private void SocketConnected()
         {
             socket.Send(new SynchronisationAction());
         }
 
-        private void SocketData(Logic.Communications.Actions.Action data)
+        private void SocketData(Action data)
         {
             switch (data.type)
             {
@@ -46,16 +55,19 @@ namespace Client
         private void HandleParticipation(ParticipationAction participation)
         {
             color = participation.color;
+            OnChange?.Invoke();
         }
 
         private void HandleTurn(TurnAction turn)
         {
             base.Turn();
+            OnChange?.Invoke();
         }
 
         private void HandleMove(MoveAction move)
         {
             base.Move(BoardPosition.FromNotation(move.sourcePosition), BoardPosition.FromNotation(move.targetPosition));
+            OnChange?.Invoke();
         }
 
         private void HandleSynchronisation(SynchronisationAction sync)
@@ -64,6 +76,7 @@ namespace Client
             board.RemoveAllPieces();
             board.AddPieces(sync.pieces);
             currentColor = sync.turn;
+            OnChange?.Invoke();
         }
 
         public bool IsOnTurn()

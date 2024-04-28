@@ -76,7 +76,7 @@ namespace Client.Views
                         messageText.textAlignment.horizontal = HorizontalAlignment.Center;
                         text.Foreground(ContentColor.DARKGRAY);
                         break;
-                    case "self":
+                    case "":
                         messageText.alignment.horizontal = HorizontalAlignment.Right;
                         messageText.textAlignment.horizontal = HorizontalAlignment.Right;
                         break;
@@ -98,7 +98,7 @@ namespace Client.Views
 
             if (args.key.Key == ConsoleKey.Tab)
             {
-                ChatMessage message = new ChatMessage("self", input.GetText().ToString(false));
+                ChatMessage message = new ChatMessage(input.GetText().ToString(false));
                 chat.AddMessage(message);
                 input.SetText("");
                 args.handled = true;

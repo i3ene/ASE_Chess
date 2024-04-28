@@ -117,6 +117,11 @@ namespace Client.Views.Contents
             return list.ToArray();
         }
 
+        public static ContentString operator +(string lhs, ContentString rhs)
+        {
+            return rhs.Clone().Insert(0, new ContentString(lhs));
+        }
+
         public static ContentString operator +(ContentString lhs, string rhs)
         {
             return lhs.Clone().Add(new ContentString(rhs));

@@ -6,22 +6,33 @@ using Client.Views.Contents;
 using Client.Views.Interactions;
 using Logic;
 using Logic.Boards;
+using Logic.Pieces;
 
 namespace Client.Views
 {
     public class GameView : View, IInteractable
     {
-        private readonly Game game;
+        private readonly ClientGame game;
         private readonly BoardComponent board;
         private readonly TextComponent info;
         private readonly DialogComponent dialog;
+        private readonly TextComponent turnText;
+        private readonly TextComponent participationText;
 
-        public GameView(ViewRouter router, Game game) : base(router)
+        public GameView(ViewRouter router, ClientGame game) : base(router)
         {
             this.game = game;
 
+            turnText = new TextComponent();
+            turnText.size.width = new StyleValue(StyleUnit.Auto);
+            turnText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            turnText.position.y = new StyleValue(StyleUnit.Auto);
+            AddChild(turnText);
+
             board = new BoardComponent(game);
+            board.position.y = new StyleValue(StyleUnit.Auto);
             board.alignment.horizontal = HorizontalAlignment.Center;
+            board.alignment.vertical = VerticalAlignment.Middle;
             AddChild(board);
 
             info = new TextComponent();
@@ -34,6 +45,14 @@ namespace Client.Views
             info.border.style = BorderStyle.Thin;
             AddChild(info);
 
+            participationText = new TextComponent();
+            participationText.size.width = new StyleValue(StyleUnit.Auto);
+            participationText.size.height = new StyleValue(StyleUnit.Fixed, 1);
+            participationText.position.y = new StyleValue(StyleUnit.Auto);
+            participationText.alignment.vertical = VerticalAlignment.Bottom;
+            participationText.alignment.horizontal = HorizontalAlignment.Right;
+            AddChild(participationText);
+
             dialog = new DialogComponent();
             dialog.size.width = new StyleValue(StyleUnit.Auto);
             dialog.alignment.horizontal = HorizontalAlignment.Center;
@@ -43,7 +62,27 @@ namespace Client.Views
             dialog.SetActions(["Quit", "Cancel"]);
             dialog.OnAction += HandleDialogAction;
 
+            game.OnChange += UpdateDisplay;
             UpdateInfoText();
+            UpdateDisplay();
+        }
+
+        private ContentString GetColorText(PieceColor? color) => color switch
+        {
+            PieceColor.White => new ContentString("White").Foreground(ContentColor.RED),
+            PieceColor.Black => new ContentString("Black").Foreground(ContentColor.BLUE),
+            _ => new ContentString("View")
+        };
+
+        private void UpdateDisplay()
+        {
+            ContentString participation = GetColorText(game.GetOwnColor());
+            participation = "(" + participation + ")";
+            participationText.SetText(participation);
+
+            ContentString turn = GetColorText(game.currentColor);
+            turn = "Current: " + turn;
+            turnText.SetText(turn);
         }
 
         private void HandleDialogAction(DialogComponent sender, string action)
@@ -111,17 +150,19 @@ namespace Client.Views
         private void HandleInteractionEnter(InteractionArgument args)
         {
             args.handled = true;
-            if (board.GetSourcePosition() == null)
+            BoardPosition? sourcePosition = board.GetSourcePosition();
+            if (sourcePosition == null)
             {
                 board.SetSourcePosition(new BoardPosition());
                 return;
             }
-            if (board.GetTargetPosition() == null)
+            BoardPosition? targetPosition = board.GetTargetPosition();
+            if (targetPosition == null)
             {
                 board.SetTargetPosition(board.GetSourcePosition());
                 return;
             }
-            // TODO: Send move action to game/server
+            game.Move(sourcePosition, targetPosition);
         }
 
         private void HandleInteractionArrow(InteractionArgument args)

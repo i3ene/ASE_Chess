@@ -1,4 +1,5 @@
-﻿using Client.Communications;
+﻿using System.Net.WebSockets;
+using Client.Communications;
 using Client.Views.Components;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Alignments;
@@ -171,9 +172,6 @@ namespace Client.Views
 
             ClientSocket<Action> socket = new ClientSocket<Action>();
             Task connection = socket.ConnectAsync(uri);
-
-            ParticipationType participation = GetParticipationType();
-            socket.Send(new ParticipationAction(participation));
             return socket;
         }
 
@@ -183,6 +181,12 @@ namespace Client.Views
             {
                 ClientSocket<Action> socket = CreateConnection();
                 GameChatView game = new GameChatView(router, socket);
+                while (socket.State == WebSocketState.Connecting)
+                {
+                    Thread.Sleep(30);
+                }
+                ParticipationType participation = GetParticipationType();
+                socket.Send(new ParticipationAction(participation));
                 router.Display(game);
             }
             catch (Exception ex)

@@ -16,7 +16,7 @@ namespace Server.Players
         {
             ServerPlayer? exists = GetPlayer(player.color);
             if (exists != null) return false;
-            exists = players.First(p => p.socket == player.socket);
+            exists = players.FirstOrDefault(p => p.socket == player.socket);
             RemovePlayer(exists);
             players.Add(player);
             return true;
@@ -29,12 +29,12 @@ namespace Server.Players
 
         public ServerPlayer? GetPlayer(ServerSocket<Logic.Communications.Actions.Action> socket)
         {
-            return players.First(p => p.socket == socket);
+            return players.FirstOrDefault(p => p.socket == socket);
         }
 
         public ServerPlayer? GetPlayer(PieceColor color)
         {
-            return players.First(p => p.color == color); ;
+            return players.FirstOrDefault(p => p.color == color); ;
         }
 
         public IEnumerable<ServerPlayer> GetPlayers()

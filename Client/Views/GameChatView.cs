@@ -1,16 +1,21 @@
 ﻿using Client.Communications;
+using Client.Views.Components;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
+using Client.Views.Contents;
 using Logic.Communications.Actions;
+using Logic.Pieces;
 using Action = Logic.Communications.Actions.Action;
 
 namespace Client.Views
 {
     public class GameChatView : View
     {
+        private readonly ClientGame game;
+
         public GameChatView(ViewRouter router, ClientSocket<Action> socket) : base(router)
         {
-            ClientGame game = new ClientGame(socket);
+            game = new ClientGame(socket);
             GameView gameView = new GameView(router, game);
             gameView.size.width = new StyleValue(StyleUnit.Relative, 50);
             AddChild(gameView);
@@ -28,7 +33,7 @@ namespace Client.Views
 
         private void ChatOnChange(ClientSocket<Action> socket, ChatMessage message)
         {
-            if (message.sender != "self") return;
+            if (message.sender != "") return;
             MessageAction action = new MessageAction(message.message);
             socket.Send(action);
         }
