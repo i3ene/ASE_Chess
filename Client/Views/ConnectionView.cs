@@ -31,7 +31,6 @@ namespace Client.Views
             dialog.alignment.horizontal = HorizontalAlignment.Center;
             dialog.alignment.vertical = VerticalAlignment.Middle;
             dialog.border.style = BorderStyle.Thin;
-            dialog.SetActions(["Ok"]);
             dialog.OnAction += (dialog, action) => RemoveChild(dialog);
 
             TextComponent title = new TextComponent("Connection");
@@ -181,10 +180,19 @@ namespace Client.Views
             {
                 ClientSocket<Action> socket = CreateConnection();
                 GameChatView game = new GameChatView(router, socket);
+                double dots = 0;
+                dialog.SetActions([]);
+                AddChild(dialog);
                 while (socket.State == WebSocketState.Connecting)
                 {
+                    string text = "Connecting";
+                    text += new string('.', (int)(dots + 1));
+                    dialog.SetText(text);
                     Thread.Sleep(30);
+                    dots += 0.1;
+                    dots %= 3;
                 }
+                RemoveChild(dialog);
                 ParticipationType participation = GetParticipationType();
                 socket.Send(new ParticipationAction(participation));
                 router.Display(game);
@@ -192,6 +200,7 @@ namespace Client.Views
             catch (Exception ex)
             {
                 dialog.SetText(ex.Message);
+                dialog.SetActions(["Ok"]);
                 AddChild(dialog);
             }
         }

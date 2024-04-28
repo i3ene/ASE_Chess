@@ -83,7 +83,7 @@ namespace Client.Views.Components
             text.parent = this;
 
             height = textHeight;
-            height += 3;
+            if (actionContainer.GetAllChilds().Length > 0) height += 3;
 
             return height;
         }
