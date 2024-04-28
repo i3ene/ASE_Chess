@@ -163,7 +163,8 @@ namespace Client.Views
             BoardPosition? sourcePosition = board.GetSourcePosition();
             if (sourcePosition == null)
             {
-                board.SetSourcePosition(new BoardPosition());
+                int yPosition = game.GetOwnColor() == PieceColor.Black ? (BoardPosition.MAX - 1) : 0;
+                board.SetSourcePosition(new BoardPosition(0, yPosition));
                 return;
             }
             BoardPosition? targetPosition = board.GetTargetPosition();
@@ -189,13 +190,15 @@ namespace Client.Views
             }
             if (currentPosition == null) return;
 
+            int yDirection = game.GetOwnColor() == PieceColor.Black ? 1 : -1;
+
             switch (args.key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    currentPosition.y -= 1;
+                    currentPosition.y -= yDirection;
                     break;
                 case ConsoleKey.DownArrow:
-                    currentPosition.y += 1;
+                    currentPosition.y += yDirection;
                     break;
                 case ConsoleKey.LeftArrow:
                     currentPosition.x -= 1;
