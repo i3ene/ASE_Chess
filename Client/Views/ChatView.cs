@@ -18,7 +18,7 @@ namespace Client.Views
         public ChatView(ViewRouter router, ChatRepository chat) : base(router)
         {
             this.chat = chat;
-            this.chat.OnChange += UpdateChat;
+            this.chat.OnChange += (messsage) => UpdateChat();
 
             info = new TextComponent();
             info.size.width = new StyleValue(StyleUnit.Relative, 100);
@@ -71,7 +71,7 @@ namespace Client.Views
                 ContentString text = new ContentString(message.message);
                 switch (message.sender)
                 {
-                    case "":
+                    case "chat":
                         messageText.alignment.horizontal = HorizontalAlignment.Center;
                         messageText.textAlignment.horizontal = HorizontalAlignment.Center;
                         text.Foreground(ContentColor.DARKGRAY);
@@ -98,7 +98,8 @@ namespace Client.Views
 
             if (args.key.Key == ConsoleKey.Tab)
             {
-                chat.AddMessage(new ChatMessage("self", input.GetText().ToString(false)));
+                ChatMessage message = new ChatMessage("self", input.GetText().ToString(false));
+                chat.AddMessage(message);
                 input.SetText("");
                 args.handled = true;
             }

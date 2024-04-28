@@ -4,7 +4,7 @@
     {
         private readonly List<ChatMessage> messages;
 
-        public delegate void CollectionChanged();
+        public delegate void CollectionChanged(ChatMessage newMessage);
         public event CollectionChanged? OnChange;
 
         public ChatRepository()
@@ -15,7 +15,7 @@
         public void AddMessage(ChatMessage message)
         {
             messages.Add(message);
-            OnChange?.Invoke();
+            OnChange?.Invoke(message);
         }
 
         public ChatMessage[] GetAllMessages()
