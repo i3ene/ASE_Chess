@@ -49,13 +49,16 @@ namespace Server.Communications
             }
         }
 
-        public async Task Start()
+        public Task Start()
         {
-            httpListener.Start();
-            while (signal.WaitOne())
+            return Task.Factory.StartNew(() =>
             {
-                Listen();
-            }
+                httpListener.Start();
+                while (signal.WaitOne())
+                {
+                    Listen();
+                }
+            });
         }
 
         public void Broadcast(T data)
