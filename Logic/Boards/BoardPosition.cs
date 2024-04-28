@@ -2,7 +2,7 @@
 {
     public class BoardPosition : ICloneable
     {
-        public const int CHAR_OFFSET = 64;
+        public const int CHAR_OFFSET = 65;
         public const int MAX = 8;
 
 

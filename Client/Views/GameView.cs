@@ -63,7 +63,6 @@ namespace Client.Views
             dialog.OnAction += HandleDialogAction;
 
             game.OnChange += UpdateDisplay;
-            UpdateInfoText();
             UpdateDisplay();
         }
 
@@ -76,6 +75,12 @@ namespace Client.Views
 
         private void UpdateDisplay()
         {
+            if (!game.IsOnTurn())
+            {
+                board.SetSourcePosition(null);
+                board.SetTargetPosition(null);
+            }
+
             ContentString participation = GetColorText(game.GetOwnColor());
             participation = "(" + participation + ")";
             participationText.SetText(participation);
@@ -83,6 +88,8 @@ namespace Client.Views
             ContentString turn = GetColorText(game.currentColor);
             turn = "Current: " + turn;
             turnText.SetText(turn);
+
+            UpdateInfoText();
         }
 
         private void HandleDialogAction(DialogComponent sender, string action)
@@ -150,6 +157,9 @@ namespace Client.Views
         private void HandleInteractionEnter(InteractionArgument args)
         {
             args.handled = true;
+
+            if (!game.IsOnTurn()) return;
+
             BoardPosition? sourcePosition = board.GetSourcePosition();
             if (sourcePosition == null)
             {
@@ -212,19 +222,30 @@ namespace Client.Views
             text += new ContentString("[ESC]").Background(ContentColor.PURPLE);
             text += " to quit.";
 
-            text += "\nPress ";
-            text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
-            if (board.GetTargetPosition() != null)
+            if (game.GetOwnColor() == null)
             {
-                text += " to confirm target position.";
+                text += "\nYou are currently viewing a game";
             }
-            else if (board.GetSourcePosition() != null)
+            else if (game.IsOnTurn())
             {
-                text += " to confirm source position.";
+                text += "\nPress ";
+                text += new ContentString("[Enter]").Background(ContentColor.PURPLE);
+                if (board.GetTargetPosition() != null)
+                {
+                    text += " to confirm target position.";
+                }
+                else if (board.GetSourcePosition() != null)
+                {
+                    text += " to confirm source position.";
+                }
+                else
+                {
+                    text += " to enable cursor.";
+                }
             }
             else
             {
-                text += " to enable cursor.";
+                text += "\nOpponent is on turn, please wait...";
             }
 
             if (board.GetTargetPosition() != null || board.GetSourcePosition() != null)

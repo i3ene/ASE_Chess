@@ -87,6 +87,8 @@ namespace Server.Communications.Channels
             if (success)
             {
                 socket.server.Broadcast(move);
+                game.Turn();
+                socket.server.Broadcast(new TurnAction(game.currentColor));
             }
             else
             {

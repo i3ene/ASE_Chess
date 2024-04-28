@@ -15,7 +15,6 @@ namespace Logic.Boards
         {
             bool isPossible = IsMovePossible(piece, position);
             if (!isPossible) return false;
-            board.RemovePiece(piece);
             piece.position.Set(position);
             return true;
         }

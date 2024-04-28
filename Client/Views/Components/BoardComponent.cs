@@ -11,13 +11,13 @@ namespace Client.Views.Components
     {
         private const int CHESS_UNICODE_OFFSET = 0x2654;
 
-        private readonly Game game;
+        private readonly ClientGame game;
         private new readonly StyleSize size;
 
         private BoardPosition? sourcePosition;
         private BoardPosition? targetPosition;
 
-        public BoardComponent(Game game) : base()
+        public BoardComponent(ClientGame game) : base()
         {
             this.game = game;
             size = base.size;
@@ -30,6 +30,7 @@ namespace Client.Views.Components
         {
             canvas = GetBoard();
             canvas = AddBoardLabels(canvas);
+            canvas = AdjustBoardToPlayerView(canvas);
             return canvas;
         }
 
@@ -64,11 +65,10 @@ namespace Client.Views.Components
             ContentString letterText = new ContentString(new string(' ', 2));
             int[] numbers = new int[BoardPosition.MAX].Select((c, i) => (i + 1)).ToArray();
             char[] numberChars = numbers.Select(i => i.ToString()[0]).ToArray();
-            char[] letterChars = numbers.Select(i => (char)(i + BoardPosition.CHAR_OFFSET)).ToArray();
+            char[] letterChars = numbers.Select(i => (char)(i - 1 + BoardPosition.CHAR_OFFSET)).ToArray();
             string letterString = new string(letterChars);
             letterText.Insert(1, letterString);
 
-            numberChars = numberChars.Reverse().ToArray();
             for (int i = 0; i < BoardPosition.MAX; i++)
             {
                 string number = numberChars[i].ToString();
@@ -79,6 +79,13 @@ namespace Client.Views.Components
             rows.Add(letterText);
 
             return canvasHelper.ToCanvas(rows.ToArray());
+        }
+
+        private ContentCanvas AdjustBoardToPlayerView(ContentCanvas canvas)
+        {
+            if (game.GetOwnColor() == PieceColor.Black) return canvas;
+            ContentString[] reversedRows = canvas.GetRows().Reverse().ToArray();
+            return canvasHelper.ToCanvas(reversedRows);
         }
 
         private ContentCharacter GetPieceCharacter(Piece piece)
