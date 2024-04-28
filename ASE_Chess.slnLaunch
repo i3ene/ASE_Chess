@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Server",
+    "Projects": [
+      {
+        "Name": "Server\\Server.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      }
+    ]
+  },
+  {
+    "Name": "Client",
+    "Projects": [
+      {
+        "Name": "Client\\Client.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      }
+    ]
+  }
+]
