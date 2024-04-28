@@ -1,6 +1,7 @@
 ﻿using Client.Communications;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Borders;
+using Logic.Communications.Actions;
 using Action = Logic.Communications.Actions.Action;
 
 namespace Client.Views
@@ -16,6 +17,7 @@ namespace Client.Views
             AddChild(gameView);
 
             ChatRepository chat = new ChatRepository();
+            socket.Data += (data) => SocketData(data, chat);
             ChatView chatView = new ChatView(router, chat);
             chatView.size.width = new StyleValue(StyleUnit.Relative, 50);
             chatView.position.x = new StyleValue(StyleUnit.Relative, 50);
@@ -24,5 +26,12 @@ namespace Client.Views
             AddChild(chatView);
         }
 
+        private void SocketData(Action data, ChatRepository chat)
+        {
+            if (data.type != ActionType.Message) return;
+            MessageAction message = (MessageAction)data;
+            ChatMessage chatMessage = new ChatMessage(message.sender, message.message);
+            chat.AddMessage(chatMessage);
+        }
     }
 }

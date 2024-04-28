@@ -7,6 +7,7 @@ using Client.Views.Contents;
 using Client.Views.Interactions;
 using Logic.Communications.Actions;
 using Action = Logic.Communications.Actions.Action;
+using Server;
 
 namespace Client.Views
 {
@@ -36,7 +37,7 @@ namespace Client.Views
             title.size.width = new StyleValue(StyleUnit.Auto);
             title.size.height = new StyleValue(StyleUnit.Fixed, 2);
             title.position.y = new StyleValue(StyleUnit.Auto);
-            title.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            title.alignment.horizontal = HorizontalAlignment.Center;
             title.border.positions = [BorderPosition.Bottom];
             title.border.style = BorderStyle.Thin;
 
@@ -46,8 +47,8 @@ namespace Client.Views
             info.size.width = new StyleValue(StyleUnit.Relative, 100);
             info.size.height = new StyleValue(StyleUnit.Auto);
             info.position.y = new StyleValue(StyleUnit.Auto);
-            info.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Bottom;
-            info.textAlignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            info.alignment.vertical = VerticalAlignment.Bottom;
+            info.textAlignment.horizontal = HorizontalAlignment.Center;
             info.border.positions = [BorderPosition.Top];
             info.border.style = BorderStyle.Thin;
             AddChild(info);
@@ -55,7 +56,7 @@ namespace Client.Views
             ListComponent list = new ListComponent();
             list.size.width = new StyleValue(StyleUnit.Relative, 100);
             list.size.height = new StyleValue(StyleUnit.Auto);
-            list.alignment.vertical = Components.Styles.Alignments.VerticalAlignment.Middle;
+            list.alignment.vertical = VerticalAlignment.Middle;
             list.OnUpdate += () => UpdateInfoText(list);
 
             AddChild(list);
@@ -107,7 +108,7 @@ namespace Client.Views
             actionButton.size.width = new StyleValue(StyleUnit.Auto);
             actionButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
             actionButton.position.y = new StyleValue(StyleUnit.Auto);
-            actionButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            actionButton.alignment.horizontal = HorizontalAlignment.Center;
             actionButton.OnSelection += (button) => ViewGame();
             list.AddChild(actionButton);
 
@@ -128,7 +129,7 @@ namespace Client.Views
             backButton.size.width = new StyleValue(StyleUnit.Auto);
             backButton.size.height = new StyleValue(StyleUnit.Fixed, 3);
             backButton.position.y = new StyleValue(StyleUnit.Auto);
-            backButton.alignment.horizontal = Components.Styles.Alignments.HorizontalAlignment.Center;
+            backButton.alignment.horizontal = HorizontalAlignment.Center;
             backButton.OnSelection += (button) => ViewMenu();
             list.AddChild(backButton);
         }
@@ -163,7 +164,9 @@ namespace Client.Views
             Uri uri = GetUri();
             if (connectionType == ConnectionType.Host)
             {
-                // TODO: Set up server
+                Uri serverUri = new Uri($"http://{uri.Authority}/");
+                ServerInstance server = new ServerInstance(serverUri);
+                Task serverLoop = server.Start();
             }
 
             ClientSocket<Action> socket = new ClientSocket<Action>();
