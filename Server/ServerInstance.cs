@@ -9,12 +9,12 @@ using Action = Logic.Communications.Actions.Action;
 
 namespace Server
 {
-    public class Server
+    public class ServerInstance
     {
         private readonly SocketServer<Action> socket;
         private readonly ChannelServer channel;
 
-        public Server(Uri uri)
+        public ServerInstance(Uri uri)
         {
             socket = new SocketServer<Action>(uri.AbsoluteUri);
             channel = new ChannelServer(socket);
