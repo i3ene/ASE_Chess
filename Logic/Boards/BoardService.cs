@@ -15,6 +15,7 @@ namespace Logic.Boards
         {
             bool isPossible = IsMovePossible(piece, position);
             if (!isPossible) return false;
+            board.RemovePiece(position);
             piece.position.Set(position);
             return true;
         }
@@ -54,7 +55,7 @@ namespace Logic.Boards
             // Check which direction Pawn can move
             int direction = (piece.color == PieceColor.White ? 1 : -1);
             // Check if Pawn is in starting position
-            int length = (piece.color == PieceColor.White ? piece.position.y == 1 : piece.position.y == (BoardPosition.MAX - 1)) ? 2 : 1;
+            int length = (piece.color == PieceColor.White ? piece.position.y == 1 : piece.position.y == (BoardPosition.MAX - 2)) ? 2 : 1;
             // Check if Pawn is moving forward
             bool possible = piece.color == PieceColor.White ? y >= 0 : y <= 0;
             possible &= Math.Abs(y) <= length;
