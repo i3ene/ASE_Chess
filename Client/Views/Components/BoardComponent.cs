@@ -38,6 +38,8 @@ namespace Client.Views.Components
         {
             List<ContentString> rows = new List<ContentString>();
 
+            Piece? sourcePiece = sourcePosition == null ? null : game.board.GetPiece(sourcePosition);
+
             for (int y = 0; y < BoardPosition.MAX; y++)
             {
                 ContentString row = new ContentString();
@@ -49,6 +51,11 @@ namespace Client.Views.Components
                     bool isWhiteSquare = (x + y) % 2 == 0;
                     field.Background(isWhiteSquare ? ContentColor.GRAY : ContentColor.BLACK);
                     if (sourcePosition == position) field.Background(ContentColor.PURPLE);
+                    if (sourcePiece != null)
+                    {
+                        bool possible = game.boardService.IsMovePossible(sourcePiece, position);
+                        if (possible) field.Background(ContentColor.GREEN);
+                    }
                     if (targetPosition == position) field.Background(ContentColor.ORANGE);
                     row.Add(new ContentString([field]));
                 }
