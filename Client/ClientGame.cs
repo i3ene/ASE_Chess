@@ -13,7 +13,7 @@ namespace Client
         public GameChangeHandler? OnChange;
 
         private PieceColor? color;
-        private readonly ClientSocket<Action> socket;
+        public readonly ClientSocket<Action> socket;
 
         public ClientGame(ClientSocket<Action> socket) : base()
         {

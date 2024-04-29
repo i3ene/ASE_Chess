@@ -14,5 +14,10 @@ namespace Client.Communications
             await ((ClientWebSocket)_socket).ConnectAsync(uri, token);
             await Listen();
         }
+
+        public void Close()
+        {
+            ((ClientWebSocket)_socket).Abort();
+        }
     }
 }

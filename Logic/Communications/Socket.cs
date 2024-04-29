@@ -33,14 +33,36 @@ namespace Logic.Communications
             _socket = socket;
         }
 
-        public async Task Listen()
+        public Task Listen()
         {
             if (State == WebSocketState.Open) Connected?.Invoke();
-            while (State == WebSocketState.Open)
+            Task receive = ListenReceive();
+            Task disconnect = ListenDisconnect();
+            Task tasks = Task.WhenAll([receive, disconnect]);
+            return tasks;
+        }
+
+        private Task ListenDisconnect()
+        {
+            return Task.Factory.StartNew(() =>
             {
-                await ListenOnce();
-            }
-            Disconnected?.Invoke();
+                while (State == WebSocketState.Open)
+                {
+                    Thread.Sleep(30);
+                }
+                Disconnected?.Invoke();
+            });
+        }
+
+        private Task ListenReceive()
+        {
+            return Task.Factory.StartNew(async () =>
+            {
+                while (State == WebSocketState.Open)
+                {
+                    await ListenOnce();
+                }
+            });
         }
 
         public async Task ListenOnce()
@@ -48,7 +70,7 @@ namespace Logic.Communications
             var buffer = new ArraySegment<byte>(new byte[BufferSize]);
             WebSocketReceiveResult? result;
             var allBytes = new List<byte>();
-
+            
             do
             {
                 result = await ReceiveAsync(buffer, CancellationToken.None);

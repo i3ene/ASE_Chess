@@ -1,4 +1,5 @@
-﻿using Client.Views.Components;
+﻿using System.Net.WebSockets;
+using Client.Views.Components;
 using Client.Views.Components.Styles;
 using Client.Views.Components.Styles.Alignments;
 using Client.Views.Components.Styles.Borders;
@@ -96,6 +97,7 @@ namespace Client.Views
         {
             if (action == "Quit")
             {
+                game.socket.Close();
                 ViewMenu();
                 return;
             }
