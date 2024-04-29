@@ -119,7 +119,7 @@ namespace Client.Views
 
         public void HandleInteraction(InteractionArgument args)
         {
-            if (IsDialogOpen())
+            if (dialog.IsOpen())
             {
                 args.sender.InvokeInteractionEvent(dialog, args);
                 args.handled = true;
@@ -278,15 +278,6 @@ namespace Client.Views
             }
 
             info.SetText(text);
-        }
-
-        private bool IsDialogOpen()
-        {
-            foreach (Component child in GetAllChilds())
-            {
-                if (child == dialog) return true;
-            }
-            return false;
         }
     }
 }

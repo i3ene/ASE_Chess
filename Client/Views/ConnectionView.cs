@@ -134,15 +134,6 @@ namespace Client.Views
             list.AddChild(backButton);
         }
 
-        private bool IsDialogOpen()
-        {
-            foreach (Component child in GetAllChilds())
-            {
-                if (child == dialog) return true;
-            }
-            return false;
-        }
-
         private Uri GetUri() => connectionType switch
         {
             ConnectionType.Host => new Uri($"ws://127.0.0.1:{portInput.GetText().ToString(false)}"),
@@ -238,7 +229,7 @@ namespace Client.Views
 
         public void HandleInteraction(InteractionArgument args)
         {
-            if (IsDialogOpen())
+            if (dialog.IsOpen())
             {
                 args.sender.InvokeInteractionEvent(dialog, args);
                 args.handled = true;

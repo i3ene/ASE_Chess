@@ -30,6 +30,16 @@ namespace Client.Views.Components
             AddChild(actionContainer);
         }
 
+        public bool IsOpen()
+        {
+            if (parent == null || parent is not ComponentContainer) return false;
+            foreach (Component child in ((ComponentContainer)parent).GetAllChilds())
+            {
+                if (child == this) return true;
+            }
+            return false;
+        }
+
         public void SetText(ContentString text)
         {
             this.text.SetText(text);
