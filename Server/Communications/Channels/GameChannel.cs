@@ -28,6 +28,12 @@ namespace Server.Communications.Channels
         public override void RegisterServer(SocketServer<Action> server)
         {
             server.SocketData += ServerSocketData;
+            server.SocketDisconnected += ServerSocketDisconnected;
+        }
+
+        private void ServerSocketDisconnected(ServerSocket<Action> socket)
+        {
+            HandleParticipationLeave(socket, new ParticipationAction(ParticipationType.Leave));
         }
 
         private void ServerSocketData(ServerSocket<Action> socket, Action data)
