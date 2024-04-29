@@ -30,11 +30,17 @@ namespace Client.Views
             turnText.position.y = new StyleValue(StyleUnit.Auto);
             AddChild(turnText);
 
+            ComponentContainer boardContainer = new ComponentContainer();
+            boardContainer.size.height = new StyleValue(StyleUnit.Auto);
+            boardContainer.size.width = new StyleValue(StyleUnit.Relative, 100);
+            boardContainer.position.y = new StyleValue(StyleUnit.Auto);
+            AddChild(boardContainer);
+
             board = new BoardComponent(game);
             board.position.y = new StyleValue(StyleUnit.Auto);
             board.alignment.horizontal = HorizontalAlignment.Center;
             board.alignment.vertical = VerticalAlignment.Middle;
-            AddChild(board);
+            boardContainer.AddChild(board);
 
             info = new TextComponent();
             info.size.width = new StyleValue(StyleUnit.Relative, 100);
@@ -56,6 +62,7 @@ namespace Client.Views
 
             dialog = new DialogComponent();
             dialog.size.width = new StyleValue(StyleUnit.Auto);
+            //dialog.position.y = new StyleValue(StyleUnit.Fixed, 0);
             dialog.alignment.horizontal = HorizontalAlignment.Center;
             dialog.alignment.vertical = VerticalAlignment.Middle;
             dialog.border.style = BorderStyle.Thin;
