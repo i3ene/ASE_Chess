@@ -3,7 +3,7 @@ using Client.Views.Contents;
 
 namespace Client.Views
 {
-    public class ViewService
+    public class ViewService : IViewService
     {
         public bool async;
 
