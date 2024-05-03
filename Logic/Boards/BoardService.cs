@@ -2,7 +2,7 @@
 
 namespace Logic.Boards
 {
-    public class BoardService
+    public class BoardService : IBoardService
     {
         public readonly Board board;
 

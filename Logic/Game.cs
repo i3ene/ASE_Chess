@@ -7,7 +7,7 @@ namespace Logic
     public class Game
     {
         public readonly Board board;
-        public readonly BoardService boardService;
+        public readonly IBoardService boardService;
         public readonly PieceService pieceService;
         public readonly PlayerRepository players;
         public PieceColor currentColor;
