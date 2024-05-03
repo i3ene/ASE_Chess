@@ -62,7 +62,7 @@
 
         public string GetNotation()
         {
-            return $"{cx}{y}";
+            return $"{cx}{y + 1}";
         }
 
         public static BoardPosition FromNotation(string notation)
@@ -76,7 +76,7 @@
             position.x = CharToInt(notation[0]);
 
             if (!char.IsDigit(notation[1])) notation = notation[0] + "1";
-            position.y = int.Parse(notation[1].ToString());
+            position.y = int.Parse(notation[1].ToString()) - 1;
 
             return position;
         }
