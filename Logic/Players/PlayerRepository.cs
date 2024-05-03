@@ -1,8 +1,9 @@
 ﻿using Logic.Pieces;
+using System.Drawing;
 
 namespace Logic.Players
 {
-    public class PlayerRepository
+    public class PlayerRepository : IPlayerRepository
     {
         private readonly List<Player> players;
 
@@ -49,6 +50,11 @@ namespace Logic.Players
         {
             return players.FirstOrDefault(p => p.color == color);
         }
-        
+
+        public IEnumerable<Player> GetAllPlayers()
+        {
+            return players.ToList();
+        }
+
     }
 }

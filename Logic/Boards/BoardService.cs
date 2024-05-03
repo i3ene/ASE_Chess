@@ -4,9 +4,9 @@ namespace Logic.Boards
 {
     public class BoardService : IBoardService
     {
-        public readonly Board board;
+        public readonly IPieceRepository board;
 
-        public BoardService(Board board)
+        public BoardService(IPieceRepository board)
         {
             this.board = board;
         }
