@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Test.Mocks
 {
-    public class BoardMockup : IPieceRepository
+    public class BoardMock : IPieceRepository
     {
         private readonly List<Piece> pieces;
 
-        public BoardMockup()
+        public BoardMock()
         {
             pieces = new List<Piece>();
         }

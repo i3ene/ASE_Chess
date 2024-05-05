@@ -15,7 +15,7 @@ namespace Test.Logic
         [TestMethod]
         public void TestPiecePositionChange()
         {
-            BoardMockup board = new BoardMockup();
+            BoardMock board = new BoardMock();
             BoardService service = new BoardService(board);
             Piece piece = new Piece(PieceColor.White, PieceType.King, new BoardPosition());
             BoardPosition target = new BoardPosition(1, 1);
